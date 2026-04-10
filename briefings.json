@@ -1,0 +1,32 @@
+[
+  {
+    "id": "molcube26",
+    "type": "company",
+    "name": "MolCube, Inc.",
+    "sub": "Chat2Simulation SaaS · Bethlehem, PA / 서울 서초구",
+    "date": "2026-04-10",
+    "tags": ["LNP", "MD Simulation", "CHARMM-GUI", "mRNA", "LNPDB"],
+    "memo": "LNP 제형 최적화 플랫폼 도입 검토. K-LNP Team 공동연구 협업 논의.",
+    "file": "briefings/briefing_company_molcube.html"
+  },
+  {
+    "id": "alnylam26",
+    "type": "company",
+    "name": "Alnylam Pharmaceuticals",
+    "sub": "RNAi 선도 제약사 · Cambridge, MA",
+    "date": "2026-02-14",
+    "tags": ["RNAi", "LNP", "GalNAc", "간 타겟팅"],
+    "memo": "GalNAc 플랫폼 기술이전 가능성 논의. siRNA delivery 최적화 협업 방안 검토.",
+    "file": ""
+  },
+  {
+    "id": "hong25",
+    "type": "speaker",
+    "name": "홍길동 교수",
+    "sub": "서울대학교 약학대학 · 교수",
+    "date": "2025-11-08",
+    "tags": ["Peptide", "cyclic peptide", "DDS", "비표준아미노산"],
+    "memo": "세미나 — 비표준 아미노산 기반 cyclic peptide DDS 전달 시스템 최신 연구.",
+    "file": ""
+  }
+]

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MolCube 업체 미팅 브리핑 v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Serif+Display&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:#0d2137; --teal:#0a6b6b; --accent:#0d9e8a;
+    --light:#e8f5f3; --border:#c8dfe8; --bg:#f2f7f9;
+    --text:#1a2d3d; --muted:#5a7a8a;
+    --warn:#b45309; --warn-bg:#fef3c7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.65;}
+
+  /* HEADER */
+  .header{background:linear-gradient(135deg,var(--navy) 0%,#0a4a4a 100%);color:#fff;padding:36px 40px 28px;position:relative;overflow:hidden;}
+  .header::before{content:'';position:absolute;top:-60px;right:-60px;width:260px;height:260px;border-radius:50%;background:rgba(13,158,138,0.15);}
+  .header-badge{display:inline-block;background:rgba(13,158,138,0.3);border:1px solid rgba(13,158,138,0.5);color:#a8ffe8;font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:14px;}
+  .header-company{font-family:'DM Serif Display',serif;font-size:38px;letter-spacing:-0.5px;line-height:1.1;margin-bottom:8px;}
+  .header-sub{font-size:14px;color:rgba(255,255,255,0.75);margin-bottom:20px;}
+  .header-meta{display:flex;gap:20px;flex-wrap:wrap;align-items:center;}
+  .header-type{background:var(--accent);color:#fff;font-size:11px;font-weight:700;padding:4px 14px;border-radius:4px;letter-spacing:0.5px;}
+  .header-date{font-family:'DM Mono',monospace;font-size:12px;color:rgba(255,255,255,0.6);}
+
+  /* LAYOUT */
+  .content{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:24px 32px;max-width:1100px;margin:0 auto;}
+  .card{background:#fff;border-radius:10px;border:1px solid var(--border);box-shadow:0 2px 8px rgba(13,33,55,0.06);overflow:hidden;}
+  .card.full{grid-column:1/-1;}
+  .card-header{display:flex;align-items:center;gap:10px;padding:14px 20px;background:var(--light);border-bottom:1px solid var(--border);}
+  .card-header span{font-size:18px;}
+  .card-header h2{font-size:14px;font-weight:700;color:var(--navy);}
+  .card-header h2 span{font-weight:400;color:var(--muted);font-size:12px;margin-left:6px;}
+  .card-body{padding:18px 20px;}
+
+  /* STATS */
+  .stats{display:flex;gap:12px;flex-wrap:wrap;}
+  .stat{flex:1;min-width:90px;background:var(--light);border:1px solid var(--border);border-radius:8px;padding:12px 14px;text-align:center;}
+  .stat-val{font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:var(--accent);display:block;}
+  .stat-label{font-size:11px;color:var(--muted);margin-top:2px;}
+
+  /* TABLE */
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th{background:var(--light);color:var(--navy);font-weight:600;padding:8px 12px;text-align:left;border-bottom:2px solid var(--border);font-size:12px;}
+  td{padding:8px 12px;border-bottom:1px solid #eef2f5;vertical-align:top;}
+  tr:last-child td{border-bottom:none;}
+  tr:hover td{background:#fafcff;}
+
+  /* TIMELINE */
+  .timeline{list-style:none;}
+  .timeline li{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid #eef2f5;align-items:flex-start;}
+  .timeline li:last-child{border-bottom:none;}
+  .tl-year{font-family:'DM Mono',monospace;font-size:12px;color:#fff;background:var(--accent);padding:2px 8px;border-radius:4px;white-space:nowrap;min-width:58px;text-align:center;margin-top:1px;}
+  .tl-event{font-size:13px;color:var(--text);}
+
+  /* PHASE */
+  .phase{display:inline-block;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600;white-space:nowrap;}
+  .ph-sw{background:#e0f2fe;color:#0369a1;}
+  .ph-ai{background:#ede9fe;color:#6d28d9;}
+  .ph-dev{background:#dcfce7;color:#166534;}
+
+  /* REFS */
+  .ref-list{list-style:none;display:flex;flex-direction:column;gap:18px;}
+  .ref-item{border-left:3px solid var(--accent);padding-left:14px;}
+  .ref-meta{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap;}
+  .ref-badge{font-size:10px;font-weight:700;padding:1px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:0.5px;}
+  .ref-badge.paper{background:#dbeafe;color:#1d4ed8;}
+  .ref-journal{font-size:12px;color:var(--muted);font-style:italic;}
+  .ref-year{font-family:'DM Mono',monospace;font-size:11px;color:#888;}
+  .ref-title{font-size:13px;font-weight:600;margin-bottom:3px;}
+  .ref-title a{color:var(--navy);text-decoration:none;}
+  .ref-title a:hover{text-decoration:underline;color:var(--accent);}
+  .ref-authors{font-size:11px;color:var(--muted);margin-bottom:6px;}
+  .ref-summary{font-size:12px;color:#444;background:#f8fafb;padding:8px 10px;border-radius:4px;line-height:1.65;}
+  .ref-limit-wrap{margin-top:8px;}
+  .ref-limit-label{font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--warn);margin-bottom:4px;}
+  .ref-limit{font-size:12px;color:#7c3100;background:var(--warn-bg);border-left:3px solid var(--warn);padding:8px 10px;border-radius:4px;line-height:1.65;}
+
+  /* BULLETS */
+  .bullet-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+  .bullet-list li{display:flex;align-items:flex-start;gap:10px;font-size:13px;}
+  .bullet-list li::before{content:'▸';color:var(--accent);font-size:12px;margin-top:2px;flex-shrink:0;}
+
+  /* DISCUSSION */
+  .disc-list{list-style:none;counter-reset:disc;display:flex;flex-direction:column;gap:10px;}
+  .disc-list li{counter-increment:disc;display:flex;gap:14px;align-items:flex-start;padding:11px 14px;background:var(--light);border-radius:8px;font-size:13px;border-left:3px solid var(--accent);}
+  .disc-list li::before{content:counter(disc);font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:var(--accent);min-width:20px;margin-top:1px;}
+
+  /* CEO */
+  .ceo-profile{display:flex;gap:20px;align-items:flex-start;}
+  .ceo-avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--accent));display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:26px;color:#fff;flex-shrink:0;}
+  .ceo-info{flex:1;}
+  .ceo-name{font-size:18px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+  .ceo-title{font-size:12px;color:var(--muted);margin-bottom:10px;}
+  .ceo-tags{display:flex;flex-wrap:wrap;gap:6px;}
+  .ceo-tag{background:var(--light);border:1px solid var(--border);color:var(--navy);font-size:11px;padding:3px 10px;border-radius:20px;}
+
+  /* SCHOLAR BOX */
+  .scholar-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:14px;}
+  .sch-cell{background:var(--light);border:1px solid var(--border);border-radius:8px;padding:10px 8px;text-align:center;}
+  .sch-val{font-family:'DM Mono',monospace;font-size:18px;color:var(--accent);font-weight:500;}
+  .sch-sub{font-size:10px;color:var(--muted);margin-top:2px;}
+
+  /* INFO GRID */
+  .info-grid{display:grid;grid-template-columns:140px 1fr;gap:0;}
+  .info-label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;padding:7px 12px 7px 0;border-bottom:1px solid #eef2f5;}
+  .info-val{font-size:13px;padding:7px 0;border-bottom:1px solid #eef2f5;}
+
+  /* PARTNER CHIPS */
+  .partner-logos{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px;}
+  .partner-chip{background:#f1f5f9;border:1px solid #d1dde8;border-radius:6px;padding:3px 10px;font-size:11px;font-weight:600;color:var(--navy);}
+  .partner-chip.collab{background:#dbeafe;}
+
+  /* HIGHLIGHT / WARN */
+  .highlight-box{background:linear-gradient(135deg,#e8f5f3,#dbeafe);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin-bottom:14px;font-size:13px;}
+  .warn-box{background:var(--warn-bg);border:1px solid #fbbf24;border-radius:8px;padding:10px 14px;font-size:12px;color:#7c2d12;margin-top:10px;}
+
+  /* FOOTER */
+  .footer{text-align:center;font-size:11px;color:var(--muted);padding:16px 32px 28px;border-top:1px solid var(--border);}
+
+  @media(max-width:640px){
+    .content{grid-template-columns:1fr;padding:16px;}
+    .card.full{grid-column:1;}
+    .header{padding:24px 20px 20px;}
+    .header-company{font-size:28px;}
+    .scholar-grid{grid-template-columns:repeat(3,1fr);}
+  }
+  @media print{
+    body{background:white;}
+    .card{box-shadow:none;break-inside:avoid;}
+    @page{margin:14mm;}
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-badge">업체 미팅 브리핑 · Chat2Simulation SaaS · LNP 전략 집중</div>
+  <div class="header-company">MolCube, Inc.</div>
+  <div class="header-sub">Global SaaS Chat2Simulation Startup · Bethlehem, PA, USA / 서울 서초구</div>
+  <div class="header-meta">
+    <span class="header-type">업체 미팅</span>
+    <span class="header-date">2025.04.10 · v2 (사 제공 PDF 반영)</span>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- ① CEO 프로파일 -->
+  <div class="card full">
+    <div class="card-header"><span>👤</span><h2>CEO 프로파일 <span>임원필 (Wonpil Im), PhD — Co-Founder &amp; CEO</span></h2></div>
+    <div class="card-body">
+      <div class="ceo-profile">
+        <div class="ceo-avatar">임</div>
+        <div class="ceo-info">
+          <div class="ceo-name">임원필 (Wonpil Im, Ph.D.)</div>
+          <div class="ceo-title">Co-Founder &amp; CEO, MolCube Inc. · Presidential Endowed Chair in Health &amp; Professor, Lehigh University Biological Sciences (2016–현재) · CADD 분자동역학 분야 20년+ 선두주자</div>
+          <div class="ceo-tags">
+            <span class="ceo-tag">🎓 한양대 화학 B.Sc. 1994 / M.Sc. 1996</span>
+            <span class="ceo-tag">🎓 Cornell Univ. Biochemistry Ph.D. 2002</span>
+            <span class="ceo-tag">🔬 Scripps Research Inst. 박사후연구원 2002–2005 (NSF Fellow)</span>
+            <span class="ceo-tag">🏛 Univ. of Kansas Prof. 2005–2016</span>
+            <span class="ceo-tag">🧬 CHARMM-GUI 총괄 개발자 (2006~)</span>
+            <span class="ceo-tag">📊 전세계 과학 Top 100,000명(2%) 중 1,964위</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:14px;">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--navy);margin-bottom:6px;">📊 Google Scholar (2026.02.19 기준)</div>
+        <div class="scholar-grid">
+          <div class="sch-cell"><div class="sch-val">52,561</div><div class="sch-sub">총 피인용</div></div>
+          <div class="sch-cell"><div class="sch-val">79</div><div class="sch-sub">h-index (전체)</div></div>
+          <div class="sch-cell"><div class="sch-val">238</div><div class="sch-sub">i10-index (전체)</div></div>
+          <div class="sch-cell"><div class="sch-val">29,909</div><div class="sch-sub">피인용 (2021~)</div></div>
+          <div class="sch-cell"><div class="sch-val">56</div><div class="sch-sub">h-index (2021~)</div></div>
+          <div class="sch-cell"><div class="sch-val">180</div><div class="sch-sub">i10-index (2021~)</div></div>
+        </div>
+      </div>
+
+      <div style="margin-top:14px;">
+        <table>
+          <thead><tr><th>연도</th><th>수상이력</th></tr></thead>
+          <tbody>
+            <tr><td style="font-family:'DM Mono',monospace;font-size:12px;">2021</td><td>Libsch Research Award</td></tr>
+            <tr><td style="font-family:'DM Mono',monospace;font-size:12px;">2019</td><td>College of Arts and Sciences Dean's Research Award</td></tr>
+            <tr><td style="font-family:'DM Mono',monospace;font-size:12px;">2017</td><td>Friedrich Wilhelm Bessel Research Award (Alexander von Humboldt Foundation)</td></tr>
+            <tr><td style="font-family:'DM Mono',monospace;font-size:12px;">2016</td><td>KIAS Scholar (Korea Institute for Advanced Study)</td></tr>
+            <tr><td style="font-family:'DM Mono',monospace;font-size:12px;">2015</td><td>University Scholarly Achievement Award</td></tr>
+            <tr><td style="font-family:'DM Mono',monospace;font-size:12px;">2013</td><td>Meredith Docking Scholar</td></tr>
+            <tr><td style="font-family:'DM Mono',monospace;font-size:12px;">2011</td><td>ACS HP Outstanding Junior Faculty Award · J. Michael Young Undergrad Advisory Award</td></tr>
+            <tr><td style="font-family:'DM Mono',monospace;font-size:12px;">2007</td><td>Alfred P. Sloan Research Fellowship</td></tr>
+            <tr><td style="font-family:'DM Mono',monospace;font-size:12px;">2002</td><td>NSF Fellow · Graduate School Scholarship Award of Excellence (Cornell)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ② 회사 개요 -->
+  <div class="card">
+    <div class="card-header"><span>🏢</span><h2>회사 개요 <span>Company Overview</span></h2></div>
+    <div class="card-body">
+      <div class="info-grid">
+        <span class="info-label">설립</span>       <span class="info-val">2022년 3월</span>
+        <span class="info-label">본사</span>        <span class="info-val">Bethlehem, PA, USA (Ben Franklin Tech Ventures)</span>
+        <span class="info-label">한국 오피스</span> <span class="info-val">서울 서초구</span>
+        <span class="info-label">경영진</span>      <span class="info-val">CEO 임원필 · CTO 이주민 · CSO 조선환 · CPO 송규천 · COO Seonghoon Kim · Chief Aron Park</span>
+        <span class="info-label">조직 구조</span>   <span class="info-val">미국팀(PA)+한국팀(서울) 24시간 듀얼 운영. Dev / AI&amp;Bioinformatics / Med.Chem / R&amp;D Center(KOITA) / Marketing / Dev.Sec.Ops</span>
+        <span class="info-label">사업 형태</span>   <span class="info-val">Cloud SaaS/PaaS 소프트웨어 스타트업</span>
+        <span class="info-label">수익 모델</span>   <span class="info-val">① On-premise 라이선스 / SaaS Token &nbsp;② 용역·연구 협업 &nbsp;③ 자체 신약개발 (실험실 없이 외부 협업)</span>
+        <span class="info-label">타겟 시장</span>   <span class="info-val">제약·바이오·나노·소재 기업 (전 세계 140개국+ 8,000개+ 잠재 CHARMM-GUI 사용자 기반)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ③ 재무·투자 -->
+  <div class="card">
+    <div class="card-header"><span>💰</span><h2>재무·투자 현황 <span>Funding</span></h2></div>
+    <div class="card-body">
+      <div class="stats" style="margin-bottom:14px;">
+        <div class="stat"><span class="stat-val">3</span><div class="stat-label">투자 라운드</div></div>
+        <div class="stat"><span class="stat-val">7+</span><div class="stat-label">기관 투자자</div></div>
+        <div class="stat"><span class="stat-val">2023.10</span><div class="stat-label">최근 Seed</div></div>
+        <div class="stat"><span class="stat-val">비공개</span><div class="stat-label">총 투자액</div></div>
+      </div>
+      <table>
+        <thead><tr><th>라운드</th><th>시기</th><th>투자사</th></tr></thead>
+        <tbody>
+          <tr><td>초기</td><td>2022.09</td><td>초기 투자</td></tr>
+          <tr><td>중기</td><td>미공개</td><td>Mirae Asset, CKD Venture Capital, Hana Ventures</td></tr>
+          <tr><td>Seed</td><td>2023.10</td><td>Innopolis Partners, We Ventures, Ben Franklin Technology Partners</td></tr>
+        </tbody>
+      </table>
+      <div class="warn-box">정부 지원: 2025 중소기업기술정진흥원 글로벌 협력 R&D 기획 (MIT-ILP) 3개사 中 몰큐브 선정</div>
+    </div>
+  </div>
+
+  <!-- ④ 주요 연혁 -->
+  <div class="card full">
+    <div class="card-header"><span>📅</span><h2>주요 연혁 <span>Milestones</span></h2></div>
+    <div class="card-body">
+      <ul class="timeline">
+        <li><span class="tl-year">2006</span><span class="tl-event">CHARMM-GUI 웹서버 공개 (임원필 연구팀, Lehigh Univ.) — MD 입력 자동화 표준 플랫폼</span></li>
+        <li><span class="tl-year">2017</span><span class="tl-event">Friedrich Wilhelm Bessel Research Award (Humboldt Foundation) 수상</span></li>
+        <li><span class="tl-year">2021</span><span class="tl-event">CHARMM-GUI Membrane Builder for LNP 발표 — ionizable cationic lipid + PEG-lipid 지원 (J. Chem. Inf. Model.)</span></li>
+        <li><span class="tl-year">2022.03</span><span class="tl-event">MolCube, Inc. 설립 (임원필 · 이주민 · 김성훈)</span></li>
+        <li><span class="tl-year">2023</span><span class="tl-event">Seed 라운드 클로징 · 서울 서초구 오피스 개설 · 상용 라이선싱 개시</span></li>
+        <li><span class="tl-year">2024</span><span class="tl-event">Bristol Myers Squibb와 LNP 최적 조성 공동 연구 · Microsoft Azure Quantum과 SaaS 공동 개발 · 한국 글로벌 R&D 협력 체계 발표</span></li>
+        <li><span class="tl-year">2025</span><span class="tl-event">MIT-ILP 프로그램 선정 · MIT Dan Anderson &amp; Bob Langer와 LNPDB 공동 구축 · ACS 학회 LNPDB 발표 · K-LNP Team 발족</span></li>
+        <li><span class="tl-year">2026</span><span class="tl-event"><em>Nature Communications</em> LNPDB 논문 in press · Big Pharma 파트너십 및 License-out 가속화 목표</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ⑤ 핵심 기술 플랫폼 -->
+  <div class="card full">
+    <div class="card-header"><span>⚙️</span><h2>핵심 기술 플랫폼 <span>Chat2Simulation — Beyond Rule of 5</span></h2></div>
+    <div class="card-body">
+      <div class="highlight-box">
+        <strong>핵심 포지셔닝:</strong> CHARMM-GUI (140개국+ 8,000개+ 기관 학술 사용, 상업 이용 불가) → 상업화 유일 플랫폼. 연구자가 기업 이직 시 즉시 전환 수요 발생. PROTAC·RNA·Peptide·ADC·DDS 등 <strong>Beyond Rule of 5 전체 모달리티</strong> 지원이 차별점.
+      </div>
+      <table>
+        <thead><tr><th>제품/모듈</th><th>기능 요약</th><th>상태</th></tr></thead>
+        <tbody>
+          <tr><td><strong>MolCube-Builder</strong></td><td>복잡 생체분자·나노물질 시뮬레이션 시스템 자동 생성. 생체막 지질 15,000+ 종 (PL/GL/LPS/PEG/Sugar/IL). Bilayer~Vesicle/Micelle/Hex-phase 풀 커버</td><td><span class="phase ph-sw">상용화</span></td></tr>
+          <tr><td><strong>MolCube-Simulator</strong></td><td>클라우드 MD 제출·관리. GPU Unlimited (API 자동 병렬화). NAMD/GROMACS/AMBER/OpenMM/CHARMM 멀티 엔진 지원</td><td><span class="phase ph-sw">상용화</span></td></tr>
+          <tr><td><strong>MolCube-Analyzer</strong></td><td>Trajectory 분석 + AI 학습용 빅데이터 저장</td><td><span class="phase ph-sw">상용화</span></td></tr>
+          <tr><td><strong>MolCube-Designer</strong></td><td>AI 기반 생체분자·나노소재 모델 생성 (Chat2Simulation 인터페이스)</td><td><span class="phase ph-ai">개발 중</span></td></tr>
+          <tr><td><strong>LNP Builder + LNPDB</strong></td><td>이온화 지질 12,845종 / LNP 제형 17,116종+ 데이터베이스. 시뮬레이션-실험 상관검증(R²=0.725). AI 도입효율 예측. MIT Anderson &amp; Langer 공동 개발 → <em>Nat. Commun.</em> 2026 in press</td><td><span class="phase ph-dev">전략 핵심</span></td></tr>
+          <tr><td><strong>Cyclic Peptide 모듈</strong></td><td>비표준아미노산·cyclic peptide PDB Reader. Co-folding AI 결합구조 예측 워크플로우 (PDB: 8KB1)</td><td><span class="phase ph-dev">PoC 완료</span></td></tr>
+          <tr><td><strong>Glycan Engineering</strong></td><td>N-당 구조 custom 설계, 항체-당단백질 복합체 모델링 (Flexible Glycan Engineering)</td><td><span class="phase ph-sw">상용화</span></td></tr>
+        </tbody>
+      </table>
+
+      <div style="margin-top:16px;">
+        <div style="font-size:12px;font-weight:700;color:var(--navy);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">📊 Schrödinger 대비 경쟁력 (Alchemical FE Benchmark)</div>
+        <table>
+          <thead><tr><th>항목</th><th>Schrödinger FEP+</th><th>MolCube</th></tr></thead>
+          <tbody>
+            <tr><td>RMSE (kcal/mol)</td><td>1.43</td><td><strong style="color:var(--accent)">1.25 ✓ 우수</strong></td></tr>
+            <tr><td>MAE (kcal/mol)</td><td>1.03</td><td><strong style="color:var(--accent)">0.94 ✓ 우수</strong></td></tr>
+            <tr><td>Acc ±1 kcal/mol</td><td>63%</td><td>61% (유사)</td></tr>
+            <tr><td>Acc ±2 kcal/mol</td><td>87%</td><td>87% (동등)</td></tr>
+            <tr><td>비용 (리간드 100개·GPU 50개)</td><td>$200k–$1M</td><td><strong style="color:var(--accent)">$30k–$60k (95%+ 절감)</strong></td></tr>
+            <tr><td>GPU 수 제한</td><td>라이선스 제약</td><td><strong style="color:var(--accent)">Unlimited (API 병렬화)</strong></td></tr>
+            <tr><td>지원 모달리티</td><td>저분자 중심</td><td><strong style="color:var(--accent)">LNP, Peptide, Glycan, ADC 등 확장</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑥ 협업·파트너십 -->
+  <div class="card full">
+    <div class="card-header"><span>🤝</span><h2>협업·파트너십 <span>Collaborations &amp; Software Licensing</span></h2></div>
+    <div class="card-body">
+      <div style="font-size:12px;font-weight:700;color:var(--navy);margin-bottom:6px;">소프트웨어 라이선싱 고객 (공개)</div>
+      <div class="partner-logos">
+        <span class="partner-chip">Novartis</span><span class="partner-chip">Amgen</span>
+        <span class="partner-chip">Moderna</span><span class="partner-chip">Regeneron</span>
+        <span class="partner-chip">Lilly</span><span class="partner-chip">GSK</span>
+        <span class="partner-chip">Chugai</span><span class="partner-chip">Kyowa Kirin</span>
+        <span class="partner-chip">Daewoong</span><span class="partner-chip">Daesang</span>
+        <span class="partner-chip">Medytox</span><span class="partner-chip">POSCO Holdings</span>
+        <span class="partner-chip">Altos</span><span class="partner-chip">Zealand Pharma</span>
+        <span class="partner-chip">Xaira</span><span class="partner-chip">Protai</span>
+        <span class="partner-chip">Endevica Bio</span><span class="partner-chip">Nissan Chemical</span>
+        <span class="partner-chip">Catholic Univ. Korea</span><span class="partner-chip">Univ. Jagielloński</span>
+      </div>
+      <div style="font-size:12px;font-weight:700;color:var(--navy);margin:12px 0 6px;">공동 연구·개발 협업</div>
+      <div class="partner-logos">
+        <span class="partner-chip collab">MIT (Dan Anderson &amp; Bob Langer)</span>
+        <span class="partner-chip collab">Bristol Myers Squibb — LNP 조성 최적화</span>
+        <span class="partner-chip collab">Microsoft Azure Quantum — SaaS 공동 개발</span>
+        <span class="partner-chip collab">Fusion Biotechnology — LATS1 저해제 선도물질</span>
+        <span class="partner-chip collab">BIOVIA / DS</span>
+        <span class="partner-chip collab">XtalPi</span>
+        <span class="partner-chip collab">Daesang</span>
+        <span class="partner-chip collab">POSCO Holdings</span>
+        <span class="partner-chip collab">Daewoong</span>
+      </div>
+      <div class="warn-box" style="margin-top:10px;"><strong>K-LNP Team 전략:</strong> 임원필 + 채필석 + 방은경 + 금교창 + 진준오 교수 연합팀. 이온화 지질 합성 CRO 연계 → 최적 LNP 조성 발굴 → LNPDB 구축 및 ACS 발표 → Big Pharma License-out 목표. 플랫폼 판매 + License-out 이중 수익화 전략.</div>
+    </div>
+  </div>
+
+  <!-- ⑦ 대표 논문 + 한계 분석 -->
+  <div class="card full">
+    <div class="card-header"><span>📄</span><h2>대표 논문 &amp; LNP 시뮬레이션 한계 분석 <span>Key Publications + Critical Limitations for DDS Researchers</span></h2></div>
+    <div class="card-body">
+      <ul class="ref-list">
+
+        <li class="ref-item">
+          <div class="ref-meta">
+            <span class="ref-badge paper">논문</span>
+            <span class="ref-journal">Nature Communications</span>
+            <span class="ref-year">2026 in press</span>
+          </div>
+          <div class="ref-title"><a href="https://www.nature.com/articles/s41467-026-68818-1" target="_blank">Lipid Nanoparticle Database (LNPDB) towards structure-function modeling and data-driven design for nucleic acid delivery</a></div>
+          <div class="ref-authors">Im W, Anderson DG, Langer R 외 (MIT &amp; MolCube) · Nat. Commun. 2026 in press</div>
+          <div class="ref-summary">문헌 기반 ~20,000 LNP 제형 / ~13,000 이온화 지질 / 43편 논문을 통합한 세계 최대·최초 LNPDB 구축. CHARMM-GUI 기반 bilayer 시뮬레이션과 실험 transfection 효율 상관 검증 (R²=0.725, PCC=0.852, SCC=0.845). AI 모델로 도입효율 예측 및 신규 이온화 지질 de novo 설계 가능성 제시. DDS 관점: 실험 전 in silico LNP 조성 스크리닝 파이프라인에 직접 활용 가능.</div>
+          <div class="ref-limit-wrap">
+            <div class="ref-limit-label">⚠️ 한계점</div>
+            <div class="ref-limit">① <strong>신규 이온화 지질 ML 일반화 제약:</strong> 대부분의 새로운 ionizable lipid는 기존 특성화된 구조 분포 밖에 위치 → force field 파라미터 없으면 시뮬레이션 불가. ② <strong>PEG-lipid 제외:</strong> 분석에서 PEG-lipid 제외 (endosomal escape 전 shed 가정) — PEG의 세포 uptake 전 단계 역할 반영 안 됨. ③ <strong>Transfection 예측 R² 0.725:</strong> 실험 분산의 ~27% 미설명 — 세포주·투여 조건 등 실험 변수 통합 한계. ④ <strong>Bilayer patch 모델 한계:</strong> 실제 ~80 nm LNP 전체 입자 시뮬레이션이 아닌 patch 수준 — PDI·입자 크기 예측 불가.</div>
+          </div>
+        </li>
+
+        <li class="ref-item">
+          <div class="ref-meta">
+            <span class="ref-badge paper">논문</span>
+            <span class="ref-journal">J. Chem. Inf. Model.</span>
+            <span class="ref-year">2021</span>
+          </div>
+          <div class="ref-title"><a href="https://doi.org/10.1021/acs.jcim.1c00770" target="_blank">CHARMM-GUI Membrane Builder for Lipid Nanoparticles with Ionizable Cationic Lipids and PEGylated Lipids</a></div>
+          <div class="ref-authors">Park S, Choi YK, Kim S, Lee J, Im W · J. Chem. Inf. Model. 2021, 61(10):5069–5078</div>
+          <div class="ref-summary">DLin-KC2-DMA(KC2), DLin-MC3-DMA(MC3) 등 ionizable cationic lipid + PEG-lipid 포함 all-atom LNP 멤브레인 시스템 구축 최초 공개. PEG-chain 유연성, ionizable lipid-PEG oxygen 상호작용에 의한 negative curvature 유도 현상 규명. 다양한 MD 엔진(NAMD/GROMACS/AMBER/OpenMM) 지원.</div>
+          <div class="ref-limit-wrap">
+            <div class="ref-limit-label">⚠️ 한계점</div>
+            <div class="ref-limit">① <strong>전체 LNP 입자 미구현:</strong> bilayer patch (~100 lipids/leaflet) 모델. 실제 ~80 nm LNP 구조 전반 시뮬레이션 불가 — coarse-grained 확장 필요. ② <strong>mRNA 탑재 없음:</strong> 초기 모델에 핵산 cargo 미포함 → mRNA-ionizable lipid 상호작용, EE% 예측 불가. ③ <strong>pH 전환 동역학:</strong> endosomal 산성(pH 5~6)에서 protonation 후 hexagonal phase 전환 직접 시뮬레이션에 timescale 한계. ④ <strong>Force field 편차:</strong> 신규 ionizable lipid CHARMM36 파라미터 미표준화.</div>
+          </div>
+        </li>
+
+        <li class="ref-item">
+          <div class="ref-meta">
+            <span class="ref-badge paper">논문</span>
+            <span class="ref-journal">npj Drug Discovery</span>
+            <span class="ref-year">2025</span>
+          </div>
+          <div class="ref-title"><a href="https://www.nature.com/articles/s44386-025-00024-3" target="_blank">Challenges and opportunities in computational studies for lipid nanoparticle development</a></div>
+          <div class="ref-authors">Oh Y, Bedingfield SK, Brown SP 외 · npj Drug Discovery 2025, vol.2, no.23</div>
+          <div class="ref-summary">LNP 계산 연구의 현황·한계·기회를 종합한 Perspective. MD, CFD, ML 각 방법론 한계와 multiscale modeling 필요성 제시. LNP 성능 5단계: (1) 핵산 encapsulation, (2) 입자 형성, (3) 혈중 안정성, (4) target cell uptake, (5) endosomal escape — 각 단계별 별도 계산 전략 필요. 표준화된 실험 데이터셋이 ML 모델 일반화의 핵심 병목임을 강조.</div>
+          <div class="ref-limit-wrap">
+            <div class="ref-limit-label">⚠️ 분야 전체 미해결 과제 (MolCube 포함)</div>
+            <div class="ref-limit">① <strong>Multiscale gap:</strong> all-atom(정확) ↔ coarse-grained(빠름) 연결 표준 프레임워크 미확립. ② <strong>Endosomal escape 직접 예측 불가:</strong> μs~ms 타임스케일 — 현재 MD로 직접 시뮬레이션 불가. ③ <strong>표준화 실험 데이터셋 부족:</strong> 서로 다른 세포주·프로토콜 데이터 통합이 ML 일반화 핵심 병목. ④ <strong>Extrahepatic targeting 예측 한계:</strong> 폐·근육·종양 선택성은 in vivo PK 데이터와 연동 필요. ⑤ <strong>제형-공정 연계 부재:</strong> microfluidic mixing 등 제조 변수가 LNP 구조에 미치는 영향 예측에 CFD-MD 통합 필요(초기 단계).</div>
+          </div>
+        </li>
+
+        <li class="ref-item">
+          <div class="ref-meta">
+            <span class="ref-badge paper">논문</span>
+            <span class="ref-journal">CHARMM-GUI 시리즈</span>
+            <span class="ref-year">2008–현재</span>
+          </div>
+          <div class="ref-title"><a href="https://scholar.google.com/citations?user=qp8birIAAAAJ" target="_blank">CHARMM-GUI 논문 시리즈 (Membrane Builder, Glycan Reader, Enhanced Sampler 등)</a></div>
+          <div class="ref-authors">Jo S, Kim T, Im W 외 · 총 피인용 ~26,150회 (vs Schrödinger ~41,000회) · Google Scholar 연간 증가율 ~30%</div>
+          <div class="ref-summary">MD 시뮬레이션 입력 자동 생성 표준 플랫폼. 전 세계 140개국+ 8,000개+ 기관 학술 사용. 내부 CHARMM 엔진 사용으로 학술 목적만 무료 — 상업적 사용 시 MolCube 라이선싱 필요. MolCube의 자연 사용자 acquisition funnel 역할.</div>
+          <div class="ref-limit-wrap">
+            <div class="ref-limit-label">⚠️ 한계점</div>
+            <div class="ref-limit">① <strong>CHARMM IP 귀속:</strong> CHARMM 엔진 자체는 Harvard/NIH 기반 — MolCube 독립 상업 IP 범위와 대학 라이선스 구조 미팅 시 확인 필수. ② <strong>Force field 미포함 신규 구조:</strong> 자체 합성 ionizable lipid는 별도 QM 기반 파라미터화 필요 (수주~수개월, 비용 소요). ③ <strong>Schrödinger 대비 상업 브랜드 인지도 격차.</strong></div>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+
+  <!-- ⑧ LNP 시뮬레이션 한계 종합 -->
+  <div class="card full">
+    <div class="card-header"><span>🔍</span><h2>LNP 이온화지질 시뮬레이션 — 현재 기술 한계 종합표 <span>Field-wide Limitations</span></h2></div>
+    <div class="card-body">
+      <table>
+        <thead><tr><th>한계 영역</th><th>구체적 내용</th><th>DDS 실무 시사점</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>① Timescale 한계</strong></td>
+            <td>All-atom MD: 수십 ns~μs. LNP 자기조립(ms 이상), endosomal escape(μs~ms) 직접 시뮬레이션 불가</td>
+            <td>Endosomal escape 예측은 불가 — 실험 대체 불가. Coarse-grained(Martini) 병용 필요</td>
+          </tr>
+          <tr>
+            <td><strong>② 입자 스케일 한계</strong></td>
+            <td>All-atom 80 nm LNP ≈ 수십억 원자. 실용적 시뮬레이션은 bilayer patch(~수만 원자) 수준에 한정</td>
+            <td>PDI, 입자 크기 분포 예측 불가 → 실험 필수 병행</td>
+          </tr>
+          <tr>
+            <td><strong>③ Force field 미비</strong></td>
+            <td>신규 ionizable lipid CHARMM36 파라미터 부재 시 QM 파라미터화 필요. 특히 novel tail, 분지형 구조</td>
+            <td>자체 합성 ionizable lipid 적용 전 파라미터화 선행 협의 필요 — 소요 기간·IP 확인</td>
+          </tr>
+          <tr>
+            <td><strong>④ pH 전이 모델링</strong></td>
+            <td>Endosomal pH(~5) protonation에 따른 ionizable lipid 구조 전환(hexagonal phase) 동역학이 current MD에서 과소평가</td>
+            <td>pKa 조절·endosomal buffering capacity 최적화는 실험적 보완 필요</td>
+          </tr>
+          <tr>
+            <td><strong>⑤ mRNA cargo 상호작용</strong></td>
+            <td>Full-length mRNA(수천 nt)와 ionizable lipid 복합 상호작용 모델링 초기 단계. mRNA 2차 구조 동역학·포장 메커니즘 불명확</td>
+            <td>EE% 및 mRNA integrity 예측은 시뮬레이션만으로 어려움 — 실험 병행 필수</td>
+          </tr>
+          <tr>
+            <td><strong>⑥ Extrahepatic delivery</strong></td>
+            <td>폐·근육·종양 장기 선택적 LNP 최적화에 organ-selective 모델 부재. in vivo PK/분포 예측 포함 multiscale 통합 미완성</td>
+            <td>Organ selectivity 최적화는 MD + in vivo 실험 데이터 병합 전략 필수</td>
+          </tr>
+          <tr>
+            <td><strong>⑦ 제형-공정 연계</strong></td>
+            <td>Microfluidic mixing, N/P ratio, 에탄올 농도 등 제조 변수가 LNP 구조에 미치는 영향 예측에 CFD-MD 통합 필요 (초기 단계)</td>
+            <td>CMC 단계 공정 최적화와 시뮬레이션 통합은 아직 연구 수준</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ⑨ 논의 포인트 -->
+  <div class="card full">
+    <div class="card-header"><span>💬</span><h2>논의 포인트 <span>Discussion Points — DDS 연구원 관점 5문항</span></h2></div>
+    <div class="card-body">
+      <ol class="disc-list">
+        <li><div>
+          <strong>LNPDB AI 모델의 예측 정확도 적용 조건과 자체 합성 ionizable lipid 적용 가능성은?</strong><br>
+          R²=0.725, PCC=0.852의 검증 조건(세포주·cargo 종류 등)이 어떠한지, 그리고 저희가 보유한 독자 합성 ionizable lipid를 LNPDB에 적용하려면 force field 파라미터화를 먼저 진행해야 하는지 — 소요 기간, 비용, IP 귀속 관계를 구체적으로 확인하고 싶습니다.
+        </div></li>
+        <li><div>
+          <strong>Endosomal escape 관련 간접 지표 데이터 공유 가능한가요?</strong><br>
+          직접 시뮬레이션이 불가한 것은 알고 있습니다. 대신 pKa 예측, hexagonal phase 전이 특성, membrane curvature 변화 등 간접 지표가 실제 transfection 효율과 어떻게 상관되는지, BMS 협업에서 나온 데이터가 있다면 논의 가능한 범위에서 공유 부탁드립니다.
+        </div></li>
+        <li><div>
+          <strong>K-LNP Team 파트너십 구조 — DDS 제약사 참여 방식은?</strong><br>
+          저희 같은 제약사가 formulation test 파트너로 참여하는 경우 어떤 계약 구조(IP 귀속, 비용 분담, milestone 설정)를 선호하시는지, 기존 BMS·Fusion Biotechnology 협업 사례를 토대로 설명해 주시면 논의에 도움이 될 것 같습니다.
+        </div></li>
+        <li><div>
+          <strong>Extrahepatic LNP 타겟팅 설계에 MolCube가 기여할 수 있는 현실적 범위는?</strong><br>
+          폐·근육·종양 등 organ-selective 전달 LNP 개발 시 LNPDB + MD 시뮬레이션이 lipid 조성 가이던스를 어느 수준까지 줄 수 있는지, 그리고 in vivo PK 데이터와 시뮬레이션을 연동하는 협업 서비스 로드맵이 있는지 확인하고 싶습니다.
+        </div></li>
+        <li><div>
+          <strong>MolCube 플랫폼 도입 시 데이터 보안·기밀 유지 정책은?</strong><br>
+          저희 미공개 제형 데이터 및 자체 합성 ionizable lipid 구조를 MolCube 클라우드에 입력할 경우 데이터 보안, 기밀 유지 계약(NDA) 범위, 서버 위치(한국/미국)와 GxP/ICH 규정 준수 여부를 확인해야 합니다. 또한 On-premise 설치 옵션 제공 여부도 확인 부탁드립니다.
+        </div></li>
+      </ol>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  MolCube 업체 미팅 사전 브리핑 v2 · 생성일: 2025.04.10 · 사 제공 PDF(GCBB) + 공개 정보(웹 검색) 통합 기반<br>
+  LNP 시뮬레이션 한계 분석: npj Drug Discovery 2025 (Oh et al.) / J. Chem. Inf. Model. 2021 (Park et al.) / Nat. Commun. 2026 in press (Im et al.) 참조
+</div>
+
+</body>
+</html>
