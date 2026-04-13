@@ -1,0 +1,26 @@
+# CODEOWNERS
+#
+# GitHub가 PR 생성 시 자동으로 리뷰어를 지정합니다.
+# 조직 GitHub 사용자명으로 아래 @mentions를 실제 팀·개인으로 교체하세요.
+#
+# 형식: <경로 패턴>  <리뷰어1> <리뷰어2>
+
+# ============ 전체 기본 ============
+*                                   @gc-brand-team
+
+# ============ Designer Track ============
+docs/DESIGN-SYSTEM.md               @gc-brand-team @gc-design-lead
+gc-tokens.css                       @gc-brand-team @gc-frontend-lead
+assets/logos/                       @gc-brand-team
+assets/fonts/                       @gc-brand-team @gc-legal-team
+
+# ============ Compliance Track ============
+# §12–§14는 별도 파일로 분리 시 경로 추가
+# (현재는 DESIGN-SYSTEM.md 내부 섹션이므로 전체 파일 오너에 법무팀 포함)
+
+# ============ Repository Meta ============
+LICENSE.md                          @gc-legal-team
+README.md                           @gc-brand-team @gc-ir-team
+CONTRIBUTING.md                     @gc-brand-team @gc-legal-team
+.github/                            @gc-brand-team @gc-devops-team
+.gitignore                          @gc-devops-team
