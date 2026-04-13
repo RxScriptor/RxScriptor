@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BriefingHub — DDS 연구팀</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1a1a;--ink-2:#4a4a4a;--ink-3:#8a8a8a;--ink-4:#b8b8b8;
+  --paper:#faf9f7;--paper-2:#f2f0ec;--paper-3:#e8e5de;--rule:#dedad3;
+  --teal:#1a7a5e;--teal-lt:#e8f5f0;--teal-bd:#a8d4c4;
+  --blue:#1a4a7a;--blue-lt:#eaf0f8;--blue-bd:#a8c0d8;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{font-size:14px;-webkit-text-size-adjust:100%;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;}
+
+/* MASTHEAD */
+.masthead{border-bottom:3px double var(--ink);padding:20px 48px 16px;display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:16px;}
+.mh-left{display:flex;flex-direction:column;gap:4px;}
+.mh-eyebrow{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink-3);}
+.mh-org{font-family:'Playfair Display',serif;font-size:13px;color:var(--ink-2);font-style:italic;}
+.mh-center{text-align:center;}
+.mh-title{font-family:'Playfair Display',serif;font-size:34px;font-weight:600;letter-spacing:-0.5px;line-height:1;color:var(--ink);}
+.mh-sub{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--ink-3);margin-top:6px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:4px 0;}
+.mh-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;}
+.mh-date{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-3);}
+.shared-pill{display:inline-flex;align-items:center;gap:5px;font-size:10px;letter-spacing:0.5px;color:var(--teal);border:1px solid var(--teal-bd);background:var(--teal-lt);padding:3px 10px;border-radius:2px;}
+.live-dot{width:5px;height:5px;border-radius:50%;background:var(--teal);animation:blink 2s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* TOOLBAR */
+.toolbar{border-bottom:1px solid var(--rule);padding:10px 48px;display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--paper);position:sticky;top:0;z-index:40;}
+.filter-group{display:flex;border:1px solid var(--rule);border-radius:2px;overflow:hidden;}
+.filter-btn{font-size:10px;letter-spacing:0.8px;text-transform:uppercase;color:var(--ink-3);padding:6px 14px;border:none;border-left:1px solid var(--rule);background:transparent;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .15s;}
+.filter-btn:first-child{border-left:none;}
+.filter-btn.active{color:var(--ink);background:var(--paper-2);font-weight:500;}
+.filter-btn:hover:not(.active){color:var(--ink-2);background:var(--paper-2);}
+.search-wrap{position:relative;flex:1;max-width:260px;}
+.search-ico{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--ink-4);pointer-events:none;}
+.search-input{width:100%;font-size:12px;font-family:'Noto Sans KR',sans-serif;color:var(--ink);background:var(--paper-2);border:1px solid var(--rule);border-radius:2px;padding:6px 10px 6px 30px;outline:none;transition:border-color .15s;}
+.search-input::placeholder{color:var(--ink-4);}
+.search-input:focus{border-color:var(--ink-3);}
+
+/* STATS */
+.stats-bar{border-bottom:1px solid var(--rule);padding:12px 48px;display:flex;gap:32px;align-items:center;background:var(--paper-2);}
+.stat-item{text-align:center;}
+.stat-num{font-family:'Playfair Display',serif;font-size:24px;font-weight:600;color:var(--ink);display:block;line-height:1;}
+.stat-num.teal{color:var(--teal);}
+.stat-num.blue{color:var(--blue);}
+.stat-lbl{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-3);margin-top:3px;}
+.stat-div{width:1px;height:36px;background:var(--rule);}
+
+/* TAG BAR */
+.tag-bar{border-bottom:1px solid var(--rule);padding:8px 48px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.tag-lbl{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-4);margin-right:4px;}
+.tag-pill{font-size:10px;color:var(--ink-3);border:1px solid var(--rule);padding:2px 10px;border-radius:2px;cursor:pointer;background:transparent;font-family:'Noto Sans KR',sans-serif;transition:all .12s;}
+.tag-pill:hover{color:var(--ink);border-color:var(--ink-3);}
+.tag-pill.on{color:var(--teal);border-color:var(--teal-bd);background:var(--teal-lt);font-weight:500;}
+
+/* NOTICE BANNER */
+.notice{margin:20px 48px 0;padding:10px 16px;background:var(--teal-lt);border:1px solid var(--teal-bd);border-radius:2px;font-size:12px;color:var(--teal);display:none;align-items:center;gap:10px;}
+.notice.show{display:flex;}
+.notice strong{font-weight:700;}
+
+/* MAIN */
+.main{max-width:860px;margin:0 auto;padding:40px 48px 80px;}
+
+/* YEAR */
+.year-block{margin-bottom:48px;}
+.year-header{display:flex;align-items:center;gap:16px;margin-bottom:28px;}
+.year-num{font-family:'Playfair Display',serif;font-size:13px;font-style:italic;color:var(--ink-3);letter-spacing:1px;white-space:nowrap;}
+.year-rule{flex:1;height:1px;background:var(--ink);}
+.year-count{font-family:'DM Mono',monospace;font-size:10px;color:var(--ink-4);}
+
+/* TIMELINE ENTRY */
+.tl-entry{display:grid;grid-template-columns:56px 1px 1fr;gap:0 24px;animation:fadeUp .3s ease both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.tl-datecol{text-align:right;padding-top:3px;}
+.tl-month{font-family:'DM Mono',monospace;font-size:16px;font-weight:500;color:var(--ink);display:block;line-height:1;}
+.tl-day{font-family:'DM Mono',monospace;font-size:10px;color:var(--ink-3);display:block;margin-top:3px;}
+.tl-spine{display:flex;flex-direction:column;align-items:center;}
+.tl-node{width:9px;height:9px;border-radius:50%;border:2px solid var(--teal);background:var(--paper);flex-shrink:0;margin-top:5px;}
+.tl-node.blue{border-color:var(--blue);}
+.tl-line{width:1px;flex:1;background:var(--rule);min-height:28px;}
+
+/* CARD */
+.tl-card{background:var(--paper);border:1px solid var(--rule);border-radius:2px;padding:16px 20px 14px;margin-bottom:8px;cursor:pointer;position:relative;transition:border-color .15s,background .15s;overflow:hidden;}
+.tl-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--teal);opacity:0;transition:opacity .15s;}
+.tl-card.blue-accent::before{background:var(--blue);}
+.tl-card:hover{border-color:var(--ink-3);background:var(--paper-2);}
+.tl-card:hover::before,.tl-card.selected::before{opacity:1;}
+.tl-card.selected{border-color:var(--ink);background:var(--paper-2);}
+.tl-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;gap:8px;}
+.tl-type{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;padding:2px 8px;border-radius:2px;}
+.tl-type.company{color:var(--teal);background:var(--teal-lt);border:1px solid var(--teal-bd);}
+.tl-type.speaker{color:var(--blue);background:var(--blue-lt);border:1px solid var(--blue-bd);}
+.tl-arrow{font-size:11px;color:var(--ink-4);opacity:0;transition:opacity .15s;}
+.tl-card:hover .tl-arrow,.tl-card.selected .tl-arrow{opacity:1;color:var(--ink-2);}
+.tl-name{font-family:'Playfair Display',serif;font-size:19px;font-weight:600;color:var(--ink);margin-bottom:3px;line-height:1.2;}
+.tl-sub{font-size:12px;color:var(--ink-3);margin-bottom:10px;line-height:1.4;}
+.tl-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;}
+.tl-tag{font-size:10px;color:var(--ink-3);border:1px solid var(--rule);padding:1px 8px;border-radius:2px;background:var(--paper-2);}
+.tl-memo{font-size:12px;color:var(--ink-3);border-top:1px solid var(--rule);padding-top:8px;line-height:1.6;font-style:italic;}
+
+/* DETAIL DRAWER */
+.detail-drawer{display:none;margin-bottom:20px;animation:slideIn .2s ease;}
+@keyframes slideIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.detail-drawer.open{display:block;}
+.drawer-inner{background:var(--paper-2);border:1px solid var(--rule);border-top:none;border-radius:0 0 2px 2px;padding:16px 20px;}
+.drawer-row{display:grid;grid-template-columns:80px 1fr;border-bottom:1px solid var(--rule);padding:7px 0;}
+.drawer-row:last-of-type{border-bottom:none;}
+.drawer-lbl{font-size:10px;letter-spacing:0.5px;text-transform:uppercase;color:var(--ink-4);padding-top:1px;}
+.drawer-val{font-size:12px;color:var(--ink);line-height:1.6;}
+.drawer-val a{color:var(--teal);text-decoration:none;font-weight:500;}
+.drawer-val a:hover{text-decoration:underline;}
+.drawer-actions{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.dbtn{font-size:10px;letter-spacing:0.8px;text-transform:uppercase;font-family:'Noto Sans KR',sans-serif;color:var(--ink-2);border:1px solid var(--rule);background:var(--paper);padding:6px 14px;border-radius:2px;cursor:pointer;transition:all .12s;}
+.dbtn:hover{border-color:var(--ink-3);color:var(--ink);}
+.dbtn.primary{background:var(--teal);color:var(--paper);border-color:var(--teal);}
+.dbtn.primary:hover{background:#155e49;}
+.no-file{font-size:11px;color:var(--ink-4);font-style:italic;}
+
+/* EMPTY / LOADING */
+.state-box{text-align:center;padding:64px 20px;color:var(--ink-3);border:1px dashed var(--rule);border-radius:2px;margin:24px 0;}
+.state-title{font-family:'Playfair Display',serif;font-size:20px;font-style:italic;margin-bottom:8px;color:var(--ink-4);}
+.state-sub{font-size:12px;color:var(--ink-4);}
+.spinner{display:inline-block;width:18px;height:18px;border:2px solid var(--rule);border-top-color:var(--teal);border-radius:50%;animation:spin .7s linear infinite;margin-bottom:12px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* RESPONSIVE */
+@media(max-width:720px){
+  .masthead{grid-template-columns:1fr;text-align:center;padding:16px 20px 12px;gap:8px;}
+  .mh-left,.mh-right{align-items:center;}
+  .toolbar,.stats-bar,.tag-bar,.notice{padding-left:20px;padding-right:20px;}
+  .main{padding:24px 20px 60px;}
+  .tl-entry{grid-template-columns:44px 1px 1fr;gap:0 14px;}
+  .tl-month{font-size:13px;}
+  .tl-name{font-size:16px;}
+}
+@media print{
+  .toolbar,.notice{display:none!important;}
+  body{background:white;}
+  @page{margin:14mm;}
+}
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="mh-left">
+    <span class="mh-eyebrow">Drug Delivery System Lab</span>
+    <span class="mh-org">Research Briefing Archive</span>
+  </div>
+  <div class="mh-center">
+    <div class="mh-title">BriefingHub</div>
+    <div class="mh-sub">세미나 &amp; 미팅 사전 브리핑 아카이브</div>
+  </div>
+  <div class="mh-right">
+    <span class="mh-date" id="today"></span>
+    <span class="shared-pill"><span class="live-dot"></span>팀 공유 활성</span>
+  </div>
+</header>
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+  <div class="filter-group">
+    <button class="filter-btn active" onclick="setFilter(this,'all')">전체</button>
+    <button class="filter-btn" onclick="setFilter(this,'company')">업체 미팅</button>
+    <button class="filter-btn" onclick="setFilter(this,'speaker')">외부 연자</button>
+  </div>
+  <div class="search-wrap">
+    <svg class="search-ico" width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+      <circle cx="5.5" cy="5.5" r="4"/><line x1="8.5" y1="8.5" x2="12" y2="12"/>
+    </svg>
+    <input class="search-input" id="search" type="text" placeholder="이름, 소속, 태그 검색..." oninput="render()">
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item"><span class="stat-num" id="s-all">—</span><div class="stat-lbl">전체 브리핑</div></div>
+  <div class="stat-div"></div>
+  <div class="stat-item"><span class="stat-num teal" id="s-co">—</span><div class="stat-lbl">업체 미팅</div></div>
+  <div class="stat-div"></div>
+  <div class="stat-item"><span class="stat-num blue" id="s-sp">—</span><div class="stat-lbl">외부 연자</div></div>
+</div>
+
+<!-- TAG BAR -->
+<div class="tag-bar" id="tag-bar"><span class="tag-lbl">태그 필터</span></div>
+
+<!-- UPDATE NOTICE -->
+<div class="notice" id="notice">
+  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="6"/><line x1="7" y1="4" x2="7" y2="7.5"/><circle cx="7" cy="10" r=".6" fill="currentColor" stroke="none"/></svg>
+  <span id="notice-text"></span>
+</div>
+
+<!-- MAIN TIMELINE -->
+<main class="main" id="main">
+  <div class="state-box">
+    <div class="spinner"></div>
+    <div class="state-title">브리핑 목록 불러오는 중</div>
+    <div class="state-sub">briefings.json을 읽고 있습니다</div>
+  </div>
+</main>
+
+<script>
+const MONTHS=['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+let data=[], activeFilter='all', activeTags=new Set(), selectedId=null;
+
+/* ── DATA LOAD ── */
+async function loadData(){
+  try{
+    const r=await fetch('briefings.json?_='+Date.now());
+    if(!r.ok) throw new Error('fetch failed');
+    data=await r.json();
+    render();
+  } catch(e){
+    document.getElementById('main').innerHTML=`
+      <div class="state-box">
+        <div class="state-title">briefings.json을 찾을 수 없습니다</div>
+        <div class="state-sub">로컬에서 열 경우 웹 서버가 필요합니다.<br>GitHub Pages 배포 후에는 자동으로 불러옵니다.</div>
+      </div>`;
+  }
+}
+
+/* ── RENDER ── */
+function render(){
+  const f=getFiltered();
+  document.getElementById('s-all').textContent=data.length;
+  document.getElementById('s-co').textContent=data.filter(d=>d.type==='company').length;
+  document.getElementById('s-sp').textContent=data.filter(d=>d.type==='speaker').length;
+  renderTagBar();
+  renderTimeline(f);
+}
+
+function getFiltered(){
+  const q=(document.getElementById('search').value||'').toLowerCase();
+  return data.filter(d=>{
+    if(activeFilter!=='all'&&d.type!==activeFilter)return false;
+    if(activeTags.size&&![...activeTags].every(t=>d.tags.includes(t)))return false;
+    if(q&&![d.name,d.sub,d.memo,...d.tags].some(s=>(s||'').toLowerCase().includes(q)))return false;
+    return true;
+  });
+}
+
+function renderTagBar(){
+  const bar=document.getElementById('tag-bar');
+  bar.innerHTML='<span class="tag-lbl">태그 필터</span>';
+  const tags=new Set();
+  data.forEach(d=>d.tags.forEach(t=>tags.add(t)));
+  [...tags].sort().forEach(t=>{
+    const b=document.createElement('button');
+    b.className='tag-pill'+(activeTags.has(t)?' on':'');
+    b.textContent=t;
+    b.onclick=()=>{activeTags.has(t)?activeTags.delete(t):activeTags.add(t);render();};
+    bar.appendChild(b);
+  });
+}
+
+function renderTimeline(f){
+  const area=document.getElementById('main');
+  if(!f.length){
+    area.innerHTML='<div class="state-box"><div class="state-title">브리핑이 없습니다</div><div class="state-sub">조건에 맞는 브리핑을 찾을 수 없습니다</div></div>';
+    return;
+  }
+  const years=[...new Set(f.map(d=>d.date.slice(0,4)))].sort((a,b)=>b-a);
+  area.innerHTML=years.map(yr=>{
+    const entries=f.filter(d=>d.date.startsWith(yr));
+    return`<div class="year-block">
+      <div class="year-header">
+        <span class="year-num">${yr}년</span>
+        <span class="year-rule"></span>
+        <span class="year-count">${entries.length}건</span>
+      </div>
+      ${entries.map((d,i)=>entryHTML(d,i,entries.length)).join('')}
+    </div>`;
+  }).join('');
+}
+
+function entryHTML(d,idx,total){
+  const [,mm,dd]=d.date.split('-');
+  const mon=MONTHS[parseInt(mm)];
+  const isSel=selectedId===d.id;
+  const isLast=idx===total-1;
+  const tags=d.tags.map(t=>`<span class="tl-tag">${t}</span>`).join('');
+  const blueC=d.type==='speaker'?' blue-accent':'';
+  const nodeC=d.type==='speaker'?' blue':'';
+  const typeLabel=d.type==='company'?'업체 미팅':'외부 연자';
+  const hasFile=d.file&&d.file.trim();
+
+  const drawer=isSel?`
+    <div class="detail-drawer open">
+      <div class="drawer-inner">
+        <div class="drawer-row"><span class="drawer-lbl">날짜</span><span class="drawer-val">${d.date.replace(/-/g,'.')}</span></div>
+        <div class="drawer-row"><span class="drawer-lbl">소속</span><span class="drawer-val">${d.sub}</span></div>
+        <div class="drawer-row"><span class="drawer-lbl">메모</span><span class="drawer-val">${d.memo||'—'}</span></div>
+        <div class="drawer-row"><span class="drawer-lbl">파일</span><span class="drawer-val">
+          ${hasFile?`<a href="${d.file}" target="_blank">${d.file.split('/').pop()} ↗</a>`:'<span class="no-file">파일 없음 — briefings.json에 file 경로 추가 필요</span>'}
+        </span></div>
+        <div class="drawer-actions">
+          ${hasFile?`<button class="dbtn primary" onclick="window.open('${d.file}','_blank')">브리핑 열기 ↗</button>`:''}
+          <button class="dbtn" onclick="closeDetail()">닫기</button>
+        </div>
+      </div>
+    </div>`:''
+
+  return`<div class="tl-entry" style="animation-delay:${idx*0.05}s">
+    <div class="tl-datecol"><span class="tl-month">${mon}</span><span class="tl-day">${dd}</span></div>
+    <div class="tl-spine">
+      <div class="tl-node${nodeC}"></div>
+      ${(!isLast||isSel)?'<div class="tl-line"></div>':''}
+    </div>
+    <div>
+      <div class="tl-card${blueC}${isSel?' selected':''}" onclick="selectEntry('${d.id}')">
+        <div class="tl-card-head">
+          <span class="tl-type ${d.type}">${typeLabel}</span>
+          <span class="tl-arrow">상세 보기 →</span>
+        </div>
+        <div class="tl-name">${d.name}</div>
+        <div class="tl-sub">${d.sub}</div>
+        <div class="tl-tags">${tags}</div>
+        <div class="tl-memo">${d.memo||''}</div>
+      </div>
+      ${drawer}
+    </div>
+  </div>`;
+}
+
+function selectEntry(id){selectedId=selectedId===id?null:id;render();}
+function closeDetail(){selectedId=null;render();}
+function setFilter(el,f){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');activeFilter=f;render();
+}
+
+document.getElementById('today').textContent=
+  new Date().toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric'});
+
+loadData();
+</script>
+</body>
+</html>

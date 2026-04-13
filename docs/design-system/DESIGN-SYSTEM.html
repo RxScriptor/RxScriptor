@@ -1,0 +1,3091 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>design-system – RxScriptor</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-4897d45d2f75ed4f519693be625836c5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../assets/css/styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">RxScriptor</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../modules/literature/summaries/"> 
+<span class="menu-text">Literature</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../modules/briefing/reports/"> 
+<span class="menu-text">Reports</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#gc-biopharma-design-system" id="toc-gc-biopharma-design-system" class="nav-link active" data-scroll-target="#gc-biopharma-design-system">GC Biopharma Design System</a>
+  <ul class="collapse">
+  <li><a href="#gc녹십자-통합-브랜드-발표자료-디자인-가이드" id="toc-gc녹십자-통합-브랜드-발표자료-디자인-가이드" class="nav-link" data-scroll-target="#gc녹십자-통합-브랜드-발표자료-디자인-가이드">GC녹십자 통합 브랜드 &amp; 발표자료 디자인 가이드</a>
+  <ul class="collapse">
+  <li><a href="#문서-구조-2개-track-appendix" id="toc-문서-구조-2개-track-appendix" class="nav-link" data-scroll-target="#문서-구조-2개-track-appendix">문서 구조 · 2개 Track + Appendix</a></li>
+  </ul></li>
+  <li><a href="#브랜드-매뉴얼-원칙-최상위-규정" id="toc-브랜드-매뉴얼-원칙-최상위-규정" class="nav-link" data-scroll-target="#브랜드-매뉴얼-원칙-최상위-규정">0. 브랜드 매뉴얼 원칙 (최상위 규정)</a>
+  <ul class="collapse">
+  <li><a href="#심볼마크-symbol-mark" id="toc-심볼마크-symbol-mark" class="nav-link" data-scroll-target="#심볼마크-symbol-mark">0-1. 심볼마크 (Symbol Mark)</a></li>
+  <li><a href="#로고-비율-clear-space" id="toc-로고-비율-clear-space" class="nav-link" data-scroll-target="#로고-비율-clear-space">0-2. 로고 비율 &amp; Clear Space</a></li>
+  <li><a href="#로고-컬러-4종-공식" id="toc-로고-컬러-4종-공식" class="nav-link" data-scroll-target="#로고-컬러-4종-공식">0-3. 로고 컬러 4종 (공식)</a></li>
+  <li><a href="#사용-금지-규정-incorrect-use" id="toc-사용-금지-규정-incorrect-use" class="nav-link" data-scroll-target="#사용-금지-규정-incorrect-use">0-4. 사용 금지 규정 (Incorrect Use)</a></li>
+  </ul></li>
+  <li><a href="#브랜드-정체성-비주얼-톤" id="toc-브랜드-정체성-비주얼-톤" class="nav-link" data-scroll-target="#브랜드-정체성-비주얼-톤">1. 브랜드 정체성 &amp; 비주얼 톤</a></li>
+  <li><a href="#컬러-시스템-브랜드-매뉴얼-공식-팔레트" id="toc-컬러-시스템-브랜드-매뉴얼-공식-팔레트" class="nav-link" data-scroll-target="#컬러-시스템-브랜드-매뉴얼-공식-팔레트">2. 컬러 시스템 (브랜드 매뉴얼 공식 팔레트)</a>
+  <ul class="collapse">
+  <li><a href="#기본색-primary-colors-printcmyk-기준" id="toc-기본색-primary-colors-printcmyk-기준" class="nav-link" data-scroll-target="#기본색-primary-colors-printcmyk-기준">2-1. 기본색 (Primary Colors) — Print/CMYK 기준</a></li>
+  <li><a href="#보조색-secondary-colors" id="toc-보조색-secondary-colors" class="nav-link" data-scroll-target="#보조색-secondary-colors">2-2. 보조색 (Secondary Colors)</a></li>
+  <li><a href="#웹-전용-팔레트-gnetgonhey-gce-solution-center" id="toc-웹-전용-팔레트-gnetgonhey-gce-solution-center" class="nav-link" data-scroll-target="#웹-전용-팔레트-gnetgonhey-gce-solution-center">2-3. 웹 전용 팔레트 (Gnet·G:ON·Hey GC·E-Solution Center)</a></li>
+  <li><a href="#확장-컬러-ir-자료-전용-브랜드-매뉴얼-외-적용" id="toc-확장-컬러-ir-자료-전용-브랜드-매뉴얼-외-적용" class="nav-link" data-scroll-target="#확장-컬러-ir-자료-전용-브랜드-매뉴얼-외-적용">2-4. 확장 컬러 (IR 자료 전용, 브랜드 매뉴얼 외 적용)</a></li>
+  <li><a href="#그라디언트-gc-gradient" id="toc-그라디언트-gc-gradient" class="nav-link" data-scroll-target="#그라디언트-gc-gradient">2-5. 그라디언트 (GC Gradient)</a></li>
+  <li><a href="#semantic-컬러-규칙-ir데이터-시각화" id="toc-semantic-컬러-규칙-ir데이터-시각화" class="nav-link" data-scroll-target="#semantic-컬러-규칙-ir데이터-시각화">2-6. Semantic 컬러 규칙 (IR·데이터 시각화)</a></li>
+  <li><a href="#목적별-테마-슬라이드-단위-혼용-금지" id="toc-목적별-테마-슬라이드-단위-혼용-금지" class="nav-link" data-scroll-target="#목적별-테마-슬라이드-단위-혼용-금지">2-7. 목적별 테마 (슬라이드 단위, 혼용 금지)</a></li>
+  </ul></li>
+  <li><a href="#타이포그래피" id="toc-타이포그래피" class="nav-link" data-scroll-target="#타이포그래피">3. 타이포그래피</a>
+  <ul class="collapse">
+  <li><a href="#공식-전용서체-freesentation-9-weights" id="toc-공식-전용서체-freesentation-9-weights" class="nav-link" data-scroll-target="#공식-전용서체-freesentation-9-weights">3-1. 공식 전용서체 — Freesentation (9 Weights)</a></li>
+  <li><a href="#타입-스케일" id="toc-타입-스케일" class="nav-link" data-scroll-target="#타입-스케일">3-2. 타입 스케일</a></li>
+  <li><a href="#텍스트-스타일-규칙" id="toc-텍스트-스타일-규칙" class="nav-link" data-scroll-target="#텍스트-스타일-규칙">3-3. 텍스트 스타일 규칙</a></li>
+  <li><a href="#font-face-선언-템플릿-웹-구현용" id="toc-font-face-선언-템플릿-웹-구현용" class="nav-link" data-scroll-target="#font-face-선언-템플릿-웹-구현용">3-4. <span class="citation" data-cites="font-face">@font-face</span> 선언 템플릿 (웹 구현용)</a></li>
+  </ul></li>
+  <li><a href="#가족사-로고-cibi-제작-규정" id="toc-가족사-로고-cibi-제작-규정" class="nav-link" data-scroll-target="#가족사-로고-cibi-제작-규정">4. 가족사 로고 &amp; CI·BI 제작 규정</a>
+  <ul class="collapse">
+  <li><a href="#가족사-로고-lockup" id="toc-가족사-로고-lockup" class="nav-link" data-scroll-target="#가족사-로고-lockup">4-1. 가족사 로고 (Lockup)</a></li>
+  <li><a href="#gc-조합형-ci-법인-아이덴티티" id="toc-gc-조합형-ci-법인-아이덴티티" class="nav-link" data-scroll-target="#gc-조합형-ci-법인-아이덴티티">4-2. GC 조합형 CI (법인 아이덴티티)</a></li>
+  <li><a href="#gc-조합형-bi-제품서비스-아이덴티티" id="toc-gc-조합형-bi-제품서비스-아이덴티티" class="nav-link" data-scroll-target="#gc-조합형-bi-제품서비스-아이덴티티">4-3. GC 조합형 BI (제품·서비스 아이덴티티)</a></li>
+  <li><a href="#파트너십-표기" id="toc-파트너십-표기" class="nav-link" data-scroll-target="#파트너십-표기">4-4. 파트너십 표기</a></li>
+  </ul></li>
+  <li><a href="#스페이싱-레이아웃" id="toc-스페이싱-레이아웃" class="nav-link" data-scroll-target="#스페이싱-레이아웃">5. 스페이싱 &amp; 레이아웃</a>
+  <ul class="collapse">
+  <li><a href="#그리드-시스템" id="toc-그리드-시스템" class="nav-link" data-scroll-target="#그리드-시스템">5-1. 그리드 시스템</a></li>
+  <li><a href="#스페이싱-스케일" id="toc-스페이싱-스케일" class="nav-link" data-scroll-target="#스페이싱-스케일">5-2. 스페이싱 스케일</a></li>
+  <li><a href="#border-radius" id="toc-border-radius" class="nav-link" data-scroll-target="#border-radius">5-3. Border Radius</a></li>
+  <li><a href="#레이아웃-아키타입" id="toc-레이아웃-아키타입" class="nav-link" data-scroll-target="#레이아웃-아키타입">5-4. 레이아웃 아키타입</a></li>
+  </ul></li>
+  <li><a href="#슬라이드-유형-시스템" id="toc-슬라이드-유형-시스템" class="nav-link" data-scroll-target="#슬라이드-유형-시스템">6. 슬라이드 유형 시스템</a></li>
+  <li><a href="#컴포넌트-스펙" id="toc-컴포넌트-스펙" class="nav-link" data-scroll-target="#컴포넌트-스펙">7. 컴포넌트 스펙</a>
+  <ul class="collapse">
+  <li><a href="#bottom-takeaway-banner-필수" id="toc-bottom-takeaway-banner-필수" class="nav-link" data-scroll-target="#bottom-takeaway-banner-필수">7-1. Bottom Takeaway Banner <em>(필수)</em></a></li>
+  <li><a href="#content-panel" id="toc-content-panel" class="nav-link" data-scroll-target="#content-panel">7-2. Content Panel</a></li>
+  <li><a href="#section-label-좌상단" id="toc-section-label-좌상단" class="nav-link" data-scroll-target="#section-label-좌상단">7-3. Section Label (좌상단)</a></li>
+  <li><a href="#growth-badge" id="toc-growth-badge" class="nav-link" data-scroll-target="#growth-badge">7-4. Growth Badge</a></li>
+  <li><a href="#progress-data-bar" id="toc-progress-data-bar" class="nav-link" data-scroll-target="#progress-data-bar">7-5. Progress / Data Bar</a></li>
+  <li><a href="#pipeline-row" id="toc-pipeline-row" class="nav-link" data-scroll-target="#pipeline-row">7-6. Pipeline Row</a></li>
+  <li><a href="#section-nav-footer" id="toc-section-nav-footer" class="nav-link" data-scroll-target="#section-nav-footer">7-7. Section Nav Footer</a></li>
+  <li><a href="#key-takeaways-card" id="toc-key-takeaways-card" class="nav-link" data-scroll-target="#key-takeaways-card">7-8. Key Takeaways Card</a></li>
+  </ul></li>
+  <li><a href="#픽토그램-시스템-브랜드-매뉴얼-신규-반영" id="toc-픽토그램-시스템-브랜드-매뉴얼-신규-반영" class="nav-link" data-scroll-target="#픽토그램-시스템-브랜드-매뉴얼-신규-반영">8. 픽토그램 시스템 <em>(브랜드 매뉴얼 신규 반영)</em></a>
+  <ul class="collapse">
+  <li><a href="#공식-픽토그램-세트-브랜드-매뉴얼-수록" id="toc-공식-픽토그램-세트-브랜드-매뉴얼-수록" class="nav-link" data-scroll-target="#공식-픽토그램-세트-브랜드-매뉴얼-수록">8-1. 공식 픽토그램 세트 (브랜드 매뉴얼 수록)</a></li>
+  <li><a href="#사용-규정" id="toc-사용-규정" class="nav-link" data-scroll-target="#사용-규정">8-2. 사용 규정</a></li>
+  <li><a href="#디지털-대응-font-awesome-매핑" id="toc-디지털-대응-font-awesome-매핑" class="nav-link" data-scroll-target="#디지털-대응-font-awesome-매핑">8-3. 디지털 대응 (Font Awesome 매핑)</a></li>
+  </ul></li>
+  <li><a href="#font-awesome-6-아이콘-ir디지털-전용" id="toc-font-awesome-6-아이콘-ir디지털-전용" class="nav-link" data-scroll-target="#font-awesome-6-아이콘-ir디지털-전용">9. Font Awesome 6 아이콘 (IR·디지털 전용)</a></li>
+  <li><a href="#callout-notion-ai-영감-컴포넌트" id="toc-callout-notion-ai-영감-컴포넌트" class="nav-link" data-scroll-target="#callout-notion-ai-영감-컴포넌트">10. Callout &amp; Notion AI 영감 컴포넌트</a>
+  <ul class="collapse">
+  <li><a href="#callout-block-패널당-1개" id="toc-callout-block-패널당-1개" class="nav-link" data-scroll-target="#callout-block-패널당-1개">10-1. Callout Block (패널당 1개)</a></li>
+  <li><a href="#ai-insight-badge" id="toc-ai-insight-badge" class="nav-link" data-scroll-target="#ai-insight-badge">10-2. AI Insight Badge</a></li>
+  </ul></li>
+  <li><a href="#저작권-표기-copyright-notice" id="toc-저작권-표기-copyright-notice" class="nav-link" data-scroll-target="#저작권-표기-copyright-notice">11. 저작권 표기 (Copyright Notice)</a></li>
+  <li><a href="#용도별-슬라이드-버전-분기-원칙-실무-대응" id="toc-용도별-슬라이드-버전-분기-원칙-실무-대응" class="nav-link" data-scroll-target="#용도별-슬라이드-버전-분기-원칙-실무-대응">12. 용도별 슬라이드 버전 분기 원칙 <em>(실무 대응)</em></a>
+  <ul class="collapse">
+  <li><a href="#슬라이드-용도-매트릭스-7-audience-types" id="toc-슬라이드-용도-매트릭스-7-audience-types" class="nav-link" data-scroll-target="#슬라이드-용도-매트릭스-7-audience-types">12-1. 슬라이드 용도 매트릭스 (7 Audience Types)</a></li>
+  <li><a href="#경쟁-제품-비교표comparison-matrix-분기-규칙" id="toc-경쟁-제품-비교표comparison-matrix-분기-규칙" class="nav-link" data-scroll-target="#경쟁-제품-비교표comparison-matrix-분기-규칙">12-2. 경쟁 제품 비교표(Comparison Matrix) 분기 규칙</a></li>
+  <li><a href="#미래-예측-수치forward-looking-취급-규칙" id="toc-미래-예측-수치forward-looking-취급-규칙" class="nav-link" data-scroll-target="#미래-예측-수치forward-looking-취급-규칙">12-3. 미래 예측 수치(Forward-Looking) 취급 규칙</a></li>
+  <li><a href="#market-sizing-신뢰도-가드" id="toc-market-sizing-신뢰도-가드" class="nav-link" data-scroll-target="#market-sizing-신뢰도-가드">12-4. Market Sizing 신뢰도 가드</a></li>
+  <li><a href="#risk-benefit-슬라이드-버전-분기" id="toc-risk-benefit-슬라이드-버전-분기" class="nav-link" data-scroll-target="#risk-benefit-슬라이드-버전-분기">12-5. Risk-Benefit 슬라이드 버전 분기</a></li>
+  <li><a href="#literature-review-인용-무결성" id="toc-literature-review-인용-무결성" class="nav-link" data-scroll-target="#literature-review-인용-무결성">12-6. Literature Review 인용 무결성</a></li>
+  <li><a href="#스케일업cqa-데이터-버전-분기" id="toc-스케일업cqa-데이터-버전-분기" class="nav-link" data-scroll-target="#스케일업cqa-데이터-버전-분기">12-7. 스케일업·CQA 데이터 버전 분기</a></li>
+  <li><a href="#executive-summary-밀도-보강-체크리스트" id="toc-executive-summary-밀도-보강-체크리스트" class="nav-link" data-scroll-target="#executive-summary-밀도-보강-체크리스트">12-8. Executive Summary 밀도 보강 체크리스트</a></li>
+  <li><a href="#safe-harbor-법적-기반-병기" id="toc-safe-harbor-법적-기반-병기" class="nav-link" data-scroll-target="#safe-harbor-법적-기반-병기">12-9. Safe Harbor 법적 기반 병기</a></li>
+  <li><a href="#emoji-font-awesome-치환-대응" id="toc-emoji-font-awesome-치환-대응" class="nav-link" data-scroll-target="#emoji-font-awesome-치환-대응">12-10. Emoji → Font Awesome 치환 대응</a></li>
+  </ul></li>
+  <li><a href="#디자인-가드레일" id="toc-디자인-가드레일" class="nav-link" data-scroll-target="#디자인-가드레일">13. 디자인 가드레일</a>
+  <ul class="collapse">
+  <li><a href="#always-do" id="toc-always-do" class="nav-link" data-scroll-target="#always-do">Always Do ✓</a></li>
+  <li><a href="#never-do" id="toc-never-do" class="nav-link" data-scroll-target="#never-do">Never Do ✗</a></li>
+  </ul></li>
+  <li><a href="#ai-작성-지침-복사붙여넣기용" id="toc-ai-작성-지침-복사붙여넣기용" class="nav-link" data-scroll-target="#ai-작성-지침-복사붙여넣기용">14. AI 작성 지침 (복사·붙여넣기용)</a></li>
+  <li><a href="#메시징-어휘-레퍼런스" id="toc-메시징-어휘-레퍼런스" class="nav-link" data-scroll-target="#메시징-어휘-레퍼런스">15. 메시징 어휘 레퍼런스</a></li>
+  <li><a href="#적용-매체-체크리스트-브랜드-매뉴얼-반영" id="toc-적용-매체-체크리스트-브랜드-매뉴얼-반영" class="nav-link" data-scroll-target="#적용-매체-체크리스트-브랜드-매뉴얼-반영">16. 적용 매체 체크리스트 (브랜드 매뉴얼 반영)</a></li>
+  <li><a href="#changelog-migration-notes" id="toc-changelog-migration-notes" class="nav-link" data-scroll-target="#changelog-migration-notes">17. Changelog &amp; Migration Notes</a>
+  <ul class="collapse">
+  <li><a href="#version-history" id="toc-version-history" class="nav-link" data-scroll-target="#version-history">Version History</a></li>
+  <li><a href="#v2.3-migration-notes-v2.2-v2.3" id="toc-v2.3-migration-notes-v2.2-v2.3" class="nav-link" data-scroll-target="#v2.3-migration-notes-v2.2-v2.3">v2.3 Migration Notes (v2.2 → v2.3)</a></li>
+  <li><a href="#v2.2-migration-notes-v2.1-v2.2" id="toc-v2.2-migration-notes-v2.1-v2.2" class="nav-link" data-scroll-target="#v2.2-migration-notes-v2.1-v2.2">v2.2 Migration Notes (v2.1 → v2.2)</a></li>
+  <li><a href="#v2.1-migration-notes-v2.0-v2.1" id="toc-v2.1-migration-notes-v2.0-v2.1" class="nav-link" data-scroll-target="#v2.1-migration-notes-v2.0-v2.1">v2.1 Migration Notes (v2.0 → v2.1)</a></li>
+  <li><a href="#custom-audience-확장-가이드" id="toc-custom-audience-확장-가이드" class="nav-link" data-scroll-target="#custom-audience-확장-가이드">Custom Audience 확장 가이드</a></li>
+  <li><a href="#알려진-제약-및-향후-개선-known-limitations" id="toc-알려진-제약-및-향후-개선-known-limitations" class="nav-link" data-scroll-target="#알려진-제약-및-향후-개선-known-limitations">알려진 제약 및 향후 개선 (Known Limitations)</a></li>
+  <li><a href="#문서-책임-및-문의" id="toc-문서-책임-및-문의" class="nav-link" data-scroll-target="#문서-책임-및-문의">문서 책임 및 문의</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+
+
+
+
+<section id="gc-biopharma-design-system" class="level1">
+<h1>GC Biopharma Design System</h1>
+<section id="gc녹십자-통합-브랜드-발표자료-디자인-가이드" class="level2">
+<h2 class="anchored" data-anchor-id="gc녹십자-통합-브랜드-발표자료-디자인-가이드">GC녹십자 통합 브랜드 &amp; 발표자료 디자인 가이드</h2>
+<blockquote class="blockquote">
+<p><strong>용도</strong>: AI 에이전트(Claude, ChatGPT, Gemini 등) 및 개발자가 GC Biopharma(GC녹십자) 스타일의 발표자료·UI·브랜드 자산을 생성할 때 참조하는 단일 소스. <strong>기반</strong>: GC Brand Manual Book (Unified ver. 2026-03) + 2025 Investor Day / Alyglo® Business Update / 2024 4Q 경영실적 (공식 IR 3건) <strong>버전</strong>: v2.3 (2026-04-13) · 브랜드 매뉴얼 Unified + 실무 분기 + Track 구조화 + Freesentation 서체 + <strong>가로형 Lockup &amp; 심볼 단독 SVG 동봉</strong></p>
+</blockquote>
+<section id="문서-구조-2개-track-appendix" class="level3">
+<h3 class="anchored" data-anchor-id="문서-구조-2개-track-appendix">문서 구조 · 2개 Track + Appendix</h3>
+<p>이 문서는 <strong>역할별로 읽는 지점이 다르다</strong>. 디자이너·마케터는 Designer Track만으로 90% 작업 가능하며, IR·RA·법무팀은 Compliance Track을 필수로 참조한다.</p>
+<section id="designer-track-011-시각-제작-필수" class="level4">
+<h4 class="anchored" data-anchor-id="designer-track-011-시각-제작-필수">🎨 Designer Track (§0–§11) — 시각 제작 필수</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>섹션</th>
+<th>핵심 내용</th>
+<th>주 사용자</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>브랜드 매뉴얼 원칙</td>
+<td>심볼·비율·Clear Space·15종 오용 금지</td>
+<td>전원</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>브랜드 정체성</td>
+<td>슬로건·포지셔닝·Signature</td>
+<td>디자이너·마케터</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>컬러 시스템</td>
+<td>공식 팔레트·웹 팔레트·확장·테마 3종</td>
+<td>디자이너</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>타이포그래피</td>
+<td>Freesentation 9 Weights·타입 스케일</td>
+<td>디자이너</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>가족사 &amp; CI·BI</td>
+<td>Lockup·CI·BI·파트너십 4유형</td>
+<td>디자이너·법무</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>스페이싱 &amp; 레이아웃</td>
+<td>그리드·Radius·아키타입</td>
+<td>디자이너</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>슬라이드 유형</td>
+<td>커버부터 Closing 9종</td>
+<td>디자이너·기획</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>컴포넌트 스펙</td>
+<td>Banner·Panel·Badge·Card 8종</td>
+<td>디자이너·개발</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>픽토그램</td>
+<td>공식 세트·FA 매핑</td>
+<td>디자이너·개발</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>Font Awesome</td>
+<td>IR·디지털 전용</td>
+<td>개발·디자이너</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td>Callout &amp; AI</td>
+<td>Notion 영감 컴포넌트</td>
+<td>기획·개발</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td>저작권</td>
+<td>표기 규정</td>
+<td>전원</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="compliance-track-1214-irra법무-필수" class="level4">
+<h4 class="anchored" data-anchor-id="compliance-track-1214-irra법무-필수">⚖️ Compliance Track (§12–§14) — IR·RA·법무 필수</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 20%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>섹션</th>
+<th>핵심 내용</th>
+<th>주 사용자</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>12</strong></td>
+<td><strong>용도별 버전 분기</strong></td>
+<td>6유형 수신자별 분기 원칙</td>
+<td>IR·RA·법무·사업개발</td>
+</tr>
+<tr class="even">
+<td>13</td>
+<td>디자인 가드레일</td>
+<td>Always / Never Do</td>
+<td>전원 (배포 전 체크)</td>
+</tr>
+<tr class="odd">
+<td>14</td>
+<td>AI 작성 지침</td>
+<td>복붙용 프롬프트</td>
+<td>AI 협업 작성자</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="appendix-1517" class="level4">
+<h4 class="anchored" data-anchor-id="appendix-1517">📎 Appendix (§15–§17)</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>섹션</th>
+<th>핵심 내용</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>15</td>
+<td>메시징 어휘</td>
+<td>한·영 병기 (Regulatory 포함 28종)</td>
+</tr>
+<tr class="even">
+<td>16</td>
+<td>적용 매체</td>
+<td>Stationery·Corporate·Signage·Vehicle</td>
+</tr>
+<tr class="odd">
+<td>17</td>
+<td>Changelog</td>
+<td>개정 이력·마이그레이션 노트</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+</section>
+<section id="브랜드-매뉴얼-원칙-최상위-규정" class="level2">
+<h2 class="anchored" data-anchor-id="브랜드-매뉴얼-원칙-최상위-규정">0. 브랜드 매뉴얼 원칙 (최상위 규정)</h2>
+<blockquote class="blockquote">
+<p>⚠️ 본 섹션은 <strong>GC Brand Manual Book Unified ver.</strong>에서 직접 도출된 규정이며, 다른 모든 스타일 규정보다 우선한다. CI 변경 시 GC(지주사) 사용 승인, BI 개발 시 사전 검토·협의가 필수다.</p>
+</blockquote>
+<section id="심볼마크-symbol-mark" class="level3">
+<h3 class="anchored" data-anchor-id="심볼마크-symbol-mark">0-1. 심볼마크 (Symbol Mark)</h3>
+<ul>
+<li><strong>의미</strong>: 레드(열정·도전의 역사) + 그린(건강·번영의 미래) 결합 — 전통과 혁신, 역사와 미래의 연결</li>
+<li><strong>로고타입 컬러</strong>: Deep Blue — 정직·신뢰·전문성</li>
+<li><strong>비율</strong>: 심볼 가로 길이가 세로보다 <strong>1.01:1</strong>로 약 1% 더 김 (구 녹십자 로고 계승)</li>
+<li><strong>단독 사용 금지</strong>: 심볼만으로 로고 대체 불가. 공식 용도(보도자료·간판·IR 자료)는 반드시 로고타입(+심볼) 정식 로고 사용</li>
+<li><strong>그래픽 요소로서 심볼 단독</strong> 사용은 장식 목적에 한해 허용</li>
+</ul>
+</section>
+<section id="로고-비율-clear-space" class="level3">
+<h3 class="anchored" data-anchor-id="로고-비율-clear-space">0-2. 로고 비율 &amp; Clear Space</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>항목</th>
+<th>규정</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>심볼 높이 기준 X</td>
+<td>8X (심볼 전체 높이)</td>
+</tr>
+<tr class="even">
+<td>심볼 너비</td>
+<td>8.08X</td>
+</tr>
+<tr class="odd">
+<td>심볼-로고타입 간격</td>
+<td>1.7X</td>
+</tr>
+<tr class="even">
+<td>로고타입(“GC”) 너비</td>
+<td>8.8X, 높이 5.5X</td>
+</tr>
+<tr class="odd">
+<td>Clear Space</td>
+<td>로고 사방 최소 <strong>2X</strong> 여백 확보 (권장 이상)</td>
+</tr>
+<tr class="even">
+<td>최소 크기 (Print)</td>
+<td>높이 <strong>7mm</strong></td>
+</tr>
+<tr class="odd">
+<td>최소 크기 (Screen)</td>
+<td>높이 <strong>40px</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="로고-컬러-4종-공식" class="level3">
+<h3 class="anchored" data-anchor-id="로고-컬러-4종-공식">0-3. 로고 컬러 4종 (공식)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>타입</th>
+<th>배경</th>
+<th>용도</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>기본형 풀컬러</strong></td>
+<td>흰색/밝은 배경</td>
+<td>공식 자료 기본 (마케팅·IR·패키징 필수)</td>
+</tr>
+<tr class="even">
+<td><strong>풀컬러 역상</strong></td>
+<td>GC Deep Blue 배경</td>
+<td>권장 역상 사용</td>
+</tr>
+<tr class="odd">
+<td><strong>단색 (Solid color)</strong></td>
+<td>밝은 배경 (그레이 0–40%)</td>
+<td>컬러 대비 미비, 단색 인쇄 환경</td>
+</tr>
+<tr class="even">
+<td><strong>단색 역상</strong></td>
+<td>어두운 배경 (그레이 40–100%)</td>
+<td>모노 인쇄, 모바일 특수 환경</td>
+</tr>
+</tbody>
+</table>
+<p><strong>공식 로고 파일</strong> (본 배포본에 동봉):</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 39%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>파일명</th>
+<th>viewBox</th>
+<th>용도</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>gc_biopharma_vector_refined.svg</code></td>
+<td><code>0 0 1000 161</code></td>
+<td><strong>가로형 Lockup</strong> (심볼 + “GC” 워드마크) — 공식 자료 기본</td>
+</tr>
+<tr class="even">
+<td><code>gc_symbol_only.svg</code></td>
+<td><code>0 0 372 161</code></td>
+<td><strong>심볼 단독</strong> — 사이니지·배지·파비콘·모바일 UI 등 공간 제약 환경</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p>⚠️ <strong>사용 범위 준수 (§0-1 재확인)</strong>: 심볼 단독 SVG는 <strong>공식 용도(보도자료·간판·IR 자료 등 브랜드 대표성이 필요한 자료)에서는 단독 사용 금지</strong>. 반드시 가로형 Lockup을 사용하고, 심볼 단독은 장식 요소·UI 아이콘·파비콘·연동 배지 등 <strong>보조적 역할</strong>에만 허용.</p>
+</blockquote>
+<p>웹·HTML 슬라이드 삽입 예시:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- 공식 자료 기본 (가로형) --&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">"./gc_biopharma_vector_refined.svg"</span><span class="ot"> alt</span><span class="op">=</span><span class="st">"GC Biopharma"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"height: 24px;"</span><span class="ot"> </span><span class="dt">/&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- 공간 제약 시 심볼 단독 --&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">"./gc_symbol_only.svg"</span><span class="ot"> alt</span><span class="op">=</span><span class="st">"GC"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"height: 32px; width: 32px;"</span><span class="ot"> </span><span class="dt">/&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- 파비콘 --&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">link</span><span class="ot"> rel</span><span class="op">=</span><span class="st">"icon"</span><span class="ot"> type</span><span class="op">=</span><span class="st">"image/svg+xml"</span><span class="ot"> href</span><span class="op">=</span><span class="st">"./gc_symbol_only.svg"</span><span class="ot"> </span><span class="dt">/&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>심볼 단독 SVG 권장 용도</strong>: - 파비콘 (브라우저 탭) - 모바일 앱 아이콘·스플래시 스크린 - 배지·스티커·굿즈 - 슬라이드 <strong>우상단 소형 워터마크</strong> (브랜드 표식 용도) - 소셜미디어 프로필 이미지 - UI 로딩 인디케이터</p>
+<p><strong>심볼 단독 SVG 금지 용도</strong>: - 공식 로고 대체 (보도자료·IR·기업 홈페이지 헤더) - 공식 서한·문서 레터헤드 - 간판·대형 사이니지 (반드시 워드마크 병기) - CI 변경·BI 개발 자료</p>
+<p>PPT·Keynote 삽입 시: SVG를 그대로 드래그 앤 드롭하거나, Illustrator에서 PDF 변환 후 삽입 권장 (EMF 변환 시 그라디언트 손실 주의).</p>
+</section>
+<section id="사용-금지-규정-incorrect-use" class="level3">
+<h3 class="anchored" data-anchor-id="사용-금지-규정-incorrect-use">0-4. 사용 금지 규정 (Incorrect Use)</h3>
+<p>다음 15종 오용은 <strong>절대 금지</strong>. CI 활용 모든 제작물은 GC 브랜드팀 사전 검수 필수.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>분류</th>
+<th>금지 사례</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>컬러 변형</td>
+<td>임의컬러 변경 / 풀컬러 로고 1도 변형 / 임의 조합</td>
+</tr>
+<tr class="even">
+<td>형태 변형</td>
+<td>비율 변경 / 회전 / 분리·재배치 / 윤곽선 적용</td>
+</tr>
+<tr class="odd">
+<td>타이포 변형</td>
+<td>임의 서체 사용 / 워드마크 변형 / 로고타입만 사용</td>
+</tr>
+<tr class="even">
+<td>효과 적용</td>
+<td>그림자·효과 추가 / 심볼 그라데이션 단순화</td>
+</tr>
+<tr class="odd">
+<td>배경 처리</td>
+<td>유사 배경색 / 밝은 배경에 흰 로고 / 복잡한 배경</td>
+</tr>
+<tr class="even">
+<td>품질 저하</td>
+<td>저화질 사용</td>
+</tr>
+<tr class="odd">
+<td>기타</td>
+<td>로고 내 텍스트 삽입 / 구 녹십자 로고 사용</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="브랜드-정체성-비주얼-톤" class="level2">
+<h2 class="anchored" data-anchor-id="브랜드-정체성-비주얼-톤">1. 브랜드 정체성 &amp; 비주얼 톤</h2>
+<ul>
+<li><strong>회사명</strong>: GC녹십자 / GC Biopharma (글로벌)</li>
+<li><strong>슬로건</strong>: “Rise High, Reach Beyond”</li>
+<li><strong>포지셔닝</strong>: Fully Integrated Value Chain 기반 글로벌 혈장분획제제·바이오파마 기업</li>
+<li><strong>Density</strong>: Medium — 정보 밀도는 높되 절대 혼잡하지 않음</li>
+<li><strong>Mood</strong>: Serious &amp; Strategic. 장식적 요소 배제. Bold 타이포그래피 + 강한 색상 대비</li>
+<li><strong>Rhythm</strong>: 2~3열 그리드. 비대칭은 위계(hierarchy) 표현에만 허용</li>
+<li><strong>Signature</strong>: 모든 콘텐츠 슬라이드 최하단에 전체 폭 Deep Navy 배너(Takeaway Bar)</li>
+</ul>
+<hr>
+</section>
+<section id="컬러-시스템-브랜드-매뉴얼-공식-팔레트" class="level2">
+<h2 class="anchored" data-anchor-id="컬러-시스템-브랜드-매뉴얼-공식-팔레트">2. 컬러 시스템 (브랜드 매뉴얼 공식 팔레트)</h2>
+<section id="기본색-primary-colors-printcmyk-기준" class="level3">
+<h3 class="anchored" data-anchor-id="기본색-primary-colors-printcmyk-기준">2-1. 기본색 (Primary Colors) — Print/CMYK 기준</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>색상명</th>
+<th>HEX</th>
+<th>RGB</th>
+<th>CMYK</th>
+<th>Pantone</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>GC Red</strong></td>
+<td><code>#E4002B</code></td>
+<td>228/0/43</td>
+<td>0/100/90/0</td>
+<td>185 C</td>
+</tr>
+<tr class="even">
+<td><strong>GC Yellow</strong></td>
+<td><code>#FFC845</code></td>
+<td>255/200/69</td>
+<td>0/18/76/0</td>
+<td>1225 C</td>
+</tr>
+<tr class="odd">
+<td><strong>GC Deep Green</strong></td>
+<td><code>#007A33</code></td>
+<td>0/122/51</td>
+<td>95/13/94/3</td>
+<td>356 C</td>
+</tr>
+<tr class="even">
+<td><strong>GC Bright Green</strong></td>
+<td><code>#97D700</code></td>
+<td>151/215/0</td>
+<td>49/0/100/0</td>
+<td>375 C</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="보조색-secondary-colors" class="level3">
+<h3 class="anchored" data-anchor-id="보조색-secondary-colors">2-2. 보조색 (Secondary Colors)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>색상명</th>
+<th>HEX</th>
+<th>RGB</th>
+<th>CMYK</th>
+<th>Pantone</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>GC Mid Blue</strong></td>
+<td><code>#0072CE</code></td>
+<td>0/114/206</td>
+<td>90/48/0/0</td>
+<td>285 C</td>
+</tr>
+<tr class="even">
+<td><strong>GC Light Blue</strong></td>
+<td><code>#00A9E0</code></td>
+<td>0/169/224</td>
+<td>83/0/0/0</td>
+<td>2995 C</td>
+</tr>
+<tr class="odd">
+<td><strong>GC Mid Green</strong></td>
+<td><code>#43B02A</code></td>
+<td>67/176/42</td>
+<td>77/0/100/0</td>
+<td>361 C</td>
+</tr>
+<tr class="even">
+<td><strong>GC Gray</strong></td>
+<td><code>#9EA2A2</code></td>
+<td>158/162/162</td>
+<td>2.5/0/0/36.5</td>
+<td>422 C</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="웹-전용-팔레트-gnetgonhey-gce-solution-center" class="level3">
+<h3 class="anchored" data-anchor-id="웹-전용-팔레트-gnetgonhey-gce-solution-center">2-3. 웹 전용 팔레트 (Gnet·G:ON·Hey GC·E-Solution Center)</h3>
+<blockquote class="blockquote">
+<p>화면 가독성을 위한 톤다운 그린 계열 — 인쇄물에 사용 금지</p>
+</blockquote>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>역할</th>
+<th>색상명</th>
+<th>HEX</th>
+<th>RGB</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>웹 Primary</td>
+<td>GC Soft Green</td>
+<td><code>#60A57B</code></td>
+<td>96/165/123</td>
+</tr>
+<tr class="even">
+<td>웹 Primary</td>
+<td>GC Deep Green (Web)</td>
+<td><code>#145A50</code></td>
+<td>20/90/80</td>
+</tr>
+<tr class="odd">
+<td>웹 Primary</td>
+<td>GC Warm Gray</td>
+<td><code>#F7F7F3</code></td>
+<td>247/247/243</td>
+</tr>
+<tr class="even">
+<td>웹 Secondary</td>
+<td>GC Soft Yellow</td>
+<td><code>#FFCB6E</code></td>
+<td>255/203/110</td>
+</tr>
+<tr class="odd">
+<td>웹 Secondary</td>
+<td>GC Deep Red</td>
+<td><code>#BC4042</code></td>
+<td>188/64/66</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="확장-컬러-ir-자료-전용-브랜드-매뉴얼-외-적용" class="level3">
+<h3 class="anchored" data-anchor-id="확장-컬러-ir-자료-전용-브랜드-매뉴얼-외-적용">2-4. 확장 컬러 (IR 자료 전용, 브랜드 매뉴얼 외 적용)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 29%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>역할</th>
+<th>HEX</th>
+<th>용도</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Deep Navy</strong></td>
+<td><code>#002B49</code></td>
+<td>IR 슬라이드 CTA 배너·섹션 헤더·Bold 강조 (로고타입 색과 별도 운용)</td>
+</tr>
+<tr class="even">
+<td>Panel Gray</td>
+<td><code>#E8E8E8</code></td>
+<td>비교 데이터·구분선</td>
+</tr>
+<tr class="odd">
+<td>Warm Beige</td>
+<td><code>#F0EDE8</code></td>
+<td>섹션 구분 슬라이드 배경</td>
+</tr>
+<tr class="even">
+<td>Off-Black</td>
+<td><code>#1A1A1A</code></td>
+<td>본문 텍스트</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="그라디언트-gc-gradient" class="level3">
+<h3 class="anchored" data-anchor-id="그라디언트-gc-gradient">2-5. 그라디언트 (GC Gradient)</h3>
+<p>GC 로고 컬러 기반으로 추출 — 브랜드 핵심 이미지 유지하면서 생동감 표현.</p>
+<ul>
+<li><strong>구성</strong>: GC Bright Green(<code>#97D700</code>) → GC Yellow(<code>#FFC845</code>) → GC Red(<code>#E4002B</code>) 흐름</li>
+<li><strong>용도</strong>: 커버 슬라이드, 이미지월, 엑스배너·현수막 (그라디언트형)</li>
+<li>⚠️ <strong>브랜드팀 디자인 검수 필수</strong> — 임의 적용 금지</li>
+</ul>
+</section>
+<section id="semantic-컬러-규칙-ir데이터-시각화" class="level3">
+<h3 class="anchored" data-anchor-id="semantic-컬러-규칙-ir데이터-시각화">2-6. Semantic 컬러 규칙 (IR·데이터 시각화)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>상황</th>
+<th>컬러</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>현재·핵심 데이터, 강조</td>
+<td><code>#002B49</code> Deep Navy</td>
+</tr>
+<tr class="even">
+<td>과거·비교·기준선</td>
+<td><code>#E8E8E8</code></td>
+</tr>
+<tr class="odd">
+<td>성장률 배지 (+XX%)</td>
+<td><code>#0072CE</code> 원형</td>
+</tr>
+<tr class="even">
+<td>예측·목표</td>
+<td><code>#0072CE</code> 바 + 점선</td>
+</tr>
+<tr class="odd">
+<td>승인·달성 마일스톤</td>
+<td><code>#0072CE</code> filled</td>
+</tr>
+<tr class="even">
+<td>개발 중 파이프라인</td>
+<td><code>#002B49</code> filled</td>
+</tr>
+<tr class="odd">
+<td>초기 단계 파이프라인</td>
+<td><code>#7aabcf</code> muted</td>
+</tr>
+<tr class="even">
+<td>음수·손실</td>
+<td>괄호 표기 <code>(386)</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="목적별-테마-슬라이드-단위-혼용-금지" class="level3">
+<h3 class="anchored" data-anchor-id="목적별-테마-슬라이드-단위-혼용-금지">2-7. 목적별 테마 (슬라이드 단위, 혼용 금지)</h3>
+<section id="테마-1-trust-baseline" class="level4">
+<h4 class="anchored" data-anchor-id="테마-1-trust-baseline">테마 1 — Trust &amp; Baseline</h4>
+<p><code>#002B49</code> · <code>#0072CE</code> · <code>#00A9E0</code> — Literature review / PK·PD Profile / Control group</p>
+</section>
+<section id="테마-2-contrast-efficacy" class="level4">
+<h4 class="anchored" data-anchor-id="테마-2-contrast-efficacy">테마 2 — Contrast &amp; Efficacy</h4>
+<p>Control <code>#007A33</code> · Treatment <code>#E4002B</code> · Attention <code>#FFC845</code> — in vivo / 통계 유의성 / AE &gt; ⚠️ 재무 IR 슬라이드 메인 사용 금지</p>
+</section>
+<section id="테마-3-formulation-moa" class="level4">
+<h4 class="anchored" data-anchor-id="테마-3-formulation-moa">테마 3 — Formulation &amp; MoA</h4>
+<p>배경 <code>#002B49</code> + 제형 <code>#97D700</code> + Payload <code>#43B02A</code> — DDS 제형·세포 내 전달</p>
+<hr>
+</section>
+</section>
+</section>
+<section id="타이포그래피" class="level2">
+<h2 class="anchored" data-anchor-id="타이포그래피">3. 타이포그래피</h2>
+<section id="공식-전용서체-freesentation-9-weights" class="level3">
+<h3 class="anchored" data-anchor-id="공식-전용서체-freesentation-9-weights">3-1. 공식 전용서체 — Freesentation (9 Weights)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 36%">
+<col style="width: 36%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Weight</th>
+<th>파일명</th>
+<th>용도</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Freesentation 9 Black</strong></td>
+<td><code>Freesentation-9Black.ttf</code></td>
+<td>간판·현수막 등 사인용 (구 GC 150 대체)</td>
+</tr>
+<tr class="even">
+<td><strong>Freesentation 8 ExtraBold</strong></td>
+<td><code>Freesentation-8ExtraBold.ttf</code></td>
+<td>초대형 타이틀·커버</td>
+</tr>
+<tr class="odd">
+<td><strong>Freesentation 7 Bold</strong></td>
+<td><code>Freesentation-7Bold.ttf</code></td>
+<td>제목용 (대/소제목), <strong>가족사 로고 전용</strong> (구 GC 140 대체)</td>
+</tr>
+<tr class="even">
+<td><strong>Freesentation 6 SemiBold</strong></td>
+<td><code>Freesentation-6SemiBold.ttf</code></td>
+<td>주목성·가시성 우수 — 제목·서브 본문 (구 GC 130 대체)</td>
+</tr>
+<tr class="odd">
+<td><strong>Freesentation 5 Medium</strong></td>
+<td><code>Freesentation-5Medium.ttf</code></td>
+<td>본문 강조·badge 라벨</td>
+</tr>
+<tr class="even">
+<td><strong>Freesentation 4 Regular</strong></td>
+<td><code>Freesentation-4Regular.ttf</code></td>
+<td><strong>본문 텍스트 기본</strong> (구 GC 120 대체)</td>
+</tr>
+<tr class="odd">
+<td><strong>Freesentation 3 Light</strong></td>
+<td><code>Freesentation-3Light.ttf</code></td>
+<td>주목성 낮추고 싶을 때 (구 GC 110 대체)</td>
+</tr>
+<tr class="even">
+<td><strong>Freesentation 2 ExtraLight</strong></td>
+<td><code>Freesentation-2ExtraLight.ttf</code></td>
+<td>디스플레이·장식 캡션</td>
+</tr>
+<tr class="odd">
+<td><strong>Freesentation 1 Thin</strong></td>
+<td><code>Freesentation-1Thin.ttf</code></td>
+<td>초경량 액센트 (인쇄 최소 10pt 이상)</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p><strong>CSS <code>font-weight</code> 매핑</strong>: Thin=100 · ExtraLight=200 · Light=300 · Regular=400 · Medium=500 · SemiBold=600 · Bold=700 · ExtraBold=800 · Black=900</p>
+</blockquote>
+<p><strong>웹 Fallback</strong>: <code>'Freesentation', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif</code> <strong>영문</strong>: Freesentation 영문 글리프 → Fallback: Calibri, Arial <strong>최대 2개 폰트 패밀리</strong> 운용 (Freesentation + 숫자용 등만)</p>
+</section>
+<section id="타입-스케일" class="level3">
+<h3 class="anchored" data-anchor-id="타입-스케일">3-2. 타입 스케일</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 13%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 22%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Token</th>
+<th>Size</th>
+<th>Weight</th>
+<th>Line-H</th>
+<th>Letter-S</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>type.cover.title</code></td>
+<td>36px</td>
+<td>900 (Black)</td>
+<td>1.15</td>
+<td>−0.5</td>
+<td>커버 메인 타이틀</td>
+</tr>
+<tr class="even">
+<td><code>type.cover.subtitle</code></td>
+<td>16px</td>
+<td>400 (Regular)</td>
+<td>1.4</td>
+<td>+0.5</td>
+<td>커버 서브 (영문)</td>
+</tr>
+<tr class="odd">
+<td><code>type.cover.eyebrow</code></td>
+<td>10px</td>
+<td>300 (Light)</td>
+<td>1.0</td>
+<td>+3</td>
+<td>날짜·브랜드명</td>
+</tr>
+<tr class="even">
+<td><code>type.section.number</code></td>
+<td>64px</td>
+<td>900 (Black)</td>
+<td>1.0</td>
+<td>−2</td>
+<td>섹션 번호</td>
+</tr>
+<tr class="odd">
+<td><code>type.section.title</code></td>
+<td>28px</td>
+<td>700 (Bold)</td>
+<td>1.2</td>
+<td>−0.5</td>
+<td>섹션 제목</td>
+</tr>
+<tr class="even">
+<td><code>type.slide.title</code></td>
+<td>17–20px</td>
+<td>700 (Bold)</td>
+<td>1.25</td>
+<td>−0.3</td>
+<td>콘텐츠 슬라이드 제목</td>
+</tr>
+<tr class="odd">
+<td><code>type.panel.header</code></td>
+<td>11px</td>
+<td>600 (SemiBold)</td>
+<td>1.3</td>
+<td>+0.2</td>
+<td>패널 헤더</td>
+</tr>
+<tr class="even">
+<td><code>type.body.default</code></td>
+<td>9–10px</td>
+<td>400 (Regular)</td>
+<td>1.7</td>
+<td>0</td>
+<td>본문</td>
+</tr>
+<tr class="odd">
+<td><code>type.body.strong</code></td>
+<td>9–10px</td>
+<td>700 (Bold)</td>
+<td>1.7</td>
+<td>0</td>
+<td>본문 강조</td>
+</tr>
+<tr class="even">
+<td><code>type.caption</code></td>
+<td>7–8px</td>
+<td>300 (Light)</td>
+<td>1.6</td>
+<td>0</td>
+<td>차트·각주</td>
+</tr>
+<tr class="odd">
+<td><code>type.banner</code></td>
+<td>10–12px</td>
+<td>700 (Bold)</td>
+<td>1.2</td>
+<td>+0.1</td>
+<td>Bottom Banner</td>
+</tr>
+<tr class="even">
+<td><code>type.eyebrow</code></td>
+<td>8–9px</td>
+<td>600 (SemiBold)</td>
+<td>1.0</td>
+<td>+1.5</td>
+<td>섹션 레이블 ALL CAPS</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="텍스트-스타일-규칙" class="level3">
+<h3 class="anchored" data-anchor-id="텍스트-스타일-규칙">3-3. 텍스트 스타일 규칙</h3>
+<ul>
+<li><strong>섹션 레이블</strong>: ALL CAPS, <code>#BBBBBB</code>, <code>#0072CE</code> 하단 밑줄</li>
+<li><strong>한국어·영어 병기</strong>: 전략 키워드는 영어 원문, 내러티브는 한국어</li>
+<li><strong>가족사 로고 표기</strong>: Freesentation Bold (w700) / Title Case / Tracking −40 / GC Deep Blue (예: <code>GC Genome</code>)</li>
+</ul>
+</section>
+<section id="font-face-선언-템플릿-웹-구현용" class="level3">
+<h3 class="anchored" data-anchor-id="font-face-선언-템플릿-웹-구현용">3-4. <span class="citation" data-cites="font-face">@font-face</span> 선언 템플릿 (웹 구현용)</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode css code-with-copy"><code class="sourceCode css"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">@font-face</span> { <span class="kw">font-family</span><span class="ch">:</span> <span class="st">'Freesentation'</span><span class="op">;</span> <span class="kw">src</span><span class="ch">:</span> <span class="fu">url(</span><span class="st">'./Freesentation-1Thin.ttf'</span><span class="fu">)</span> <span class="fu">format(</span><span class="st">'truetype'</span><span class="fu">)</span><span class="op">;</span> <span class="kw">font-weight</span><span class="ch">:</span> <span class="dv">100</span><span class="op">;</span> <span class="kw">font-style</span><span class="ch">:</span> <span class="dv">normal</span><span class="op">;</span> <span class="kw">font-display</span><span class="ch">:</span> <span class="dv">swap</span><span class="op">;</span> }</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">@font-face</span> { <span class="kw">font-family</span><span class="ch">:</span> <span class="st">'Freesentation'</span><span class="op">;</span> <span class="kw">src</span><span class="ch">:</span> <span class="fu">url(</span><span class="st">'./Freesentation-2ExtraLight.ttf'</span><span class="fu">)</span> <span class="fu">format(</span><span class="st">'truetype'</span><span class="fu">)</span><span class="op">;</span> <span class="kw">font-weight</span><span class="ch">:</span> <span class="dv">200</span><span class="op">;</span> <span class="kw">font-style</span><span class="ch">:</span> <span class="dv">normal</span><span class="op">;</span> <span class="kw">font-display</span><span class="ch">:</span> <span class="dv">swap</span><span class="op">;</span> }</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">@font-face</span> { <span class="kw">font-family</span><span class="ch">:</span> <span class="st">'Freesentation'</span><span class="op">;</span> <span class="kw">src</span><span class="ch">:</span> <span class="fu">url(</span><span class="st">'./Freesentation-3Light.ttf'</span><span class="fu">)</span> <span class="fu">format(</span><span class="st">'truetype'</span><span class="fu">)</span><span class="op">;</span> <span class="kw">font-weight</span><span class="ch">:</span> <span class="dv">300</span><span class="op">;</span> <span class="kw">font-style</span><span class="ch">:</span> <span class="dv">normal</span><span class="op">;</span> <span class="kw">font-display</span><span class="ch">:</span> <span class="dv">swap</span><span class="op">;</span> }</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">@font-face</span> { <span class="kw">font-family</span><span class="ch">:</span> <span class="st">'Freesentation'</span><span class="op">;</span> <span class="kw">src</span><span class="ch">:</span> <span class="fu">url(</span><span class="st">'./Freesentation-4Regular.ttf'</span><span class="fu">)</span> <span class="fu">format(</span><span class="st">'truetype'</span><span class="fu">)</span><span class="op">;</span> <span class="kw">font-weight</span><span class="ch">:</span> <span class="dv">400</span><span class="op">;</span> <span class="kw">font-style</span><span class="ch">:</span> <span class="dv">normal</span><span class="op">;</span> <span class="kw">font-display</span><span class="ch">:</span> <span class="dv">swap</span><span class="op">;</span> }</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">@font-face</span> { <span class="kw">font-family</span><span class="ch">:</span> <span class="st">'Freesentation'</span><span class="op">;</span> <span class="kw">src</span><span class="ch">:</span> <span class="fu">url(</span><span class="st">'./Freesentation-5Medium.ttf'</span><span class="fu">)</span> <span class="fu">format(</span><span class="st">'truetype'</span><span class="fu">)</span><span class="op">;</span> <span class="kw">font-weight</span><span class="ch">:</span> <span class="dv">500</span><span class="op">;</span> <span class="kw">font-style</span><span class="ch">:</span> <span class="dv">normal</span><span class="op">;</span> <span class="kw">font-display</span><span class="ch">:</span> <span class="dv">swap</span><span class="op">;</span> }</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">@font-face</span> { <span class="kw">font-family</span><span class="ch">:</span> <span class="st">'Freesentation'</span><span class="op">;</span> <span class="kw">src</span><span class="ch">:</span> <span class="fu">url(</span><span class="st">'./Freesentation-6SemiBold.ttf'</span><span class="fu">)</span> <span class="fu">format(</span><span class="st">'truetype'</span><span class="fu">)</span><span class="op">;</span> <span class="kw">font-weight</span><span class="ch">:</span> <span class="dv">600</span><span class="op">;</span> <span class="kw">font-style</span><span class="ch">:</span> <span class="dv">normal</span><span class="op">;</span> <span class="kw">font-display</span><span class="ch">:</span> <span class="dv">swap</span><span class="op">;</span> }</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">@font-face</span> { <span class="kw">font-family</span><span class="ch">:</span> <span class="st">'Freesentation'</span><span class="op">;</span> <span class="kw">src</span><span class="ch">:</span> <span class="fu">url(</span><span class="st">'./Freesentation-7Bold.ttf'</span><span class="fu">)</span> <span class="fu">format(</span><span class="st">'truetype'</span><span class="fu">)</span><span class="op">;</span> <span class="kw">font-weight</span><span class="ch">:</span> <span class="dv">700</span><span class="op">;</span> <span class="kw">font-style</span><span class="ch">:</span> <span class="dv">normal</span><span class="op">;</span> <span class="kw">font-display</span><span class="ch">:</span> <span class="dv">swap</span><span class="op">;</span> }</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="im">@font-face</span> { <span class="kw">font-family</span><span class="ch">:</span> <span class="st">'Freesentation'</span><span class="op">;</span> <span class="kw">src</span><span class="ch">:</span> <span class="fu">url(</span><span class="st">'./Freesentation-8ExtraBold.ttf'</span><span class="fu">)</span> <span class="fu">format(</span><span class="st">'truetype'</span><span class="fu">)</span><span class="op">;</span> <span class="kw">font-weight</span><span class="ch">:</span> <span class="dv">800</span><span class="op">;</span> <span class="kw">font-style</span><span class="ch">:</span> <span class="dv">normal</span><span class="op">;</span> <span class="kw">font-display</span><span class="ch">:</span> <span class="dv">swap</span><span class="op">;</span> }</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="im">@font-face</span> { <span class="kw">font-family</span><span class="ch">:</span> <span class="st">'Freesentation'</span><span class="op">;</span> <span class="kw">src</span><span class="ch">:</span> <span class="fu">url(</span><span class="st">'./Freesentation-9Black.ttf'</span><span class="fu">)</span> <span class="fu">format(</span><span class="st">'truetype'</span><span class="fu">)</span><span class="op">;</span> <span class="kw">font-weight</span><span class="ch">:</span> <span class="dv">900</span><span class="op">;</span> <span class="kw">font-style</span><span class="ch">:</span> <span class="dv">normal</span><span class="op">;</span> <span class="kw">font-display</span><span class="ch">:</span> <span class="dv">swap</span><span class="op">;</span> }</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="가족사-로고-cibi-제작-규정" class="level2">
+<h2 class="anchored" data-anchor-id="가족사-로고-cibi-제작-규정">4. 가족사 로고 &amp; CI·BI 제작 규정</h2>
+<section id="가족사-로고-lockup" class="level3">
+<h3 class="anchored" data-anchor-id="가족사-로고-lockup">4-1. 가족사 로고 (Lockup)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>요소</th>
+<th>규정</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>심볼 너비</td>
+<td>8.7X</td>
+</tr>
+<tr class="even">
+<td>가로형 우측 여백</td>
+<td>2X</td>
+</tr>
+<tr class="odd">
+<td>글꼴</td>
+<td><strong>Freesentation Bold (w700)</strong></td>
+</tr>
+<tr class="even">
+<td>표기법</td>
+<td>각 단어 첫 글자 대문자 (Title Case)</td>
+</tr>
+<tr class="odd">
+<td>Tracking</td>
+<td><strong>−40</strong></td>
+</tr>
+<tr class="even">
+<td>컬러</td>
+<td><strong>GC Deep Blue</strong></td>
+</tr>
+<tr class="odd">
+<td>예시</td>
+<td><code>GC Genome</code>, <code>GC녹십자</code>, <code>GC녹십자웰빙</code>, <code>GC Biopharma</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="gc-조합형-ci-법인-아이덴티티" class="level3">
+<h3 class="anchored" data-anchor-id="gc-조합형-ci-법인-아이덴티티">4-2. GC 조합형 CI (법인 아이덴티티)</h3>
+<ul>
+<li>✅ Freesentation Bold (w700) 사용</li>
+<li>✅ GC 심볼 사용</li>
+<li>✅ GC + 법인명 <strong>띄어쓰기</strong></li>
+<li>예: <code>+ GC 녹십자</code>, <code>+ GC Biopharma</code></li>
+<li>⚠️ CI 변경 시 GC(지주사) <strong>사용승인 필요</strong></li>
+</ul>
+</section>
+<section id="gc-조합형-bi-제품서비스-아이덴티티" class="level3">
+<h3 class="anchored" data-anchor-id="gc-조합형-bi-제품서비스-아이덴티티">4-3. GC 조합형 BI (제품·서비스 아이덴티티)</h3>
+<ul>
+<li>❌ Freesentation Bold <strong>사용 금지</strong> (별도 서체 사용)</li>
+<li>❌ GC 심볼 <strong>사용 금지</strong></li>
+<li>❌ GC + 브랜드명 <strong>띄어쓰기 금지</strong></li>
+<li>예: <code>GCFLU</code> (붙여쓰기, 별도 서체)</li>
+<li>⚠️ BI 개발 시 GC(지주사) <strong>사전 검토·협의 필요</strong></li>
+</ul>
+</section>
+<section id="파트너십-표기" class="level3">
+<h3 class="anchored" data-anchor-id="파트너십-표기">4-4. 파트너십 표기</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>관계</th>
+<th>표기</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>제휴 협업</td>
+<td><code>+ GC &amp; PARTNER</code> 또는 <code>+ GC × PARTNER</code></td>
+</tr>
+<tr class="even">
+<td>지점·지역</td>
+<td><code>+ GC녹십자아이메드 ǀ 강남의원</code> (세로 구분선)</td>
+</tr>
+<tr class="odd">
+<td>보증·후원</td>
+<td><code>Powered by + GC Biopharma</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="스페이싱-레이아웃" class="level2">
+<h2 class="anchored" data-anchor-id="스페이싱-레이아웃">5. 스페이싱 &amp; 레이아웃</h2>
+<section id="그리드-시스템" class="level3">
+<h3 class="anchored" data-anchor-id="그리드-시스템">5-1. 그리드 시스템</h3>
+<ul>
+<li>표준 슬라이드: 좌우 22–24px / 상단 13–14px 패딩</li>
+<li>콘텐츠 패널 간격: 10–12px gap / 패널 내부 10–14px</li>
+<li>Bottom Banner: Full bleed, 상하 9–10px · 좌우 22px</li>
+</ul>
+</section>
+<section id="스페이싱-스케일" class="level3">
+<h3 class="anchored" data-anchor-id="스페이싱-스케일">5-2. 스페이싱 스케일</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Token</th>
+<th>Size</th>
+<th>적용</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>xs</td>
+<td>3–4px</td>
+<td>아이콘 gap, 배지 패딩</td>
+</tr>
+<tr class="even">
+<td>sm</td>
+<td>6–8px</td>
+<td>리스트 항목, 차트 라벨</td>
+</tr>
+<tr class="odd">
+<td>md</td>
+<td>10–14px</td>
+<td>패널 내부·간격</td>
+</tr>
+<tr class="even">
+<td>lg</td>
+<td>20–24px</td>
+<td>슬라이드 엣지</td>
+</tr>
+<tr class="odd">
+<td>xl</td>
+<td>36–48px</td>
+<td>섹션 구분</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="border-radius" class="level3">
+<h3 class="anchored" data-anchor-id="border-radius">5-3. Border Radius</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>요소</th>
+<th>값</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>패널·카드</td>
+<td>7–8px</td>
+</tr>
+<tr class="even">
+<td>버튼·배지</td>
+<td>5–6px</td>
+</tr>
+<tr class="odd">
+<td>진행 바</td>
+<td>3px</td>
+</tr>
+<tr class="even">
+<td>Bottom Banner</td>
+<td>0px</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="레이아웃-아키타입" class="level3">
+<h3 class="anchored" data-anchor-id="레이아웃-아키타입">5-4. 레이아웃 아키타입</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>유형</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2-column split</td>
+<td>동등한 두 패널, 각각 헤더 바</td>
+</tr>
+<tr class="even">
+<td>3-column grid</td>
+<td>Key Takeaways·수치·파이프라인</td>
+</tr>
+<tr class="odd">
+<td>4-column nav</td>
+<td>목차·섹션 네비게이션</td>
+</tr>
+<tr class="even">
+<td>Full-bleed image</td>
+<td>배경 이미지(불투명도 7–10%) + 중앙 콘텐츠</td>
+</tr>
+<tr class="odd">
+<td>Timeline row</td>
+<td>카테고리 행 × 임상 단계 열</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="슬라이드-유형-시스템" class="level2">
+<h2 class="anchored" data-anchor-id="슬라이드-유형-시스템">6. 슬라이드 유형 시스템</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 26%">
+<col style="width: 47%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>유형</th>
+<th>배경</th>
+<th>핵심 특징</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>커버</strong></td>
+<td>Brand Gradient → <code>#002B49</code></td>
+<td>중앙 대형 타이틀, 우상단 GC 로고(풀컬러), 날짜 하단</td>
+</tr>
+<tr class="even">
+<td><strong>섹션 구분</strong></td>
+<td><code>#F0EDE8</code> Warm Beige</td>
+<td>대형 페이드 섹션 번호, Navy 액센트 바, 하단 4열 네비게이션</td>
+</tr>
+<tr class="odd">
+<td><strong>콘텐츠 (2-col)</strong></td>
+<td>White</td>
+<td>좌상단 섹션 레이블, 2개 패널, Bottom Banner</td>
+</tr>
+<tr class="even">
+<td><strong>전략 시리즈</strong></td>
+<td>White</td>
+<td>① ② ③ 번호 타이틀, <code>#002B49</code> 헤더 바</td>
+</tr>
+<tr class="odd">
+<td><strong>수치 하이라이트</strong></td>
+<td>White</td>
+<td>3열 그리드, 대형 숫자 Navy</td>
+</tr>
+<tr class="even">
+<td><strong>파이프라인</strong></td>
+<td>White</td>
+<td>행(카테고리) × 열(임상단계)</td>
+</tr>
+<tr class="odd">
+<td><strong>Key Takeaways</strong></td>
+<td>White</td>
+<td>3개 Navy/Blue 카드, Bottom Banner</td>
+</tr>
+<tr class="even">
+<td><strong>재무 테이블</strong></td>
+<td>White</td>
+<td><code>#002B49</code> 헤더 행, 음수 <code>(386)</code></td>
+</tr>
+<tr class="odd">
+<td><strong>Closing</strong></td>
+<td>White / Gradient</td>
+<td>타이틀·태그라인 중앙 정렬, 로고</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="컴포넌트-스펙" class="level2">
+<h2 class="anchored" data-anchor-id="컴포넌트-스펙">7. 컴포넌트 스펙</h2>
+<section id="bottom-takeaway-banner-필수" class="level3">
+<h3 class="anchored" data-anchor-id="bottom-takeaway-banner-필수">7-1. Bottom Takeaway Banner <em>(필수)</em></h3>
+<pre><code>Background:  #002B49
+Text:        white, Freesentation w700, 10–12px
+Padding:     9–10px vertical / 22px horizontal
+Layout:      space-between — 메시지(좌) | 페이지(우, rgba(255,255,255,0.35))</code></pre>
+<p><strong>메시지 패턴</strong>: <code>"[수단/기반] 기반 [목표/결과]"</code> 예: <code>"자체 LNP 플랫폼 기반 mRNA·희귀질환 분야 글로벌 DDS 기업으로 도약"</code></p>
+</section>
+<section id="content-panel" class="level3">
+<h3 class="anchored" data-anchor-id="content-panel">7-2. Content Panel</h3>
+<pre><code>Border:          1.5px solid #E8E8E8
+Border-radius:   7–8px
+Header bar:      #002B49 or #0072CE / white / Freesentation w600 / 7–8px padding
+Body:            10–14px padding / white (#FAFAFA alternate)</code></pre>
+</section>
+<section id="section-label-좌상단" class="level3">
+<h3 class="anchored" data-anchor-id="section-label-좌상단">7-3. Section Label (좌상단)</h3>
+<pre><code>Font:           Freesentation w600, 8–9px
+Color:          #BBBBBB
+Letter-spacing: 1.5px / uppercase
+Border-bottom:  2px solid #0072CE / padding-bottom 3px</code></pre>
+</section>
+<section id="growth-badge" class="level3">
+<h3 class="anchored" data-anchor-id="growth-badge">7-4. Growth Badge</h3>
+<pre><code>Background:    #0072CE / white text
+Font:          Freesentation w700, 6–8px
+Padding:       1–2px 4–5px / Border-radius: 8–10px
+Content:       "+XX%" / Position: absolute 차트 바 우상단</code></pre>
+</section>
+<section id="progress-data-bar" class="level3">
+<h3 class="anchored" data-anchor-id="progress-data-bar">7-5. Progress / Data Bar</h3>
+<pre><code>Track:    #E8E8E8 / radius 3px / height 6–8px
+Fill:     #002B49 (primary) or #0072CE
+Label:    Freesentation w600, 8–9px</code></pre>
+</section>
+<section id="pipeline-row" class="level3">
+<h3 class="anchored" data-anchor-id="pipeline-row">7-6. Pipeline Row</h3>
+<pre><code>Category:  width 88–90px / Freesentation w600, 8–9px / #002B49
+Stage:     #002B49 bg / white / Freesentation w600, 8–9px / radius 좌우 5px
+Track:     #F0F7FF / 1px #E8E8E8 / height 34px
+Item bar:  height 40% / radius 3px</code></pre>
+</section>
+<section id="section-nav-footer" class="level3">
+<h3 class="anchored" data-anchor-id="section-nav-footer">7-7. Section Nav Footer</h3>
+<pre><code>Border-top:  1px solid #E8E8E8 / 4 equal columns
+Active:      #002B49 bg / white / Freesentation w700
+Inactive:    white bg / #BBBBBB / Freesentation w400
+Font:        9–10px / padding 9px vertical</code></pre>
+</section>
+<section id="key-takeaways-card" class="level3">
+<h3 class="anchored" data-anchor-id="key-takeaways-card">7-8. Key Takeaways Card</h3>
+<pre><code>Background:  #002B49 or #0072CE
+Border-radius: 8px / Padding: 14–16px
+Icon:        fa-solid fa-xl, white, centered top
+Title:       white / Freesentation w700 / 10–12px / centered
+             border-bottom: 1px solid rgba(255,255,255,0.2)
+Items:       Freesentation w400 / 8–9px / white / line-height 1.5–1.6
+             prefix: fa-check fa-xs, rgba(255,255,255,0.5)</code></pre>
+<hr>
+</section>
+</section>
+<section id="픽토그램-시스템-브랜드-매뉴얼-신규-반영" class="level2">
+<h2 class="anchored" data-anchor-id="픽토그램-시스템-브랜드-매뉴얼-신규-반영">8. 픽토그램 시스템 <em>(브랜드 매뉴얼 신규 반영)</em></h2>
+<p>GC 공식 픽토그램은 <strong>선형(Line), 균일한 획 두께, 흑색(<code>#1A1A1A</code> 또는 <code>#002B49</code>)</strong> 기본. 사이즈·위치는 환경에 따라 조정 가능하나 <strong>형태 변경 금지</strong>.</p>
+<section id="공식-픽토그램-세트-브랜드-매뉴얼-수록" class="level3">
+<h3 class="anchored" data-anchor-id="공식-픽토그램-세트-브랜드-매뉴얼-수록">8-1. 공식 픽토그램 세트 (브랜드 매뉴얼 수록)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 62%">
+<col style="width: 37%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>카테고리</th>
+<th>항목</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>인물·접근성</strong></td>
+<td>휠체어 사용자 / 남녀 / 임산부 / 유아동반</td>
+</tr>
+<tr class="even">
+<td><strong>시설</strong></td>
+<td>엘리베이터 (상하) / 화물엘리베이터 / 샤워실 / 숙박·베드</td>
+</tr>
+<tr class="odd">
+<td><strong>업무</strong></td>
+<td>상담·컨설팅 / 회의실 / 프레젠테이션</td>
+</tr>
+<tr class="even">
+<td><strong>방향·이동</strong></td>
+<td>대각선 화살표(↗ ↘) / 직선 화살표(→) / 계단 (2F→1F) / 에스컬레이터</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="사용-규정" class="level3">
+<h3 class="anchored" data-anchor-id="사용-규정">8-2. 사용 규정</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>항목</th>
+<th>규정</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>획 두께</td>
+<td>균일 (굵기 유지, 임의 변경 금지)</td>
+</tr>
+<tr class="even">
+<td>기본 색상</td>
+<td><code>#1A1A1A</code> 또는 <code>#002B49</code></td>
+</tr>
+<tr class="odd">
+<td>역상 배경</td>
+<td>흰색 (어두운 배경 위)</td>
+</tr>
+<tr class="even">
+<td>크기 조정</td>
+<td>비례 유지, 최소 16px (web) / 7mm (print)</td>
+</tr>
+<tr class="odd">
+<td>조합 사용</td>
+<td>동일 슬라이드 내 <strong>픽토그램과 Font Awesome 혼용 금지</strong></td>
+</tr>
+<tr class="even">
+<td>금지</td>
+<td>그림자·그라디언트·색상 변형 / 장식적 왜곡</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="디지털-대응-font-awesome-매핑" class="level3">
+<h3 class="anchored" data-anchor-id="디지털-대응-font-awesome-매핑">8-3. 디지털 대응 (Font Awesome 매핑)</h3>
+<p>브랜드 매뉴얼 픽토그램을 웹에서 구현 시 가장 근접한 <strong>Font Awesome 6 Solid</strong> 대체:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>공식 픽토그램</th>
+<th>FA 대체</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>휠체어 접근</td>
+<td><code>fa-wheelchair</code></td>
+</tr>
+<tr class="even">
+<td>남녀 화장실</td>
+<td><code>fa-restroom</code></td>
+</tr>
+<tr class="odd">
+<td>엘리베이터</td>
+<td><code>fa-elevator</code></td>
+</tr>
+<tr class="even">
+<td>회의실</td>
+<td><code>fa-people-group</code></td>
+</tr>
+<tr class="odd">
+<td>프레젠테이션</td>
+<td><code>fa-chalkboard-user</code></td>
+</tr>
+<tr class="even">
+<td>임산부</td>
+<td><code>fa-person-pregnant</code></td>
+</tr>
+<tr class="odd">
+<td>상담</td>
+<td><code>fa-handshake</code></td>
+</tr>
+<tr class="even">
+<td>숙박</td>
+<td><code>fa-bed</code></td>
+</tr>
+<tr class="odd">
+<td>계단</td>
+<td><code>fa-stairs</code></td>
+</tr>
+<tr class="even">
+<td>에스컬레이터</td>
+<td><code>fa-staircase</code> (or 커스텀)</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p>공식 인쇄물·사이니지는 <strong>GC 원본 픽토그램 SVG</strong> 사용 필수. FA는 디지털 UI 보조용.</p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="font-awesome-6-아이콘-ir디지털-전용" class="level2">
+<h2 class="anchored" data-anchor-id="font-awesome-6-아이콘-ir디지털-전용">9. Font Awesome 6 아이콘 (IR·디지털 전용)</h2>
+<p><strong>CDN</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">link</span><span class="ot"> rel</span><span class="op">=</span><span class="st">"stylesheet"</span><span class="ot"> href</span><span class="op">=</span><span class="st">"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"</span><span class="ot"> </span><span class="dt">/&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>컴포넌트</th>
+<th>FA 클래스</th>
+<th>크기</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Callout insight</td>
+<td><code>fa-lightbulb</code></td>
+<td>fa-xs</td>
+</tr>
+<tr class="even">
+<td>Callout strategy</td>
+<td><code>fa-wand-magic-sparkles</code></td>
+<td>fa-xs</td>
+</tr>
+<tr class="odd">
+<td>Callout warning</td>
+<td><code>fa-triangle-exclamation</code></td>
+<td>fa-xs</td>
+</tr>
+<tr class="even">
+<td>Callout data</td>
+<td><code>fa-chart-bar</code></td>
+<td>fa-xs</td>
+</tr>
+<tr class="odd">
+<td>Key Takeaways — R&amp;D</td>
+<td><code>fa-microscope</code></td>
+<td>fa-xl</td>
+</tr>
+<tr class="even">
+<td>Key Takeaways — Global</td>
+<td><code>fa-globe</code></td>
+<td>fa-xl</td>
+</tr>
+<tr class="odd">
+<td>Key Takeaways — Finance</td>
+<td><code>fa-arrow-trend-up</code></td>
+<td>fa-xl</td>
+</tr>
+<tr class="even">
+<td>AI Badge</td>
+<td><code>fa-wand-magic-sparkles</code></td>
+<td>8px</td>
+</tr>
+<tr class="odd">
+<td>체크리스트</td>
+<td><code>fa-check</code></td>
+<td>fa-xs</td>
+</tr>
+<tr class="even">
+<td>Toggle</td>
+<td><code>fa-chevron-right</code></td>
+<td>fa-xs</td>
+</tr>
+<tr class="odd">
+<td>파이프라인 혈장분획</td>
+<td><code>fa-droplet</code></td>
+<td>fa-sm</td>
+</tr>
+<tr class="even">
+<td>파이프라인 희귀질환</td>
+<td><code>fa-dna</code></td>
+<td>fa-sm</td>
+</tr>
+<tr class="odd">
+<td>파이프라인 mRNA/LNP</td>
+<td><code>fa-syringe</code></td>
+<td>fa-sm</td>
+</tr>
+</tbody>
+</table>
+<p><strong>금지</strong>: 장식 아이콘(<code>fa-star</code>, <code>fa-heart</code>) / 동일 슬라이드 3종 이상 혼용 / Brands 아이콘</p>
+<hr>
+</section>
+<section id="callout-notion-ai-영감-컴포넌트" class="level2">
+<h2 class="anchored" data-anchor-id="callout-notion-ai-영감-컴포넌트">10. Callout &amp; Notion AI 영감 컴포넌트</h2>
+<section id="callout-block-패널당-1개" class="level3">
+<h3 class="anchored" data-anchor-id="callout-block-패널당-1개">10-1. Callout Block (패널당 1개)</h3>
+<pre><code>Border-left:  3px solid (variant)
+Border-radius: 5px / Padding: 7–9px</code></pre>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 22%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variant</th>
+<th>아이콘</th>
+<th>색상</th>
+<th>배경</th>
+<th>용도</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>insight</td>
+<td><code>fa-lightbulb</code></td>
+<td><code>#0072CE</code></td>
+<td><code>#F0F6FF</code></td>
+<td>시장·인사이트</td>
+</tr>
+<tr class="even">
+<td>strategy</td>
+<td><code>fa-wand-magic-sparkles</code></td>
+<td><code>#002B49</code></td>
+<td><code>#F0F4F8</code></td>
+<td>전략 방향</td>
+</tr>
+<tr class="odd">
+<td>warning</td>
+<td><code>fa-triangle-exclamation</code></td>
+<td><code>#E8A000</code></td>
+<td><code>#FFFBF0</code></td>
+<td>리스크</td>
+</tr>
+<tr class="even">
+<td>data</td>
+<td><code>fa-chart-bar</code></td>
+<td><code>#0072CE</code></td>
+<td><code>#F0F6FF</code></td>
+<td>수치 근거</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ai-insight-badge" class="level3">
+<h3 class="anchored" data-anchor-id="ai-insight-badge">10-2. AI Insight Badge</h3>
+<p>확정 재무 수치 병기 <strong>금지</strong>. 예측·추정·AI 생성 데이터 전용.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"background:linear-gradient(135deg,#002B49,#0072CE);</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="st">             color:white; border-radius:999px; padding:2px 7px;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="st">             font-size:7px; font-weight:700;"</span><span class="dt">&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">i</span><span class="ot"> class</span><span class="op">=</span><span class="st">"fa-solid fa-wand-magic-sparkles"</span><span class="dt">&gt;&lt;/</span><span class="kw">i</span><span class="dt">&gt;</span> AI 분석</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="저작권-표기-copyright-notice" class="level2">
+<h2 class="anchored" data-anchor-id="저작권-표기-copyright-notice">11. 저작권 표기 (Copyright Notice)</h2>
+<p>브랜드 매뉴얼 공식 표기 규정:</p>
+<pre><code>© 2026 GC Corp. All Rights Reserved.</code></pre>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>항목</th>
+<th>규정</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>적용 대상</td>
+<td>문서·웹페이지·인쇄물 등 <strong>완성된 콘텐츠</strong></td>
+</tr>
+<tr class="even">
+<td>미적용</td>
+<td>제품 패키지, 단기·소모성 제작물, <strong>로고 자체</strong></td>
+</tr>
+<tr class="odd">
+<td>사이즈</td>
+<td>본문 대비 <strong>0.7배 이하</strong></td>
+</tr>
+<tr class="even">
+<td>Clear Space</td>
+<td>문구 높이(1X) 기준 <strong>최소 1X 여백</strong></td>
+</tr>
+<tr class="odd">
+<td>빈도</td>
+<td>하나의 콘텐츠 내 <strong>1회 표기 원칙</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<blockquote class="blockquote">
+<p>⚖️ <strong>COMPLIANCE TRACK 진입</strong> — 이하 §12–§14는 IR·RA·법무·사업개발 팀 필수 참조. 디자이너·마케터는 §13 가드레일만 체크하면 됩니다.</p>
+</blockquote>
+</section>
+<section id="용도별-슬라이드-버전-분기-원칙-실무-대응" class="level2">
+<h2 class="anchored" data-anchor-id="용도별-슬라이드-버전-분기-원칙-실무-대응">12. 용도별 슬라이드 버전 분기 원칙 <em>(실무 대응)</em></h2>
+<blockquote class="blockquote">
+<p>같은 데이터라도 <strong>수신자(audience)와 제출 목적</strong>에 따라 슬라이드 표현 수준이 달라져야 한다. 아래 7개 유형으로 버전을 구분해 작성한다.</p>
+</blockquote>
+<section id="슬라이드-용도-매트릭스-7-audience-types" class="level3">
+<h3 class="anchored" data-anchor-id="슬라이드-용도-매트릭스-7-audience-types">12-1. 슬라이드 용도 매트릭스 (7 Audience Types)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 30%">
+<col style="width: 20%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>용도</th>
+<th>핵심 수신자</th>
+<th>표현 톤</th>
+<th>특이 요구사항</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>IR / Investor</strong></td>
+<td>애널리스트·기관투자자</td>
+<td>기회·성과 강조, 간결</td>
+<td>Safe Harbor 필수 / 공시된 수치만 / 경쟁사 실명 주의</td>
+</tr>
+<tr class="even">
+<td><strong>Analyst Day</strong></td>
+<td>섹터 전문 애널리스트</td>
+<td>전략·경쟁우위 상세</td>
+<td>경쟁 matrix 가능, 단 <strong>가치판단 형용사 최소화</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Regulatory</strong></td>
+<td>FDA·EMA·MFDS</td>
+<td>객관·정량·투명</td>
+<td>가치판단 형용사 <strong>전면 금지</strong>, ICH 가이드라인 인용</td>
+</tr>
+<tr class="even">
+<td><strong>Internal / C-level</strong></td>
+<td>경영진·이사회</td>
+<td>의사결정 촉진</td>
+<td>민감도·리스크 솔직 기술, <code>CONFIDENTIAL</code> 워터마크</td>
+</tr>
+<tr class="odd">
+<td><strong>Academic / KOL</strong></td>
+<td>학계·임상의·학회</td>
+<td>근거·메커니즘 중심</td>
+<td>저자명·저널 정확 인용, 인용일자 명시</td>
+</tr>
+<tr class="even">
+<td><strong>BD / Licensing</strong> ⭐</td>
+<td>제휴 대상사·기술이전 파트너</td>
+<td>플랫폼 가치 전달</td>
+<td>NDA 체결 전후 2단계 / Teaser vs Full Deck 구분</td>
+</tr>
+<tr class="odd">
+<td><strong>Government Grant</strong> ⭐</td>
+<td>과기부·복지부·KDDF 등</td>
+<td>공익성·국가전략 정합성</td>
+<td>정부 R&amp;D 지원 로고 병기, <strong>국책과제 번호</strong> 포함</td>
+</tr>
+<tr class="even">
+<td><strong>Data Room (VDD)</strong> ⭐</td>
+<td>DD 실사 팀·투자자문사</td>
+<td>검증 가능·출처 명시</td>
+<td>모든 수치 출처 파일·라인 번호 레퍼런스, 재무·비재무 분리</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p>⭐ 는 v2.1에서 신규 추가된 유형. 조직·업무 특성에 따라 추가 커스텀 유형 정의 가능 (§17 Changelog 참조).</p>
+</blockquote>
+</section>
+<section id="경쟁-제품-비교표comparison-matrix-분기-규칙" class="level3">
+<h3 class="anchored" data-anchor-id="경쟁-제품-비교표comparison-matrix-분기-규칙">12-2. 경쟁 제품 비교표(Comparison Matrix) 분기 규칙</h3>
+<p>앞서 예시한 Competitive Matrix 슬라이드의 실무 비판 반영:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 27%">
+<col style="width: 36%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>요소</th>
+<th>IR / Analyst Day</th>
+<th>Regulatory Submission</th>
+<th>BD / Licensing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>자사 열 색상 강조</td>
+<td>✅ <code>#0072CE</code> 헤더 허용</td>
+<td>❌ 모든 열 동일 <code>#002B49</code></td>
+<td>✅ 강조 허용</td>
+</tr>
+<tr class="even">
+<td>가치판단 형용사</td>
+<td>⚠️ 근거 각주 병기 시 허용</td>
+<td>❌ 전면 금지</td>
+<td>⚠️ 플랫폼 장점 강조 허용</td>
+</tr>
+<tr class="odd">
+<td>Semantic color (Low/Med/High)</td>
+<td>✅ 허용</td>
+<td>⚠️ 객관 기준(수치 범위) 병기 필수</td>
+<td>✅ 허용</td>
+</tr>
+<tr class="even">
+<td>경쟁사 실명</td>
+<td>⚠️ 공개 정보만</td>
+<td>✅ 공식 인용 출처와 함께</td>
+<td>⚠️ NDA 이후만</td>
+</tr>
+<tr class="odd">
+<td>출처 각주</td>
+<td>“as of [date]”</td>
+<td>각 셀별 reference number 필수</td>
+<td>각 셀 1차 출처</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="미래-예측-수치forward-looking-취급-규칙" class="level3">
+<h3 class="anchored" data-anchor-id="미래-예측-수치forward-looking-취급-규칙">12-3. 미래 예측 수치(Forward-Looking) 취급 규칙</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 31%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>수치 유형</th>
+<th>표기 예</th>
+<th>필수 조치</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>확정 재무</td>
+<td>₩1.87T (FY2025)</td>
+<td>출처 없음 허용</td>
+</tr>
+<tr class="even">
+<td>가이던스</td>
+<td>₩2.1T (2026E)</td>
+<td><code>E</code> suffix + Safe Harbor 링크</td>
+</tr>
+<tr class="odd">
+<td>장기 목표</td>
+<td>$680M peak sales 2030E</td>
+<td><code>E</code> suffix + <strong>민감도 ±% 명시</strong></td>
+</tr>
+<tr class="even">
+<td>마일스톤</td>
+<td>IND Q3 2026</td>
+<td><code>target</code> 명시 + “subject to regulatory review”</td>
+</tr>
+<tr class="odd">
+<td>AI 추정</td>
+<td>—</td>
+<td><strong>AI Insight Badge</strong> 필수, 확정 수치 옆 배치 금지</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p>앞서 제시한 Timeline 슬라이드의 “IND ’27”, “BLA ’30” 등은 모두 <code>target</code> 표기 + Safe Harbor 슬라이드 cross-reference 필요.</p>
+</blockquote>
+</section>
+<section id="market-sizing-신뢰도-가드" class="level3">
+<h3 class="anchored" data-anchor-id="market-sizing-신뢰도-가드">12-4. Market Sizing 신뢰도 가드</h3>
+<p>TAM/SAM/SOM 슬라이드는 <strong>penetration 가정</strong>이 가장 큰 변동 요인.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>항목</th>
+<th>규칙</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Penetration 가정</td>
+<td>명시적으로 기재 (예: “16% penetration 가정”)</td>
+</tr>
+<tr class="even">
+<td>First-in-class vs me-too</td>
+<td>차별 적용 — me-too는 penetration <strong>5–10% 보수적</strong> 상한</td>
+</tr>
+<tr class="odd">
+<td>민감도 분석</td>
+<td>±30% 범위 Warning Callout 필수</td>
+</tr>
+<tr class="even">
+<td>출처</td>
+<td>EvaluatePharma·IQVIA·GlobalData 등 <strong>1차 DB</strong> 명시, 자체 추정은 <code>company estimates</code> 분리 표기</td>
+</tr>
+<tr class="odd">
+<td>환율</td>
+<td>기준 환율·기준일 명시 (예: “USD/KRW 1,350 기준, 2026-01-01”)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="risk-benefit-슬라이드-버전-분기" class="level3">
+<h3 class="anchored" data-anchor-id="risk-benefit-슬라이드-버전-분기">12-5. Risk-Benefit 슬라이드 버전 분기</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 77%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>목적</th>
+<th>Risk 등급 표기 수위</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>FDA Type B / Pre-IND</strong></td>
+<td>발견된 <strong>모든 리스크</strong> HIGH 등급도 정직하게 표기 + Mitigation 병기 (위 예시 §16 수준)</td>
+</tr>
+<tr class="even">
+<td><strong>IR / Analyst Day</strong></td>
+<td>동일 리스크 유지하되 <strong>Mitigation 강조 비중 확대</strong> (문장 길이 1.5배)</td>
+</tr>
+<tr class="odd">
+<td><strong>BD / Licensing (post-NDA)</strong></td>
+<td>Regulatory 수준과 동일하게 HIGH 리스크까지 정직 표기 — 사후 분쟁 방지</td>
+</tr>
+<tr class="even">
+<td><strong>Data Room (VDD)</strong></td>
+<td>Regulatory 수준 + <strong>각 리스크 근거 파일 레퍼런스</strong> (예: AE 리스트 Excel 시트 링크)</td>
+</tr>
+<tr class="odd">
+<td><strong>Press Release / 보도자료</strong></td>
+<td>Risk-Benefit 슬라이드 자체를 <strong>공개 자료에 포함하지 않음</strong> — 승인 사실·benefit만 발췌</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="literature-review-인용-무결성" class="level3">
+<h3 class="anchored" data-anchor-id="literature-review-인용-무결성">12-6. Literature Review 인용 무결성</h3>
+<ul>
+<li><strong>인용일자 명시</strong>: <code>Cited 3,240 (Google Scholar, as of YYYY-MM-DD)</code> — 월 단위 변동성 반영</li>
+<li><strong>직접 인용(Direct Quote) 금지</strong>: 논문 원문을 옮겨 쓸 때 자체 해석·문구로 재작성 (저작권 준수)</li>
+<li><strong>출처 계층</strong>: 1차 문헌(논문) &gt; 리뷰(review) &gt; 뉴스·블로그 순, IR 자료에는 <strong>1차·리뷰만 사용</strong></li>
+<li><strong>학회 초록(Abstract only)</strong> 인용 시 <code>(Abstract, ASH 2024)</code> 등 단계 명시</li>
+</ul>
+</section>
+<section id="스케일업cqa-데이터-버전-분기" class="level3">
+<h3 class="anchored" data-anchor-id="스케일업cqa-데이터-버전-분기">12-7. 스케일업·CQA 데이터 버전 분기</h3>
+<p>CMC 슬라이드의 <strong>동일한 공정 다이어그램</strong>이라도 버전 달리해야 함.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 44%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>수신자</th>
+<th>표기 범위</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>IR·전략</td>
+<td>Scale size만 (10mL → 200L), 공정명 수준 (Microfluidic 등) — <strong>본 매뉴얼 §5-9 예시 수준</strong></td>
+</tr>
+<tr class="even">
+<td>Regulatory (ICH Q11)</td>
+<td>추가 필수: Batch size · Hold time · In-process control matrix · <strong>Design Space 정의</strong></td>
+</tr>
+<tr class="odd">
+<td>CDMO 파트너 공유</td>
+<td>Regulatory 버전 + <strong>공정 파라미터 범위</strong> (Flow rate, N/P ratio 등)</td>
+</tr>
+<tr class="even">
+<td>공개 학술 발표</td>
+<td>IR 버전 + <strong>NDA 체결 후</strong> 일부 공정 파라미터 disclosure</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="executive-summary-밀도-보강-체크리스트" class="level3">
+<h3 class="anchored" data-anchor-id="executive-summary-밀도-보강-체크리스트">12-8. Executive Summary 밀도 보강 체크리스트</h3>
+<p>C-level 1-pager는 단순 KPI 나열로는 부족. 다음 요소 중 <strong>최소 3개</strong> 포함 권장:</p>
+<ul>
+<li>✅ Stock price · Market cap 스냅샷</li>
+<li>✅ Analyst consensus (Buy/Hold/Sell 비중·목표주가)</li>
+<li>✅ Next catalyst (임박한 마일스톤 1–2건)</li>
+<li>✅ Peer multiple 비교 (P/E, EV/EBITDA)</li>
+<li>✅ Cash runway (monthly burn 기반 개월수)</li>
+<li>✅ Open risks (Top 3 red flag, 1줄 요약)</li>
+</ul>
+</section>
+<section id="safe-harbor-법적-기반-병기" class="level3">
+<h3 class="anchored" data-anchor-id="safe-harbor-법적-기반-병기">12-9. Safe Harbor 법적 기반 병기</h3>
+<p>한국 기업의 글로벌 IR 자료는 <strong>양 법역 병기</strong>가 안전.</p>
+<pre><code>Safe Harbor Basis (권장 병기)
+- Private Securities Litigation Reform Act of 1995 (US)
+- 자본시장과 금융투자업에 관한 법률 제178조 (KR)
+- 공정공시 의무 (한국거래소 공시규정 제7조)</code></pre>
+<p>모든 Forward-Looking 슬라이드는 마지막 슬라이드(Safe Harbor)로 <strong>cross-reference 주석</strong> 또는 각주 <code>(see Disclaimer, p.32)</code> 필수.</p>
+</section>
+<section id="emoji-font-awesome-치환-대응" class="level3">
+<h3 class="anchored" data-anchor-id="emoji-font-awesome-치환-대응">12-10. Emoji → Font Awesome 치환 대응</h3>
+<p>Key Takeaways 카드에서 편의상 emoji를 사용한 경우(🔬 🌐 📈), <strong>공식 배포 전 반드시</strong> 치환:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>사용 Emoji</th>
+<th>대체 Font Awesome</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>🔬</td>
+<td><code>fa-microscope</code></td>
+</tr>
+<tr class="even">
+<td>🌐</td>
+<td><code>fa-globe</code></td>
+</tr>
+<tr class="odd">
+<td>📈</td>
+<td><code>fa-arrow-trend-up</code></td>
+</tr>
+<tr class="even">
+<td>💊</td>
+<td><code>fa-pills</code></td>
+</tr>
+<tr class="odd">
+<td>🧬</td>
+<td><code>fa-dna</code></td>
+</tr>
+<tr class="even">
+<td>💉</td>
+<td><code>fa-syringe</code></td>
+</tr>
+<tr class="odd">
+<td>🏭</td>
+<td><code>fa-industry</code></td>
+</tr>
+<tr class="even">
+<td>🤝</td>
+<td><code>fa-handshake</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p><strong>Never Do</strong>: 공식 IR·Regulatory·공시용 슬라이드에 emoji 존치 (§13 가드레일에서도 재확인).</p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="디자인-가드레일" class="level2">
+<h2 class="anchored" data-anchor-id="디자인-가드레일">13. 디자인 가드레일</h2>
+<section id="always-do" class="level3">
+<h3 class="anchored" data-anchor-id="always-do">Always Do ✓</h3>
+<ul>
+<li>모든 콘텐츠 슬라이드 하단에 Bottom Banner</li>
+<li>로고는 <strong>풀컬러 우선</strong>, Clear Space 2X 이상, 최소 크기(7mm/40px) 준수</li>
+<li>강조색 <code>#002B49</code> 우선 (Red는 테마 2 in vivo·유의성 전용)</li>
+<li>보조 강조·성장 지표에 <code>#0072CE</code></li>
+<li>전략 키워드 영어 병기, ① ② ③ 번호</li>
+<li>음수 재무 괄호 표기 <code>(386)</code></li>
+<li>모든 슬라이드에 GC 로고 + 페이지 번호</li>
+<li>핵심 수치·제목: Freesentation Bold (font-weight 700)</li>
+<li>수치·연도 없는 전망 문구 금지</li>
+<li>가족사 로고: Freesentation Bold (w700) + Title Case + Tracking −40 + Deep Blue</li>
+<li>저작권 표기: <code>© 2026 GC Corp. All Rights Reserved.</code> (본문 0.7X, 콘텐츠당 1회)</li>
+<li><strong>용도별 버전 분기</strong>: IR·Regulatory·Internal·Academic 수신자별 슬라이드 별도 작성 (§12-1)</li>
+<li>Forward-Looking 수치에 <code>E</code> suffix + Safe Harbor cross-reference</li>
+<li>Market Sizing penetration 가정 명시 + 민감도 ±% 병기</li>
+<li>Literature 인용에 <strong>인용일자</strong> 각주 (<code>as of YYYY-MM-DD</code>)</li>
+<li>Risk-Benefit 슬라이드는 수신자에 따라 <strong>HIGH 리스크 표기 수위</strong> 조정</li>
+<li>Emoji는 <strong>초안용</strong>, 배포 전 Font Awesome으로 치환 (§12-10 매핑 표)</li>
+<li>Executive Summary: KPI 외 Catalyst·Consensus·Risk 중 최소 3개 포함 (§12-8)</li>
+</ul>
+</section>
+<section id="never-do" class="level3">
+<h3 class="anchored" data-anchor-id="never-do">Never Do ✗</h3>
+<ul>
+<li>로고 임의 변형 (컬러·비율·회전·효과·윤곽선 등 15종 오용)</li>
+<li>심볼 단독으로 공식 로고 대체</li>
+<li>구 녹십자 로고 사용</li>
+<li>CI와 BI 혼동 (BI에 GC 심볼·Freesentation Bold·띄어쓰기 사용)</li>
+<li>콘텐츠 슬라이드 Bottom Banner 미삽입</li>
+<li>빨간색·오렌지색을 일반 강조에 사용</li>
+<li>테마 2(Red·Green)를 IR 재무 메인에 사용</li>
+<li>슬라이드당 패널 5개 이상</li>
+<li>공식 IR에 이모지 / 장식 아이콘</li>
+<li>AI Badge를 확정 재무 수치 옆에 배치</li>
+<li>3개 이상 테마 혼용</li>
+<li>그라디언트 임의 적용 (브랜드팀 검수 필수)</li>
+<li>공식 픽토그램과 Font Awesome 동일 슬라이드 혼용</li>
+<li><strong>Regulatory 제출 자료</strong>에 가치판단 형용사 (“우수한”, “업계 최고”, “Platform ready” 등)</li>
+<li><strong>공개 IR 자료</strong>에 미공시 파트너십 실명 (공시 전 NDA 위반 리스크)</li>
+<li>Forward-Looking 수치에 <code>E</code> suffix 또는 Safe Harbor 참조 누락</li>
+<li>Literature 인용일자 없는 citation 수치 (<code>Cited 3,240</code> 단독 사용)</li>
+<li>Emoji 존치 상태로 공식 IR·Regulatory·공시 자료 배포 (§12-10)</li>
+<li>공개 자료에 Risk-Benefit 슬라이드의 HIGH risk 등급 그대로 노출 (§12-5)</li>
+<li>TAM/SAM/SOM에서 민감도 분석 없이 단일 숫자만 제시</li>
+<li>경쟁 Comparison Matrix에서 자사 컬럼에만 semantic color hyping 적용 (Regulatory용)</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="ai-작성-지침-복사붙여넣기용" class="level2">
+<h2 class="anchored" data-anchor-id="ai-작성-지침-복사붙여넣기용">14. AI 작성 지침 (복사·붙여넣기용)</h2>
+<pre><code>GC Biopharma (GC녹십자) IR 스타일로 발표자료를 작성하라.
+기반: GC Brand Manual Book Unified ver. 2026-03
+
+[필수 선행 질의] ← 작성 전 반드시 확인
+- 수신자: IR / Analyst Day / Regulatory / Internal / Academic 중 무엇인가?
+- 공시 상태: 기재할 수치·파트너십이 공시된 정보인가 NDA 대상인가?
+- 시점 기준일: "as of YYYY-MM-DD" 명시할 날짜
+
+[필수 규칙]
+1. 로고: 풀컬러 기본, Clear Space 2X, 최소 7mm(print)/40px(screen)
+2. 가족사 로고 표기: "GC [법인명]" 형태, Freesentation Bold (w700), Title Case, Tracking -40, #002B49
+3. 모든 콘텐츠 슬라이드 하단 #002B49 배너 — "[수단] 기반 [목표]" 패턴
+4. 슬라이드 제목: Freesentation Bold (w700), #002B49
+5. 핵심 수치: #002B49 / 비교: #E8E8E8
+6. 성장률 배지: #0072CE 원형, "+XX%"
+7. 전략 연번: ① ② ③
+8. 한·영 병기: Value Chain / Ramp-up / Pipeline / Phase I~III
+9. 음수: 괄호 (386) — 마이너스 기호 금지
+10. 패널: 헤더 바(#002B49 or #0072CE), radius 7–8px
+11. 아이콘: FA 6 Solid (insight→fa-lightbulb / strategy→fa-wand-magic-sparkles
+    warning→fa-triangle-exclamation / data→fa-chart-bar)
+12. 리스트: ✓ 또는 fa-check
+13. 테마 선택 (슬라이드 단위 통일):
+    - Trust &amp; Baseline: #002B49·#0072CE·#00A9E0
+    - Contrast &amp; Efficacy: #007A33·#E4002B·#FFC845 (in vivo·AE만)
+    - Formulation &amp; MoA: Navy 배경 + #97D700·#43B02A
+14. 저작권: © 2026 GC Corp. All Rights Reserved. (콘텐츠당 1회)
+15. Forward-Looking 수치: `E` suffix + Safe Harbor cross-ref
+16. Literature citation: "Cited NNNN (source, as of date)" 형식
+17. TAM/SAM/SOM: penetration 가정 + 민감도 ±% 병기
+18. Emoji 초안 사용 허용, 배포 전 FA로 치환 (§12-10)
+
+[수신자별 분기]
+- IR: Safe Harbor 필수 / 공시 정보만 / 경쟁사 공개 정보만
+- Analyst Day: 경쟁 matrix 상세 허용, 가치판단 형용사 최소화
+- Regulatory: 가치판단 형용사 금지 / 정량만 / ICH 인용
+- Internal: CONFIDENTIAL 배지 / 리스크 솔직 / 민감도 포함
+- Academic: 1차 문헌 우선 / 저자·저널 정확 인용
+- BD / Licensing: NDA 전/후 2단계 (Teaser vs Full Deck) / 플랫폼 가치 강조
+- Government Grant: 정부 지원 로고 병기 / 국책과제 번호 / 공익성 톤
+- Data Room (VDD): 모든 수치 파일·라인 레퍼런스 / 재무·비재무 분리
+
+[금지 사항]
+- 로고 15종 오용 (임의컬러·회전·비율변경·효과 추가 등)
+- 심볼 단독 로고 대체 / 구 녹십자 로고
+- CI·BI 혼동 (BI는 GC심볼·GC140·띄어쓰기 모두 금지)
+- 빨강·주황을 일반 강조에 사용
+- 배너 없는 콘텐츠 슬라이드
+- 수치·연도 없는 모호한 전망 ("지속 성장 예상" 등)
+- 슬라이드당 패널 5개 이상
+- 로고·페이지 번호 없는 슬라이드
+- AI Badge를 확정 재무 수치 옆에 사용
+- 3개 이상 테마 혼용
+- 공식 픽토그램과 FA 동일 슬라이드 혼용
+- Regulatory용에 가치판단 형용사 잔존
+- 공개 자료에 미공시 파트너십 실명
+- Emoji 존치 상태 배포</code></pre>
+<hr>
+</section>
+<section id="메시징-어휘-레퍼런스" class="level2">
+<h2 class="anchored" data-anchor-id="메시징-어휘-레퍼런스">15. 메시징 어휘 레퍼런스</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>한국어</th>
+<th>영어 병기 (원문 유지)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>수직 계열화, 사업 구조</td>
+<td>Value Chain / Full Value Chain</td>
+</tr>
+<tr class="even">
+<td>생산량 본격 증가 구간</td>
+<td>Ramp-up</td>
+</tr>
+<tr class="odd">
+<td>개발 단계별 제품군</td>
+<td>Pipeline</td>
+</tr>
+<tr class="even">
+<td>생산 규모 확대</td>
+<td>Scale-up</td>
+</tr>
+<tr class="odd">
+<td>혈장분획 수익성 지표</td>
+<td>Plasma Economics</td>
+</tr>
+<tr class="even">
+<td>빠른 의사결정 원칙</td>
+<td>Quick Win And Fast Fail</td>
+</tr>
+<tr class="odd">
+<td>2가지 전략 병행</td>
+<td>Two Track</td>
+</tr>
+<tr class="even">
+<td>미충족 의료 수요</td>
+<td>Unmet Needs</td>
+</tr>
+<tr class="odd">
+<td>계열 내 최초 승인</td>
+<td>First-In-Class</td>
+</tr>
+<tr class="even">
+<td>효소 대체 요법</td>
+<td>ERT (Enzyme Replacement Therapy)</td>
+</tr>
+<tr class="odd">
+<td>뇌실내 투여 제형</td>
+<td>ICV (Intracerebroventricular)</td>
+</tr>
+<tr class="even">
+<td>면역글로불린</td>
+<td>IVIG / IG</td>
+</tr>
+<tr class="odd">
+<td>미래예측 진술</td>
+<td>Forward-Looking Statement</td>
+</tr>
+<tr class="even">
+<td>안전성 고지</td>
+<td>Safe Harbor</td>
+</tr>
+<tr class="odd">
+<td>시장 규모 계층</td>
+<td>TAM / SAM / SOM</td>
+</tr>
+<tr class="even">
+<td>유효성·안전성 균형</td>
+<td>Benefit-Risk Profile</td>
+</tr>
+<tr class="odd">
+<td>장기 추적 관찰</td>
+<td>LTFU (Long-Term Follow-Up)</td>
+</tr>
+<tr class="even">
+<td>임상 안전성 모니터링</td>
+<td>DSMB (Data Safety Monitoring Board)</td>
+</tr>
+<tr class="odd">
+<td>품질 주요 속성</td>
+<td>CQA (Critical Quality Attributes)</td>
+</tr>
+<tr class="even">
+<td>설계 공간 (ICH Q8)</td>
+<td>Design Space</td>
+</tr>
+<tr class="odd">
+<td>중대 이상반응</td>
+<td>SAE (Serious Adverse Event)</td>
+</tr>
+<tr class="even">
+<td>약물유해반응</td>
+<td>ADR / AE</td>
+</tr>
+<tr class="odd">
+<td>연간 반복 투여</td>
+<td>Q4W (Every 4 Weeks) / QW (Weekly)</td>
+</tr>
+<tr class="even">
+<td>혈액뇌장벽</td>
+<td>BBB (Blood-Brain Barrier)</td>
+</tr>
+<tr class="odd">
+<td>항약물항체</td>
+<td>ADA (Anti-Drug Antibody)</td>
+</tr>
+<tr class="even">
+<td>규제당국 사전 협의</td>
+<td>Pre-IND / Type B meeting</td>
+</tr>
+<tr class="odd">
+<td>희귀소아질환 지정</td>
+<td>RPDD (Rare Pediatric Disease Designation)</td>
+</tr>
+<tr class="even">
+<td>우선심사 바우처</td>
+<td>PRV (Priority Review Voucher)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="적용-매체-체크리스트-브랜드-매뉴얼-반영" class="level2">
+<h2 class="anchored" data-anchor-id="적용-매체-체크리스트-브랜드-매뉴얼-반영">16. 적용 매체 체크리스트 (브랜드 매뉴얼 반영)</h2>
+<p>Unified 매뉴얼이 규정하는 주요 적용 매체 — 제작 시 규격 준수 필수:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>카테고리</th>
+<th>매체</th>
+<th>규격</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Stationery</td>
+<td>명함</td>
+<td>90×54mm, Freesentation w400·w700</td>
+</tr>
+<tr class="even">
+<td>Stationery</td>
+<td>소봉투</td>
+<td>220×104mm</td>
+</tr>
+<tr class="odd">
+<td>Stationery</td>
+<td>대봉투</td>
+<td>334×244mm</td>
+</tr>
+<tr class="even">
+<td>Corporate</td>
+<td>파일 폴더</td>
+<td>240×310mm (R/G/B 3종)</td>
+</tr>
+<tr class="odd">
+<td>Corporate</td>
+<td>초청장</td>
+<td>180×120mm</td>
+</tr>
+<tr class="even">
+<td>Corporate</td>
+<td>표창장</td>
+<td>210×297mm</td>
+</tr>
+<tr class="odd">
+<td>Corporate</td>
+<td>사원증</td>
+<td>54×85mm</td>
+</tr>
+<tr class="even">
+<td>Corporate</td>
+<td>방문증 (STAFF/GUEST)</td>
+<td>54×86mm</td>
+</tr>
+<tr class="odd">
+<td>Corporate</td>
+<td>배지</td>
+<td>16×16mm (기본) / 14×14mm (시그니처)</td>
+</tr>
+<tr class="even">
+<td>Signage</td>
+<td>지주사인</td>
+<td>H 1800 / 5000 / 8000mm</td>
+</tr>
+<tr class="odd">
+<td>Signage</td>
+<td>엑스배너</td>
+<td>600×1800mm</td>
+</tr>
+<tr class="even">
+<td>Vehicle</td>
+<td>셔틀버스 (25/45인승), 트럭 (2.5/8톤)</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p>CI 활용 모든 제작물은 <strong>GC 브랜드팀 사전 검수</strong> 원칙.</p>
+</blockquote>
+<hr>
+</section>
+<section id="changelog-migration-notes" class="level2">
+<h2 class="anchored" data-anchor-id="changelog-migration-notes">17. Changelog &amp; Migration Notes</h2>
+<section id="version-history" class="level3">
+<h3 class="anchored" data-anchor-id="version-history">Version History</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 17%">
+<col style="width: 20%">
+<col style="width: 37%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Version</th>
+<th>Date</th>
+<th>Scope</th>
+<th>주요 변경사항</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>v2.3</strong></td>
+<td>2026-04-13</td>
+<td>심볼 단독 SVG 추가</td>
+<td><code>gc_symbol_only.svg</code> 배포본 동봉, §0-3 심볼 단독 권장/금지 용도 세분화, 라이선스 미해결 항목 신규 등재</td>
+</tr>
+<tr class="even">
+<td><strong>v2.2</strong></td>
+<td>2026-04-13</td>
+<td>서체 전환 + Asset 동봉</td>
+<td><strong>GC체 → Freesentation 9 weights 전환</strong>, 공식 로고 SVG 동봉, <span class="citation" data-cites="font-face">@font-face</span> 템플릿 §3-4 신설</td>
+</tr>
+<tr class="odd">
+<td><strong>v2.1</strong></td>
+<td>2026-04-13</td>
+<td>Track 구조화 + 수신자 확장</td>
+<td>Designer/Compliance Track 분리, 수신자 4→7유형 확장, §17 Changelog 신설</td>
+</tr>
+<tr class="even">
+<td><strong>v2.0</strong></td>
+<td>2026-04-13</td>
+<td>실무 대응 §12 신설</td>
+<td>용도별 버전 분기 원칙 10개 하위 섹션, Regulatory 어휘 16종 추가</td>
+</tr>
+<tr class="odd">
+<td><strong>v1.0</strong></td>
+<td>2026-04-13</td>
+<td>브랜드 매뉴얼 Unified 통합</td>
+<td>심볼·비율·컬러·서체·픽토그램·저작권 전면 반영</td>
+</tr>
+<tr class="even">
+<td>v0.1</td>
+<td>2026-03-xx</td>
+<td>IR 분석 기반 초안</td>
+<td>2025 Investor Day / Alyglo / 4Q 경영실적 분석</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="v2.3-migration-notes-v2.2-v2.3" class="level3">
+<h3 class="anchored" data-anchor-id="v2.3-migration-notes-v2.2-v2.3">v2.3 Migration Notes (v2.2 → v2.3)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 61%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>변경</th>
+<th>영향</th>
+<th>마이그레이션 조치</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>gc_symbol_only.svg</code> 추가</td>
+<td>Asset 파일 1개 추가</td>
+<td>배포본 복사 시 새 파일 포함 여부 확인</td>
+</tr>
+<tr class="even">
+<td>심볼 단독 사용 범위 명시</td>
+<td>기존 자료 재검토 필요</td>
+<td>공식 IR·보도자료에 심볼만 쓴 경우 워드마크 버전으로 교체</td>
+</tr>
+<tr class="odd">
+<td>파비콘·모바일 앱</td>
+<td>기존 PNG 래스터 → SVG 전환 권장</td>
+<td><code>&lt;link rel="icon" type="image/svg+xml"&gt;</code> 사용</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="v2.2-migration-notes-v2.1-v2.2" class="level3">
+<h3 class="anchored" data-anchor-id="v2.2-migration-notes-v2.1-v2.2">v2.2 Migration Notes (v2.1 → v2.2)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 61%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>변경</th>
+<th>영향</th>
+<th>마이그레이션 조치</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>GC체 → Freesentation 전환</td>
+<td>서체 명명 전체 변경</td>
+<td>기존 <code>GC 110~150</code> 참조를 <code>Freesentation w300~w900</code>으로 치환 (매핑 표 §3-1 참조)</td>
+</tr>
+<tr class="even">
+<td>Weight 단계 5 → 9</td>
+<td>더 세밀한 조정 가능</td>
+<td>기존 5단계 매핑은 호환 유지, ExtraLight·Medium·ExtraBold·Thin은 추가 활용</td>
+</tr>
+<tr class="odd">
+<td><span class="citation" data-cites="font-face">@font-face</span> 선언 필수</td>
+<td>웹 구현 시 9개 파일 로드</td>
+<td>§3-4 템플릿 복붙 후 <code>font-display: swap</code> 권장</td>
+</tr>
+<tr class="even">
+<td>공식 로고 SVG 동봉</td>
+<td>더 이상 외부 Asset 서버 의존 X</td>
+<td><code>gc_biopharma_vector_refined.svg</code> 배포본과 함께 사용</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="v2.1-migration-notes-v2.0-v2.1" class="level3">
+<h3 class="anchored" data-anchor-id="v2.1-migration-notes-v2.0-v2.1">v2.1 Migration Notes (v2.0 → v2.1)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 61%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>변경</th>
+<th>영향</th>
+<th>마이그레이션 조치</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Track 구조 도입</td>
+<td>문서 탐색 방식 변화</td>
+<td>기존 참조 링크 재확인 (§ 번호는 동일 유지)</td>
+</tr>
+<tr class="even">
+<td>수신자 유형 4 → 7</td>
+<td>BD·Government Grant·VDD 신규</td>
+<td>기존 4유형 템플릿은 그대로 사용 가능, 신규 3유형은 §12-1 참조</td>
+</tr>
+<tr class="odd">
+<td>§12-2·§12-5에 BD/VDD 열 추가</td>
+<td>기존 IR/Regulatory 열 변동 없음</td>
+<td>기존 슬라이드 재작업 불필요</td>
+</tr>
+<tr class="even">
+<td>§12-1 3유형 ⭐ 표시</td>
+<td>조직 필요 시 커스텀 확장 가능</td>
+<td>아래 “Custom Audience” 섹션 참조</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="custom-audience-확장-가이드" class="level3">
+<h3 class="anchored" data-anchor-id="custom-audience-확장-가이드">Custom Audience 확장 가이드</h3>
+<p>조직·상황에 따라 §12-1 기본 7유형 외 커스텀 수신자 추가 가능. 각 수신자 추가 시 다음 4개 속성 반드시 정의:</p>
+<pre><code>Custom Audience Template
+├─ 핵심 수신자 (Who): 구체 직책·기관
+├─ 표현 톤 (Tone): 강조 포인트 1줄
+├─ 특이 요구사항 (Constraints): 금지/필수 표기 3개 이내
+└─ 가치판단 형용사 허용도: ✅ / ⚠️ / ❌</code></pre>
+<p>예시: <code>Medical Affairs (MSL)</code> 유형 추가 시 → 수신자: 임상의·약사 / 톤: 근거·임상 경험 중심 / 요구: Off-label 정보 명시 금지, MR/MA 구분 / 형용사: ⚠️ (문헌 근거 있을 때만)</p>
+</section>
+<section id="알려진-제약-및-향후-개선-known-limitations" class="level3">
+<h3 class="anchored" data-anchor-id="알려진-제약-및-향후-개선-known-limitations">알려진 제약 및 향후 개선 (Known Limitations)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 36%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>항목</th>
+<th>현 상태</th>
+<th>향후 계획</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Freesentation 폰트 파일</td>
+<td>✅ v2.2 배포본에 포함 (9 weights TTF)</td>
+<td><span class="citation" data-cites="font-face">@font-face</span> 선언은 §3-4 참조</td>
+</tr>
+<tr class="even">
+<td>Freesentation 라이선스</td>
+<td>⚠️ 미명시</td>
+<td>한글과컴퓨터 배포 무료 서체로 상업적 사용 가능하나, <strong>조직 법무팀 사전 확인 필수</strong> · 사내 배포·재배포 시 라이선스 문구 첨부 권장</td>
+</tr>
+<tr class="odd">
+<td>공식 로고 SVG</td>
+<td>✅ v2.2 배포본에 포함 (<code>gc_biopharma_vector_refined.svg</code>)</td>
+<td>HTML/SVG 삽입 예시는 §0-3 참조</td>
+</tr>
+<tr class="even">
+<td>심볼 단독 SVG</td>
+<td>✅ v2.3 배포본에 포함 (<code>gc_symbol_only.svg</code>)</td>
+<td>파비콘·배지·소형 UI용, 공식 자료 단독 사용 금지</td>
+</tr>
+<tr class="odd">
+<td>Dark mode 팔레트</td>
+<td>Navy·Warm Beige 기반만 정의</td>
+<td>향후 v3.0에서 전용 dark palette 정의 예정</td>
+</tr>
+<tr class="even">
+<td>한국어 폰트 fallback</td>
+<td>Apple SD·Noto Sans KR</td>
+<td>Adobe Fonts 라이선스 시 Pretendard 추가 검토</td>
+</tr>
+<tr class="odd">
+<td>PPT/Keynote 템플릿</td>
+<td>미첨부</td>
+<td>별도 <code>.pptx</code> 마스터 파일 배포 예정</td>
+</tr>
+<tr class="even">
+<td>v2.1의 “⭐ 신규” 표시</td>
+<td>v2.2에서 제거 예정</td>
+<td>v2.2 릴리스 시 모든 유형 동등 표기</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="문서-책임-및-문의" class="level3">
+<h3 class="anchored" data-anchor-id="문서-책임-및-문의">문서 책임 및 문의</h3>
+<ul>
+<li><strong>기술 오너 (Design System)</strong>: GC 브랜드팀</li>
+<li><strong>컴플라이언스 오너 (§12–§14)</strong>: GC IR·RA·법무팀</li>
+<li><strong>개정 프로세스</strong>: 반기 1회 정기 리뷰 + 브랜드 매뉴얼 개정 시 수시 반영</li>
+<li><strong>피드백</strong>: 실무 적용 중 발견된 gap은 해당 Track 오너에 제보 → 차기 minor version에 반영</li>
+</ul>
+<hr>
+<p><em>출처: GC Brand Manual Book Unified ver. (2026-03) + GC Biopharma 공식 IR (2024–2025)</em> <em>최종 업데이트: 2026-04-13 (v2.3)</em></p>
+<p>© 2026 GC Corp.&nbsp;All Rights Reserved.</p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
