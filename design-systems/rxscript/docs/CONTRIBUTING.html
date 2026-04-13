@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="RxScriptor">
-<meta name="dcterms.date" content="2026-04-13">
 
-<title>Report Title – RxScriptor</title>
+<title>contributing – RxScriptor</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -134,60 +132,53 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#executive-summary" id="toc-executive-summary" class="nav-link active" data-scroll-target="#executive-summary">Executive Summary</a></li>
-  <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">Background</a></li>
-  <li><a href="#findings" id="toc-findings" class="nav-link" data-scroll-target="#findings">Findings</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#contributing-to-rxscript-design" id="toc-contributing-to-rxscript-design" class="nav-link active" data-scroll-target="#contributing-to-rxscript-design">Contributing to RxScript Design</a>
+  <ul class="collapse">
+  <li><a href="#scope" id="toc-scope" class="nav-link" data-scroll-target="#scope">Scope</a></li>
+  <li><a href="#how-to-propose-a-change" id="toc-how-to-propose-a-change" class="nav-link" data-scroll-target="#how-to-propose-a-change">How to propose a change</a></li>
+  <li><a href="#naming-conventions" id="toc-naming-conventions" class="nav-link" data-scroll-target="#naming-conventions">Naming conventions</a></li>
+  <li><a href="#license" id="toc-license" class="nav-link" data-scroll-target="#license">License</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Report Title</h1>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
-<div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>RxScriptor </p>
-          </div>
-  </div>
-    
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">April 13, 2026</p>
-    </div>
-  </div>
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<section id="executive-summary" class="level2">
-<h2 class="anchored" data-anchor-id="executive-summary">Executive Summary</h2>
+<section id="contributing-to-rxscript-design" class="level1">
+<h1>Contributing to RxScript Design</h1>
+<p>RxScript Design is the public, open-source design system for RxScriptor. Contributions welcome.</p>
+<section id="scope" class="level2">
+<h2 class="anchored" data-anchor-id="scope">Scope</h2>
+<ul>
+<li><strong>In scope</strong>: public tokens, components, docs, open-licensed assets.</li>
+<li><strong>Out of scope</strong>: anything GC Biopharma-specific (colors, logo, Freesentation font licensing) — those belong to the private GCBP Design (<code>design-systems/gcbp/</code>).</li>
+</ul>
 </section>
-<section id="background" class="level2">
-<h2 class="anchored" data-anchor-id="background">Background</h2>
+<section id="how-to-propose-a-change" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-propose-a-change">How to propose a change</h2>
+<ol type="1">
+<li>Open an issue describing the token/component and the problem it solves.</li>
+<li>Submit a PR editing <code>tokens/rxscript-tokens.css</code>, <code>docs/DESIGN-SYSTEM.md</code>, or both.</li>
+<li>Keep the <code>--rx-*</code> namespace. Do not introduce <code>--gc-*</code> variables.</li>
+</ol>
 </section>
-<section id="findings" class="level2">
-<h2 class="anchored" data-anchor-id="findings">Findings</h2>
+<section id="naming-conventions" class="level2">
+<h2 class="anchored" data-anchor-id="naming-conventions">Naming conventions</h2>
+<ul>
+<li>CSS variables: <code>--rx-&lt;category&gt;-&lt;name&gt;</code> (e.g.&nbsp;<code>--rx-primary</code>, <code>--rx-space-lg</code>).</li>
+<li>Component classes (future): <code>.rx-&lt;component&gt;[__element][--modifier]</code> BEM-ish.</li>
+</ul>
 </section>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
+<section id="license" class="level2">
+<h2 class="anchored" data-anchor-id="license">License</h2>
+<p>By contributing you agree your contributions are licensed under the project’s LICENSE (TBD, likely MIT).</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

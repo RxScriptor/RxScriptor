@@ -72,6 +72,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
+<link rel="stylesheet" href="design-systems/rxscript/tokens/rxscript-tokens.css">
 <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
@@ -96,13 +97,24 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link active" href="./index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./modules/literature/summaries/"> 
-<span class="menu-text">Literature</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-legacy" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Legacy</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-legacy">    
+        <li>
+    <a class="dropdown-item" href="./projects/_legacy/literature/summaries/">
+ <span class="dropdown-text">Literature</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./projects/_legacy/briefing/reports/">
+ <span class="dropdown-text">Briefings</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
-    <a class="nav-link" href="./modules/briefing/reports/"> 
-<span class="menu-text">Reports</span></a>
+    <a class="nav-link" href="./design-systems/rxscript/docs/DESIGN-SYSTEM.html"> 
+<span class="menu-text">Design System</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->

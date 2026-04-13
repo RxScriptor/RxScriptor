@@ -1,0 +1,68 @@
+/* ==========================================================================
+   RxScript Design · v0.1 (TBD)
+   Public design tokens for RxScriptor
+   License: MIT (placeholder)
+   ==========================================================================
+   All values are placeholders — fill in before first public release.
+   Keep the `--rx-*` namespace to avoid collision with `--gc-*` (GCBP, private).
+   ========================================================================== */
+
+:root {
+  /* ---- Colors: Primary (TBD) ---- */
+  --rx-primary:        /* TBD */ #1F6FEB;
+  --rx-primary-muted:  /* TBD */ #58A6FF;
+  --rx-accent:         /* TBD */ #D29922;
+
+  /* ---- Colors: Neutral (TBD) ---- */
+  --rx-ink:            /* TBD */ #0D1117;
+  --rx-ink-muted:      /* TBD */ #57606A;
+  --rx-surface:        /* TBD */ #FFFFFF;
+  --rx-surface-alt:    /* TBD */ #F6F8FA;
+  --rx-border:         /* TBD */ #D0D7DE;
+
+  /* ---- Colors: Semantic (TBD) ---- */
+  --rx-success:        /* TBD */ #1A7F37;
+  --rx-warning:        /* TBD */ #9A6700;
+  --rx-danger:         /* TBD */ #CF222E;
+  --rx-info:           /* TBD */ #0969DA;
+
+  /* ---- Typography (TBD) ---- */
+  --rx-font-family: system-ui, -apple-system, "Segoe UI", "Noto Sans KR", sans-serif;
+  --rx-font-mono:   ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --rx-fw-regular:  400;
+  --rx-fw-medium:   500;
+  --rx-fw-semibold: 600;
+  --rx-fw-bold:     700;
+
+  /* ---- Spacing Scale ---- */
+  --rx-space-xs:  4px;
+  --rx-space-sm:  8px;
+  --rx-space-md:  12px;
+  --rx-space-lg:  24px;
+  --rx-space-xl:  48px;
+
+  /* ---- Border Radius ---- */
+  --rx-radius-sm:     4px;
+  --rx-radius-md:     8px;
+  --rx-radius-lg:     12px;
+  --rx-radius-pill:   999px;
+}
+
+/* --------------------------------------------------------------------------
+   Base typography — minimal, extend as the system matures.
+   -------------------------------------------------------------------------- */
+body {
+  font-family: var(--rx-font-family);
+  color: var(--rx-ink);
+  background: var(--rx-surface);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--rx-ink);
+  font-weight: var(--rx-fw-bold);
+  letter-spacing: -0.2px;
+}
+
+code, pre { font-family: var(--rx-font-mono); }

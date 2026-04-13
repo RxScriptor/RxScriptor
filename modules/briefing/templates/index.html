@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>license – RxScriptor</title>
+<title>Briefings – RxScriptor</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,23 +26,25 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-4897d45d2f75ed4f519693be625836c5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-listing/list.min.js"></script>
+<script src="../../../site_libs/quarto-listing/quarto-listing.js"></script>
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-4897d45d2f75ed4f519693be625836c5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,9 +72,68 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script>
 
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
 
-<link rel="stylesheet" href="../../assets/css/styles.css">
+    const options = {
+      valueNames: ['listing-date','listing-title','listing-subtitle',{ data: ['index'] },{ data: ['categories'] }],
+      
+      searchColumns: [],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../design-systems/rxscript/tokens/rxscript-tokens.css">
+<link rel="stylesheet" href="../../../assets/css/styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -82,7 +143,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">RxScriptor</span>
     </a>
   </div>
@@ -93,16 +154,27 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
+    <a class="nav-link" href="../../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../modules/literature/summaries/"> 
-<span class="menu-text">Literature</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-legacy" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Legacy</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-legacy">    
+        <li>
+    <a class="dropdown-item" href="../../../projects/_legacy/literature/summaries/">
+ <span class="dropdown-text">Literature</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../../../projects/_legacy/briefing/reports/">
+ <span class="dropdown-text">Briefings</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
-    <a class="nav-link" href="../../modules/briefing/reports/"> 
-<span class="menu-text">Reports</span></a>
+    <a class="nav-link" href="../../../design-systems/rxscript/docs/DESIGN-SYSTEM.html"> 
+<span class="menu-text">Design System</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -115,124 +187,56 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#license-notice" id="toc-license-notice" class="nav-link active" data-scroll-target="#license-notice">License Notice</a>
-  <ul class="collapse">
-  <li><a href="#본-저장소-내용물별-라이선스" id="toc-본-저장소-내용물별-라이선스" class="nav-link" data-scroll-target="#본-저장소-내용물별-라이선스">본 저장소 내용물별 라이선스</a>
-  <ul class="collapse">
-  <li><a href="#디자인-시스템-문서-및-코드" id="toc-디자인-시스템-문서-및-코드" class="nav-link" data-scroll-target="#디자인-시스템-문서-및-코드">1. 디자인 시스템 문서 및 코드</a></li>
-  <li><a href="#gc-브랜드-로고-svg" id="toc-gc-브랜드-로고-svg" class="nav-link" data-scroll-target="#gc-브랜드-로고-svg">2. GC 브랜드 로고 SVG</a></li>
-  <li><a href="#freesentation-서체" id="toc-freesentation-서체" class="nav-link" data-scroll-target="#freesentation-서체">3. Freesentation 서체</a></li>
-  <li><a href="#사용-가능-범위-요약" id="toc-사용-가능-범위-요약" class="nav-link" data-scroll-target="#사용-가능-범위-요약">4. 사용 가능 범위 요약</a></li>
-  <li><a href="#문의" id="toc-문의" class="nav-link" data-scroll-target="#문의">5. 문의</a></li>
-  </ul></li>
-  </ul></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Briefings</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Project briefings index. Add entries to <code>briefings.json</code> and commit rendered HTML under <code>briefings/</code>.</p>
 
 
 
 
-<section id="license-notice" class="level1">
-<h1>License Notice</h1>
-<section id="본-저장소-내용물별-라이선스" class="level2">
-<h2 class="anchored" data-anchor-id="본-저장소-내용물별-라이선스">본 저장소 내용물별 라이선스</h2>
-<p>본 저장소는 <strong>복수 라이선스</strong>로 구성되어 있습니다. 파일별 사용 조건이 다르므로 주의하시기 바랍니다.</p>
-<section id="디자인-시스템-문서-및-코드" class="level3">
-<h3 class="anchored" data-anchor-id="디자인-시스템-문서-및-코드">1. 디자인 시스템 문서 및 코드</h3>
-<ul>
-<li><code>README.md</code>, <code>docs/DESIGN-SYSTEM.md</code>, <code>gc-tokens.css</code></li>
-<li><strong>저작권</strong>: © 2026 GC Corp.&nbsp;All Rights Reserved.</li>
-<li><strong>사용</strong>: GC 그룹 내부 및 GC 브랜드 관련 공식 제작물에 한해 사용 가능</li>
-<li><strong>외부 배포</strong>: GC 브랜드팀 사전 승인 필요</li>
-</ul>
-</section>
-<section id="gc-브랜드-로고-svg" class="level3">
-<h3 class="anchored" data-anchor-id="gc-브랜드-로고-svg">2. GC 브랜드 로고 SVG</h3>
-<ul>
-<li><code>assets/logos/gc-biopharma-lockup.svg</code></li>
-<li><code>assets/logos/gc-symbol.svg</code></li>
-<li><strong>등록 상표</strong>: GC녹십자(GC Biopharma)의 등록 상표</li>
-<li><strong>사용</strong>: 임의 변형 금지 / 유사 상표 사용 금지</li>
-<li><strong>제3자 사용</strong>: 엄격히 금지 — 파트너십·제휴 목적의 경우 GC 브랜드팀 승인 필수</li>
-</ul>
-</section>
-<section id="freesentation-서체" class="level3">
-<h3 class="anchored" data-anchor-id="freesentation-서체">3. Freesentation 서체</h3>
-<ul>
-<li><code>assets/fonts/Freesentation-*.ttf</code></li>
-<li><strong>배포처</strong>: 한글과컴퓨터 (한컴 말랑말랑체 후속 배포본)</li>
-<li><strong>라이선스</strong>: Freesentation 공식 라이선스 조건 준수</li>
-<li><strong>상업적 사용</strong>: 한글과컴퓨터 배포 조건에 따라 허용 (사내 제작물 포함)</li>
-<li><strong>재배포</strong>: 본 저장소 동일 조건으로 재배포 시에만 허용, 폰트 파일 단독 판매·수정·변형 금지</li>
-<li><strong>주의</strong>: 조직 내 배포 및 외부 공개 저장소 업로드 시 <strong>법무팀 사전 확인 권장</strong></li>
-<li><strong>원본</strong>: https://github.com/hancomgooglefonts/freesentation (또는 한컴 공식 배포 경로)</li>
-</ul>
-</section>
-<section id="사용-가능-범위-요약" class="level3">
-<h3 class="anchored" data-anchor-id="사용-가능-범위-요약">4. 사용 가능 범위 요약</h3>
-<table class="caption-top table">
+<div class="quarto-listing quarto-listing-container-table" id="listing-listing">
+<div class="listing-actions-group">
+    <div class="input-group input-group-sm quarto-listing-filter">
+      <span class="input-group-text"><i class="bi bi-search"></i></span>
+      <input type="text" class="search form-control" placeholder="Filter">
+    </div>
+</div>
+<table class="quarto-listing-table table caption-top">
 <thead>
 <tr class="header">
-<th>용도</th>
-<th>문서·CSS</th>
-<th>로고 SVG</th>
-<th>Freesentation</th>
+<th data-quarto-table-cell-role="th">Date</th>
+<th data-quarto-table-cell-role="th">Title</th>
+<th data-quarto-table-cell-role="th">Subtitle</th>
 </tr>
 </thead>
-<tbody>
-<tr class="odd">
-<td>GC 그룹 사내 업무</td>
-<td>✅</td>
-<td>✅</td>
-<td>✅</td>
-</tr>
-<tr class="even">
-<td>GC 파트너 공식 협업</td>
-<td>⚠️ 승인 후</td>
-<td>⚠️ 승인 후</td>
-<td>✅</td>
-</tr>
-<tr class="odd">
-<td>외부 배포·공개</td>
-<td>❌</td>
-<td>❌</td>
-<td>⚠️ 조건부</td>
-</tr>
-<tr class="even">
-<td>상업적 판매</td>
-<td>❌</td>
-<td>❌</td>
-<td>❌</td>
-</tr>
-<tr class="odd">
-<td>수정·파생물 작성</td>
-<td>⚠️ 내부만</td>
-<td>❌</td>
-<td>❌</td>
-</tr>
+<tbody class="list">
 </tbody>
 </table>
-</section>
-<section id="문의" class="level3">
-<h3 class="anchored" data-anchor-id="문의">5. 문의</h3>
-<p>라이선스 관련 질문은 아래로 연락주세요: - 브랜드·로고 관련: GC 브랜드팀 - 컴플라이언스 관련: GC IR·법무팀 - 서체 재배포 관련: 한글과컴퓨터 공식 채널</p>
-<hr>
-<p>© 2026 GC Corp.&nbsp;All Rights Reserved.</p>
-
-
-</section>
-</section>
-</section>
-
-</main> <!-- /main -->
+<div class="listing-no-matching d-none">No matching items</div>
+</div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

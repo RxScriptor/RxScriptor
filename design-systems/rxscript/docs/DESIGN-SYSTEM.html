@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>contributing – RxScriptor</title>
+<title>design-system – RxScriptor</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,61 +23,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-4897d45d2f75ed4f519693be625836c5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-4897d45d2f75ed4f519693be625836c5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -107,7 +72,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
-<link rel="stylesheet" href="../../assets/css/styles.css">
+<link rel="stylesheet" href="../../../design-systems/rxscript/tokens/rxscript-tokens.css">
+<link rel="stylesheet" href="../../../assets/css/styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -117,7 +83,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">RxScriptor</span>
     </a>
   </div>
@@ -128,16 +94,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
+    <a class="nav-link" href="../../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../modules/literature/summaries/"> 
-<span class="menu-text">Literature</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-legacy" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Legacy</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-legacy">    
+        <li>
+    <a class="dropdown-item" href="../../../projects/_legacy/literature/summaries/">
+ <span class="dropdown-text">Literature</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../../../projects/_legacy/briefing/reports/">
+ <span class="dropdown-text">Briefings</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
-    <a class="nav-link" href="../../modules/briefing/reports/"> 
-<span class="menu-text">Reports</span></a>
+    <a class="nav-link active" href="../../../design-systems/rxscript/docs/DESIGN-SYSTEM.html" aria-current="page"> 
+<span class="menu-text">Design System</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -155,30 +132,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#contributing-to-gc-biopharma-design-system" id="toc-contributing-to-gc-biopharma-design-system" class="nav-link active" data-scroll-target="#contributing-to-gc-biopharma-design-system">Contributing to GC Biopharma Design System</a>
+  <li><a href="#rxscript-design-v0.1-skeleton" id="toc-rxscript-design-v0.1-skeleton" class="nav-link active" data-scroll-target="#rxscript-design-v0.1-skeleton">RxScript Design · v0.1 Skeleton</a>
   <ul class="collapse">
-  <li><a href="#기여-가능-영역" id="toc-기여-가능-영역" class="nav-link" data-scroll-target="#기여-가능-영역">🎯 기여 가능 영역</a></li>
-  <li><a href="#브랜치-전략" id="toc-브랜치-전략" class="nav-link" data-scroll-target="#브랜치-전략">🔀 브랜치 전략</a>
-  <ul class="collapse">
-  <li><a href="#브랜치-네이밍-규칙" id="toc-브랜치-네이밍-규칙" class="nav-link" data-scroll-target="#브랜치-네이밍-규칙">브랜치 네이밍 규칙</a></li>
-  </ul></li>
-  <li><a href="#커밋-메시지-규칙-conventional-commits" id="toc-커밋-메시지-규칙-conventional-commits" class="nav-link" data-scroll-target="#커밋-메시지-규칙-conventional-commits">📝 커밋 메시지 규칙 (Conventional Commits)</a>
-  <ul class="collapse">
-  <li><a href="#type-종류" id="toc-type-종류" class="nav-link" data-scroll-target="#type-종류">Type 종류</a></li>
-  <li><a href="#scope-예시" id="toc-scope-예시" class="nav-link" data-scroll-target="#scope-예시">Scope 예시</a></li>
-  </ul></li>
-  <li><a href="#기여-워크플로우" id="toc-기여-워크플로우" class="nav-link" data-scroll-target="#기여-워크플로우">🔁 기여 워크플로우</a>
-  <ul class="collapse">
-  <li><a href="#issue-먼저-생성-의무" id="toc-issue-먼저-생성-의무" class="nav-link" data-scroll-target="#issue-먼저-생성-의무">1. Issue 먼저 생성 (의무)</a></li>
-  <li><a href="#fork-branch" id="toc-fork-branch" class="nav-link" data-scroll-target="#fork-branch">2. Fork &amp; Branch</a></li>
-  <li><a href="#변경-후-커밋-push" id="toc-변경-후-커밋-push" class="nav-link" data-scroll-target="#변경-후-커밋-push">3. 변경 후 커밋 &amp; Push</a></li>
-  <li><a href="#pull-request-생성" id="toc-pull-request-생성" class="nav-link" data-scroll-target="#pull-request-생성">4. Pull Request 생성</a></li>
-  <li><a href="#리뷰-병합" id="toc-리뷰-병합" class="nav-link" data-scroll-target="#리뷰-병합">5. 리뷰 &amp; 병합</a></li>
-  </ul></li>
-  <li><a href="#버전-관리-semver-changelog" id="toc-버전-관리-semver-changelog" class="nav-link" data-scroll-target="#버전-관리-semver-changelog">🔢 버전 관리 (SemVer + Changelog)</a></li>
-  <li><a href="#배포-전-체크-pr-필수-항목" id="toc-배포-전-체크-pr-필수-항목" class="nav-link" data-scroll-target="#배포-전-체크-pr-필수-항목">🛡️ 배포 전 체크 (PR 필수 항목)</a></li>
-  <li><a href="#금지-사항" id="toc-금지-사항" class="nav-link" data-scroll-target="#금지-사항">🚨 금지 사항</a></li>
-  <li><a href="#문의-및-오너십" id="toc-문의-및-오너십" class="nav-link" data-scroll-target="#문의-및-오너십">📞 문의 및 오너십</a></li>
+  <li><a href="#brand-principles" id="toc-brand-principles" class="nav-link" data-scroll-target="#brand-principles">0. Brand Principles</a></li>
+  <li><a href="#brand-identity-visual-tone" id="toc-brand-identity-visual-tone" class="nav-link" data-scroll-target="#brand-identity-visual-tone">1. Brand Identity &amp; Visual Tone</a></li>
+  <li><a href="#color-system" id="toc-color-system" class="nav-link" data-scroll-target="#color-system">2. Color System</a></li>
+  <li><a href="#typography" id="toc-typography" class="nav-link" data-scroll-target="#typography">3. Typography</a></li>
+  <li><a href="#logo-lockup-rules" id="toc-logo-lockup-rules" class="nav-link" data-scroll-target="#logo-lockup-rules">4. Logo &amp; Lockup Rules</a></li>
+  <li><a href="#spacing-layout" id="toc-spacing-layout" class="nav-link" data-scroll-target="#spacing-layout">5. Spacing &amp; Layout</a></li>
+  <li><a href="#slide-page-type-system" id="toc-slide-page-type-system" class="nav-link" data-scroll-target="#slide-page-type-system">6. Slide / Page Type System</a></li>
+  <li><a href="#component-specs" id="toc-component-specs" class="nav-link" data-scroll-target="#component-specs">7. Component Specs</a></li>
+  <li><a href="#pictograms" id="toc-pictograms" class="nav-link" data-scroll-target="#pictograms">8. Pictograms</a></li>
+  <li><a href="#icon-system" id="toc-icon-system" class="nav-link" data-scroll-target="#icon-system">9. Icon System</a></li>
+  <li><a href="#callouts-inline-components" id="toc-callouts-inline-components" class="nav-link" data-scroll-target="#callouts-inline-components">10. Callouts &amp; Inline Components</a></li>
+  <li><a href="#copyright-notice" id="toc-copyright-notice" class="nav-link" data-scroll-target="#copyright-notice">11. Copyright Notice</a></li>
+  <li><a href="#version-branching-by-use-case" id="toc-version-branching-by-use-case" class="nav-link" data-scroll-target="#version-branching-by-use-case">12. Version Branching by Use Case</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -189,242 +157,98 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="contributing-to-gc-biopharma-design-system" class="level1">
-<h1>Contributing to GC Biopharma Design System</h1>
-<p>GC Biopharma Design System에 기여해주셔서 감사합니다. 본 문서는 저장소에 변경사항을 제안·반영하는 표준 절차를 안내합니다.</p>
-<section id="기여-가능-영역" class="level2">
-<h2 class="anchored" data-anchor-id="기여-가능-영역">🎯 기여 가능 영역</h2>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 24%">
-<col style="width: 44%">
-<col style="width: 32%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>영역</th>
-<th>담당 Track</th>
-<th>리뷰어</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>시각 자산 (로고·폰트·컬러)</td>
-<td>Designer Track (§0–§11)</td>
-<td>GC 브랜드팀</td>
-</tr>
-<tr class="even">
-<td>슬라이드 컴포넌트 스펙</td>
-<td>Designer Track (§5–§10)</td>
-<td>GC 브랜드팀 + 기획팀</td>
-</tr>
-<tr class="odd">
-<td>수신자별 분기 규칙</td>
-<td>Compliance Track (§12–§13)</td>
-<td>IR·RA·법무팀</td>
-</tr>
-<tr class="even">
-<td>AI 프롬프트 템플릿</td>
-<td>Compliance Track (§14)</td>
-<td>전체 트랙 공동</td>
-</tr>
-<tr class="odd">
-<td>어휘 레퍼런스 확장</td>
-<td>Appendix (§15)</td>
-<td>사용 부서 제안 후 오너 승인</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="브랜치-전략" class="level2">
-<h2 class="anchored" data-anchor-id="브랜치-전략">🔀 브랜치 전략</h2>
-<pre><code>main        ← 프로덕션 배포본 (보호 브랜치, 직접 push 금지)
-├── develop ← 다음 릴리스 통합 브랜치
-│   ├── feature/add-pk-slide-template
-│   ├── feature/update-color-tokens
-│   └── fix/typo-in-section-12
-└── hotfix/urgent-logo-correction ← 긴급 수정은 main에서 분기</code></pre>
-<section id="브랜치-네이밍-규칙" class="level3">
-<h3 class="anchored" data-anchor-id="브랜치-네이밍-규칙">브랜치 네이밍 규칙</h3>
-<ul>
-<li><code>feature/&lt;짧은-설명&gt;</code>: 새 기능·섹션 추가</li>
-<li><code>fix/&lt;짧은-설명&gt;</code>: 오탈자·버그 수정</li>
-<li><code>hotfix/&lt;짧은-설명&gt;</code>: 프로덕션 긴급 수정</li>
-<li><code>docs/&lt;짧은-설명&gt;</code>: 문서만 변경</li>
-<li><code>asset/&lt;짧은-설명&gt;</code>: 로고·폰트 등 자산 교체</li>
-</ul>
-</section>
-</section>
-<section id="커밋-메시지-규칙-conventional-commits" class="level2">
-<h2 class="anchored" data-anchor-id="커밋-메시지-규칙-conventional-commits">📝 커밋 메시지 규칙 (Conventional Commits)</h2>
-<pre><code>&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;
-
-&lt;body - optional&gt;
-
-&lt;footer - optional&gt;</code></pre>
-<section id="type-종류" class="level3">
-<h3 class="anchored" data-anchor-id="type-종류">Type 종류</h3>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Type</th>
-<th>용도</th>
-<th>예시</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>feat</code></td>
-<td>새 기능·섹션 추가</td>
-<td><code>feat(compliance): add BD/Licensing audience type</code></td>
-</tr>
-<tr class="even">
-<td><code>fix</code></td>
-<td>오탈자·오류 수정</td>
-<td><code>fix(docs): correct color hex in §2-1</code></td>
-</tr>
-<tr class="odd">
-<td><code>docs</code></td>
-<td>문서 변경만</td>
-<td><code>docs(readme): update quick start guide</code></td>
-</tr>
-<tr class="even">
-<td><code>style</code></td>
-<td>포맷·공백 변경</td>
-<td><code>style(css): unify indentation in gc-tokens.css</code></td>
-</tr>
-<tr class="odd">
-<td><code>refactor</code></td>
-<td>구조 재편 (내용 동일)</td>
-<td><code>refactor(docs): split §12 into track-based sections</code></td>
-</tr>
-<tr class="even">
-<td><code>asset</code></td>
-<td>로고·폰트 교체</td>
-<td><code>asset(logo): add symbol-only SVG</code></td>
-</tr>
-<tr class="odd">
-<td><code>chore</code></td>
-<td>빌드·설정·기타</td>
-<td><code>chore: update .gitignore</code></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="scope-예시" class="level3">
-<h3 class="anchored" data-anchor-id="scope-예시">Scope 예시</h3>
-<p><code>docs</code>, <code>css</code>, <code>fonts</code>, <code>logos</code>, <code>readme</code>, <code>designer-track</code>, <code>compliance</code>, <code>prompt</code></p>
-</section>
-</section>
-<section id="기여-워크플로우" class="level2">
-<h2 class="anchored" data-anchor-id="기여-워크플로우">🔁 기여 워크플로우</h2>
-<section id="issue-먼저-생성-의무" class="level3">
-<h3 class="anchored" data-anchor-id="issue-먼저-생성-의무">1. Issue 먼저 생성 (의무)</h3>
-<p>변경사항이 확정되기 전에 Issue로 제안 → 토론 → 합의 → 구현. 이유: - 중복 작업 방지 - 오너 트랙별 책임자 사전 지정 - Regulatory·Compliance 관련 변경은 사전 합의 필수</p>
-</section>
-<section id="fork-branch" class="level3">
-<h3 class="anchored" data-anchor-id="fork-branch">2. Fork &amp; Branch</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/<span class="op">&lt;</span>org<span class="op">&gt;</span>/gc-biopharma-design-system.git</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> gc-biopharma-design-system</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout develop</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull origin develop</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout <span class="at">-b</span> feature/my-contribution</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="변경-후-커밋-push" class="level3">
-<h3 class="anchored" data-anchor-id="변경-후-커밋-push">3. 변경 후 커밋 &amp; Push</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add <span class="op">&lt;</span>변경 파일<span class="op">&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"feat(compliance): add Medical Affairs audience type"</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin feature/my-contribution</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="pull-request-생성" class="level3">
-<h3 class="anchored" data-anchor-id="pull-request-생성">4. Pull Request 생성</h3>
-<ul>
-<li><strong>Base</strong>: <code>develop</code> (hotfix는 예외적으로 <code>main</code>)</li>
-<li><strong>리뷰어 지정</strong>: 영향 받는 Track 오너 최소 1명</li>
-<li><strong>체크리스트</strong>: PR 템플릿의 항목 모두 체크</li>
-</ul>
-</section>
-<section id="리뷰-병합" class="level3">
-<h3 class="anchored" data-anchor-id="리뷰-병합">5. 리뷰 &amp; 병합</h3>
-<ul>
-<li>리뷰어 승인 후 <strong>Squash and merge</strong> 권장 (커밋 이력 정리)</li>
-<li>Regulatory·Compliance 관련 변경은 <strong>2인 승인</strong> 필수 (IR + 법무)</li>
-</ul>
-</section>
-</section>
-<section id="버전-관리-semver-changelog" class="level2">
-<h2 class="anchored" data-anchor-id="버전-관리-semver-changelog">🔢 버전 관리 (SemVer + Changelog)</h2>
-<pre><code>MAJOR.MINOR.PATCH
-  │     │     └─ 오탈자·경미한 수정 (예: v2.3.1)
-  │     └─────── 새 섹션·수신자 유형 추가 (예: v2.4.0)
-  └───────────── 전체 구조 개편·호환 깨짐 (예: v3.0.0)</code></pre>
-<ul>
-<li>모든 변경은 <code>docs/DESIGN-SYSTEM.md</code> §17 Changelog에 반영</li>
-<li>Release 시점에 GitHub Releases로 태깅: <code>git tag -a v2.4.0 -m "Release v2.4.0"</code></li>
-</ul>
-</section>
-<section id="배포-전-체크-pr-필수-항목" class="level2">
-<h2 class="anchored" data-anchor-id="배포-전-체크-pr-필수-항목">🛡️ 배포 전 체크 (PR 필수 항목)</h2>
-<ul class="task-list">
-<li><label><input type="checkbox"><code>docs/DESIGN-SYSTEM.md</code> §17 Changelog에 변경 이력 기재</label></li>
-<li><label><input type="checkbox">버전 번호 업데이트 (문서 상단·README·Changelog)</label></li>
-<li><label><input type="checkbox">영향 받는 Track 오너 리뷰어 지정</label></li>
-<li><label><input type="checkbox">자산 변경 시 파일 크기·최적화 확인</label></li>
-<li><label><input type="checkbox">Regulatory 영향 변경 시 법무·RA 팀 사전 검토</label></li>
-<li><label><input type="checkbox">커밋 메시지가 Conventional Commits 규칙 준수</label></li>
-<li><label><input type="checkbox">민감 정보(미공시 파트너십·임상 데이터) 미포함 확인</label></li>
-</ul>
-</section>
-<section id="금지-사항" class="level2">
-<h2 class="anchored" data-anchor-id="금지-사항">🚨 금지 사항</h2>
-<ul>
-<li>✗ <code>main</code> 브랜치 직접 push</li>
-<li>✗ 미공시 정보·파트너십 실명·임상 미발표 데이터 커밋</li>
-<li>✗ 로고 SVG 임의 변형 후 커밋</li>
-<li>✗ 라이선스 변경 (LICENSE.md 수정은 법무팀 승인 후)</li>
-<li>✗ Force push (<code>git push --force</code>) — 히스토리 보존 필수</li>
-</ul>
-</section>
-<section id="문의-및-오너십" class="level2">
-<h2 class="anchored" data-anchor-id="문의-및-오너십">📞 문의 및 오너십</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>영역</th>
-<th>오너</th>
-<th>연락</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Designer Track (§0–§11)</td>
-<td>GC 브랜드팀</td>
-<td>(내부 연락처)</td>
-</tr>
-<tr class="even">
-<td>Compliance Track (§12–§14)</td>
-<td>IR·RA·법무팀</td>
-<td>(내부 연락처)</td>
-</tr>
-<tr class="odd">
-<td>Appendix (§15–§17)</td>
-<td>전체 공동</td>
-<td>(내부 연락처)</td>
-</tr>
-<tr class="even">
-<td>GitHub 저장소 운영</td>
-<td>(Maintainer 지정)</td>
-<td>(내부 연락처)</td>
-</tr>
-</tbody>
-</table>
+<section id="rxscript-design-v0.1-skeleton" class="level1">
+<h1>RxScript Design · v0.1 Skeleton</h1>
+<p>Public, open-source design system for RxScriptor. This document is a <strong>structural scaffold</strong> — section headings mirror the private GCBP Design spec so the two systems can evolve in parallel. Fill each section as decisions are made.</p>
+<blockquote class="blockquote">
+<p>TBD — see <code>design-systems/gcbp/docs/DESIGN-SYSTEM.md</code> for a reference implementation (private, GC Biopharma-specific).</p>
+</blockquote>
 <hr>
-<p>© 2026 GC Corp.&nbsp;All Rights Reserved.</p>
+<section id="brand-principles" class="level2">
+<h2 class="anchored" data-anchor-id="brand-principles">0. Brand Principles</h2>
+<ul>
+<li>0-1. Symbol Mark — TBD</li>
+<li>0-2. Logo Proportions &amp; Clear Space — TBD</li>
+<li>0-3. Official Logo Colors — TBD</li>
+<li>0-4. Incorrect Use — TBD</li>
+</ul>
+</section>
+<section id="brand-identity-visual-tone" class="level2">
+<h2 class="anchored" data-anchor-id="brand-identity-visual-tone">1. Brand Identity &amp; Visual Tone</h2>
+<p>TBD</p>
+</section>
+<section id="color-system" class="level2">
+<h2 class="anchored" data-anchor-id="color-system">2. Color System</h2>
+<ul>
+<li>2-1. Primary Colors — placeholder in <code>tokens/rxscript-tokens.css</code></li>
+<li>2-2. Secondary Colors — TBD</li>
+<li>2-3. Neutral Palette — placeholder</li>
+<li>2-4. Semantic Colors (success / warning / danger / info) — placeholder</li>
+<li>2-5. Gradients — TBD</li>
+<li>2-6. Data Visualization Palette — TBD</li>
+</ul>
+</section>
+<section id="typography" class="level2">
+<h2 class="anchored" data-anchor-id="typography">3. Typography</h2>
+<ul>
+<li>3-1. Official Typeface — currently <code>system-ui</code> stack (TBD: choose open-licensed face)</li>
+<li>3-2. Type Scale — TBD</li>
+<li>3-3. Text Style Rules — TBD</li>
+<li>3-4. <code>@font-face</code> declarations — N/A until a custom face is chosen</li>
+</ul>
+</section>
+<section id="logo-lockup-rules" class="level2">
+<h2 class="anchored" data-anchor-id="logo-lockup-rules">4. Logo &amp; Lockup Rules</h2>
+<p>TBD</p>
+</section>
+<section id="spacing-layout" class="level2">
+<h2 class="anchored" data-anchor-id="spacing-layout">5. Spacing &amp; Layout</h2>
+<ul>
+<li>5-1. Grid — TBD</li>
+<li>5-2. Spacing scale — defined in tokens</li>
+<li>5-3. Border radius — defined in tokens</li>
+<li>5-4. Layout archetypes — TBD</li>
+</ul>
+</section>
+<section id="slide-page-type-system" class="level2">
+<h2 class="anchored" data-anchor-id="slide-page-type-system">6. Slide / Page Type System</h2>
+<p>TBD</p>
+</section>
+<section id="component-specs" class="level2">
+<h2 class="anchored" data-anchor-id="component-specs">7. Component Specs</h2>
+<ul>
+<li>7-1. Bottom Takeaway Banner — TBD</li>
+<li>7-2. Content Panel — TBD</li>
+<li>7-3. Section Label — TBD</li>
+<li>7-4. Growth Badge — TBD</li>
+<li>7-5. Progress / Data Bar — TBD</li>
+<li>7-6. Pipeline Row — TBD</li>
+<li>7-7. Section Nav Footer — TBD</li>
+<li>7-8. Key Takeaways Card — TBD</li>
+</ul>
+</section>
+<section id="pictograms" class="level2">
+<h2 class="anchored" data-anchor-id="pictograms">8. Pictograms</h2>
+<p>TBD</p>
+</section>
+<section id="icon-system" class="level2">
+<h2 class="anchored" data-anchor-id="icon-system">9. Icon System</h2>
+<p>TBD — candidate: Font Awesome 6 Free, Lucide</p>
+</section>
+<section id="callouts-inline-components" class="level2">
+<h2 class="anchored" data-anchor-id="callouts-inline-components">10. Callouts &amp; Inline Components</h2>
+<ul>
+<li>10-1. Callout Block — TBD</li>
+<li>10-2. Insight Badge — TBD</li>
+</ul>
+</section>
+<section id="copyright-notice" class="level2">
+<h2 class="anchored" data-anchor-id="copyright-notice">11. Copyright Notice</h2>
+<p>TBD</p>
+</section>
+<section id="version-branching-by-use-case" class="level2">
+<h2 class="anchored" data-anchor-id="version-branching-by-use-case">12. Version Branching by Use Case</h2>
+<p>TBD</p>
 
 
 </section>
