@@ -1,0 +1,10 @@
+---
+title: "Briefings"
+listing:
+  contents: briefings/*.html
+  type: table
+  sort: "date desc"
+  fields: [date, title, subtitle]
+---
+
+Project briefings index. Add entries to `briefings.json` and commit rendered HTML under `briefings/`.

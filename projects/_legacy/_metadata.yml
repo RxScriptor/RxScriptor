@@ -1,0 +1,4 @@
+format:
+  html:
+    css:
+      - /design-systems/gcbp/tokens/gcbp-tokens.css

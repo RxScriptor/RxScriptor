@@ -1,0 +1,4 @@
+name: _legacy
+design: gcbp
+created_at: 2026-04-13
+note: Pre-restructure archive. Contains briefings and literature assembled before the projects/<name>/ layout was introduced. Kept as-is so historical links continue to resolve.

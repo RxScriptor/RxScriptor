@@ -1,0 +1,3 @@
+[submodule "design-systems/gcbp"]
+	path = design-systems/gcbp
+	url = https://github.com/RxScriptor/rxscriptor-gcbp-design.git

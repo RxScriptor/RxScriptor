@@ -1,4 +1,10 @@
-/* RxScriptor custom styles */
+/* RxScriptor custom styles
+ *
+ * Design tokens are loaded via _quarto.yml (RxScript by default) and per-project
+ * _metadata.yml overrides (e.g. GCBP projects load gcbp-tokens.css). Keep this
+ * file for site-wide tweaks that apply regardless of design system.
+ */
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--rx-font-family, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
 }

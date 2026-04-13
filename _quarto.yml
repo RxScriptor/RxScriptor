@@ -2,22 +2,30 @@ project:
   type: website
   output-dir: _site
   resources:
-    - "assets/robots.txt"
-
+  - assets/robots.txt
+  - design-systems/rxscript/tokens/**
+  - design-systems/gcbp/tokens/**
+  - design-systems/gcbp/fonts/**
+  - design-systems/gcbp/logo/**
 website:
-  title: "RxScriptor"
-  description: "Drug Delivery System Research Portal"
+  title: RxScriptor
+  description: Drug Delivery System Research Portal
   navbar:
     left:
-      - href: index.qmd
-        text: Home
-      - href: modules/literature/summaries/
+    - href: index.qmd
+      text: Home
+    - text: Legacy
+      menu:
+      - href: projects/_legacy/literature/summaries/
         text: Literature
-      - href: modules/briefing/reports/
-        text: Reports
-
+      - href: projects/_legacy/briefing/reports/
+        text: Briefings
+    - href: design-systems/rxscript/docs/DESIGN-SYSTEM.md
+      text: Design System
 format:
   html:
     theme: cosmo
-    css: assets/css/styles.css
+    css:
+    - design-systems/rxscript/tokens/rxscript-tokens.css
+    - assets/css/styles.css
     toc: true

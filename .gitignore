@@ -1,4 +1,5 @@
 # Raw PDFs (로컬 전용, repo 밖에 저장)
+projects/*/literature/raw_pdfs/
 modules/literature/raw_pdfs/
 
 # Private DB
