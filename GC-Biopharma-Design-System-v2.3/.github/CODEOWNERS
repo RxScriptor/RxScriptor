@@ -6,21 +6,21 @@
 # 형식: <경로 패턴>  <리뷰어1> <리뷰어2>
 
 # ============ 전체 기본 ============
-*                                   @gc-brand-team
+*                                   @RxScriptor
 
 # ============ Designer Track ============
-docs/DESIGN-SYSTEM.md               @gc-brand-team @gc-design-lead
-gc-tokens.css                       @gc-brand-team @gc-frontend-lead
-assets/logos/                       @gc-brand-team
-assets/fonts/                       @gc-brand-team @gc-legal-team
+docs/DESIGN-SYSTEM.md               @RxScriptor
+gc-tokens.css                       @RxScriptor
+assets/logos/                       @RxScriptor
+assets/fonts/                       @RxScriptor
 
 # ============ Compliance Track ============
 # §12–§14는 별도 파일로 분리 시 경로 추가
 # (현재는 DESIGN-SYSTEM.md 내부 섹션이므로 전체 파일 오너에 법무팀 포함)
 
 # ============ Repository Meta ============
-LICENSE.md                          @gc-legal-team
-README.md                           @gc-brand-team @gc-ir-team
-CONTRIBUTING.md                     @gc-brand-team @gc-legal-team
-.github/                            @gc-brand-team @gc-devops-team
-.gitignore                          @gc-devops-team
+LICENSE.md                          @RxScriptor
+README.md                           @RxScriptor
+CONTRIBUTING.md                     @RxScriptor
+.github/                            @RxScriptor
+.gitignore                          @RxScriptor
