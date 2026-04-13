@@ -1,0 +1,190 @@
+/* ==========================================================================
+   GC Biopharma Design System · v2.3
+   Design Tokens & Typography
+   © 2026 GC Corp. All Rights Reserved.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Freesentation @font-face (9 weights)
+   -------------------------------------------------------------------------- */
+@font-face { font-family: 'Freesentation'; src: url('./assets/fonts/Freesentation-1Thin.ttf') format('truetype');       font-weight: 100; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Freesentation'; src: url('./assets/fonts/Freesentation-2ExtraLight.ttf') format('truetype'); font-weight: 200; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Freesentation'; src: url('./assets/fonts/Freesentation-3Light.ttf') format('truetype');      font-weight: 300; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Freesentation'; src: url('./assets/fonts/Freesentation-4Regular.ttf') format('truetype');    font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Freesentation'; src: url('./assets/fonts/Freesentation-5Medium.ttf') format('truetype');     font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Freesentation'; src: url('./assets/fonts/Freesentation-6SemiBold.ttf') format('truetype');   font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Freesentation'; src: url('./assets/fonts/Freesentation-7Bold.ttf') format('truetype');       font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Freesentation'; src: url('./assets/fonts/Freesentation-8ExtraBold.ttf') format('truetype');  font-weight: 800; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Freesentation'; src: url('./assets/fonts/Freesentation-9Black.ttf') format('truetype');      font-weight: 900; font-style: normal; font-display: swap; }
+
+/* --------------------------------------------------------------------------
+   2. Design Tokens (CSS Custom Properties)
+   -------------------------------------------------------------------------- */
+:root {
+  /* ---- Colors: Primary ---- */
+  --gc-red:           #E4002B;
+  --gc-yellow:        #FFC845;
+  --gc-deep-green:    #007A33;
+  --gc-bright-green:  #97D700;
+
+  /* ---- Colors: Secondary ---- */
+  --gc-mid-blue:      #0072CE;
+  --gc-light-blue:    #00A9E0;
+  --gc-mid-green:     #43B02A;
+  --gc-gray:          #9EA2A2;
+
+  /* ---- Colors: IR Extended ---- */
+  --gc-deep-navy:     #002B49;  /* IR primary · CTA · 강조 */
+  --gc-panel-gray:    #E8E8E8;  /* 패널·비교·구분선 */
+  --gc-warm-beige:    #F0EDE8;  /* 섹션 구분 배경 */
+  --gc-off-black:     #1A1A1A;  /* 본문 텍스트 */
+
+  /* ---- Colors: Web Palette (Gnet·G:ON 전용) ---- */
+  --gc-web-soft-green:   #60A57B;
+  --gc-web-deep-green:   #145A50;
+  --gc-web-warm-gray:    #F7F7F3;
+  --gc-web-soft-yellow:  #FFCB6E;
+  --gc-web-deep-red:     #BC4042;
+
+  /* ---- Typography ---- */
+  --gc-font-family: 'Freesentation', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+
+  /* Font Weights (semantic) */
+  --gc-fw-thin:        100;
+  --gc-fw-extralight:  200;
+  --gc-fw-light:       300;
+  --gc-fw-regular:     400;
+  --gc-fw-medium:      500;
+  --gc-fw-semibold:    600;
+  --gc-fw-bold:        700;
+  --gc-fw-extrabold:   800;
+  --gc-fw-black:       900;
+
+  /* ---- Spacing Scale ---- */
+  --gc-space-xs:  4px;
+  --gc-space-sm:  8px;
+  --gc-space-md:  12px;
+  --gc-space-lg:  24px;
+  --gc-space-xl:  48px;
+
+  /* ---- Border Radius ---- */
+  --gc-radius-badge:   5px;
+  --gc-radius-panel:   8px;
+  --gc-radius-bar:     3px;
+  --gc-radius-banner:  0;
+
+  /* ---- Slide Layout ---- */
+  --gc-slide-padding-x:  24px;
+  --gc-slide-padding-y:  14px;
+  --gc-panel-gap:        12px;
+  --gc-banner-padding-y: 9px;
+  --gc-banner-padding-x: 22px;
+}
+
+/* --------------------------------------------------------------------------
+   3. Base Typography
+   -------------------------------------------------------------------------- */
+body {
+  font-family: var(--gc-font-family);
+  color: var(--gc-off-black);
+  font-weight: var(--gc-fw-regular);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--gc-deep-navy);
+  font-weight: var(--gc-fw-bold);
+  letter-spacing: -0.3px;
+}
+
+/* --------------------------------------------------------------------------
+   4. Component Utilities (optional - 참고용 빌딩 블록)
+   -------------------------------------------------------------------------- */
+
+/* Bottom Takeaway Banner */
+.gc-banner {
+  background: var(--gc-deep-navy);
+  color: white;
+  font-weight: var(--gc-fw-bold);
+  font-size: 11px;
+  padding: var(--gc-banner-padding-y) var(--gc-banner-padding-x);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.gc-banner__page { color: rgba(255,255,255,0.35); font-size: 9px; }
+
+/* Content Panel */
+.gc-panel {
+  border: 1.5px solid var(--gc-panel-gray);
+  border-radius: var(--gc-radius-panel);
+  overflow: hidden;
+}
+.gc-panel__header {
+  background: var(--gc-deep-navy);
+  color: white;
+  font-weight: var(--gc-fw-semibold);
+  font-size: 10px;
+  padding: 6px 10px;
+}
+.gc-panel__header--blue { background: var(--gc-mid-blue); }
+.gc-panel__body { padding: 10px 12px; }
+
+/* Section Label */
+.gc-eyebrow {
+  font-size: 8px;
+  font-weight: var(--gc-fw-medium);
+  color: #BBBBBB;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--gc-mid-blue);
+  padding-bottom: 2px;
+  display: inline-block;
+}
+
+/* Growth Badge */
+.gc-badge-growth {
+  background: var(--gc-mid-blue);
+  color: white;
+  font-size: 7px;
+  font-weight: var(--gc-fw-extrabold);
+  padding: 1px 5px;
+  border-radius: 10px;
+}
+
+/* Callout */
+.gc-callout {
+  border-left: 3px solid;
+  border-radius: 0 5px 5px 0;
+  padding: 7px 10px;
+  font-size: 9px;
+  line-height: 1.5;
+}
+.gc-callout--insight  { border-color: var(--gc-mid-blue);  background: #F0F6FF; color: var(--gc-deep-navy); }
+.gc-callout--strategy { border-color: var(--gc-deep-navy); background: #F0F4F8; color: var(--gc-deep-navy); }
+.gc-callout--warning  { border-color: #E8A000;             background: #FFFBF0; color: #7A4E00; }
+.gc-callout--data     { border-color: var(--gc-mid-blue);  background: #F0F6FF; color: var(--gc-deep-navy); }
+
+/* Key Takeaways Card */
+.gc-card {
+  background: var(--gc-deep-navy);
+  color: white;
+  border-radius: var(--gc-radius-panel);
+  padding: 14px 12px;
+}
+.gc-card--blue { background: var(--gc-mid-blue); }
+
+/* Financial Table */
+.gc-table { width: 100%; border-collapse: collapse; font-size: 10px; }
+.gc-table thead th {
+  background: var(--gc-deep-navy);
+  color: white;
+  font-weight: var(--gc-fw-bold);
+  padding: 7px 10px;
+  text-align: left;
+}
+.gc-table tbody tr { border-bottom: 1px solid var(--gc-panel-gray); }
+.gc-table tbody tr:nth-child(even) { background: #FAFAFA; }
+.gc-table tbody td { padding: 6px 10px; }
+.gc-table .gc-number-primary { color: var(--gc-deep-navy); font-weight: var(--gc-fw-extrabold); }
+.gc-table .gc-number-muted   { color: #999; }

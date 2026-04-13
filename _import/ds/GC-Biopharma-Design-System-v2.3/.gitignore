@@ -1,0 +1,40 @@
+# ========= OS =========
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ========= Editor / IDE =========
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+
+# ========= Node / Build =========
+node_modules/
+dist/
+build/
+.cache/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ========= Temporary =========
+*.tmp
+*.bak
+*.old
+
+# ========= Office / Design scratches =========
+~$*.pptx
+~$*.docx
+~$*.xlsx
+*.sketch-backup
+
+# ========= Sensitive (배포 전 차단) =========
+# 미공시 파트너십·임상 데이터는 절대 커밋 금지
+*-CONFIDENTIAL*
+*-INTERNAL-ONLY*
+*.draft.md
