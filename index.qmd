@@ -1,0 +1,14 @@
+---
+title: "RxScriptor"
+subtitle: "Drug Delivery System Research Portal"
+---
+
+## Overview
+
+DDS 연구 및 논문 리서치 허브.
+
+## Modules
+
+- **Literature**: 논문 요약 및 메타데이터
+- **Briefing**: 리서치 리포트
+- **Database**: 구조화된 연구 데이터

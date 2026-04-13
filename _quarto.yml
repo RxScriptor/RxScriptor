@@ -1,0 +1,23 @@
+project:
+  type: website
+  output-dir: _site
+  resources:
+    - "assets/robots.txt"
+
+website:
+  title: "RxScriptor"
+  description: "Drug Delivery System Research Portal"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: modules/literature/summaries/
+        text: Literature
+      - href: modules/briefing/reports/
+        text: Reports
+
+format:
+  html:
+    theme: cosmo
+    css: assets/css/styles.css
+    toc: true

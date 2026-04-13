@@ -1,0 +1,10 @@
+# Core
+pyyaml>=6.0
+requests>=2.31.0
+
+# DB
+# sqlite3는 Python 표준 라이브러리
+
+# API clients (optional)
+# habanero  # CrossRef
+# biopython  # PubMed

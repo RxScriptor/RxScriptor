@@ -1,0 +1,27 @@
+# Raw PDFs (로컬 전용, repo 밖에 저장)
+modules/literature/raw_pdfs/
+
+# Private DB
+modules/database/rx_private.db
+modules/database/rx_private.db-journal
+modules/database/rx_private.db-wal
+modules/database/rx_private.db-shm
+
+# 빌드 산출물 (gh-pages 브랜치 전용)
+_site/
+_book/
+.quarto/
+public/
+
+# 환경
+.env
+.env.local
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# IDE/OS
+.DS_Store
+.vscode/
+.idea/

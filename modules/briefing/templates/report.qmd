@@ -1,0 +1,16 @@
+---
+title: "Report Title"
+author: "RxScriptor"
+date: today
+format:
+  html:
+    toc: true
+---
+
+## Executive Summary
+
+## Background
+
+## Findings
+
+## References
