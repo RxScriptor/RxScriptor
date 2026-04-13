@@ -1,0 +1,44 @@
+[
+  {
+    "objectID": "modules/briefing/templates/report.html#background",
+    "href": "modules/briefing/templates/report.html#background",
+    "title": "Report Title",
+    "section": "Background",
+    "text": "Background"
+  },
+  {
+    "objectID": "modules/briefing/templates/report.html#findings",
+    "href": "modules/briefing/templates/report.html#findings",
+    "title": "Report Title",
+    "section": "Findings",
+    "text": "Findings"
+  },
+  {
+    "objectID": "modules/briefing/templates/report.html#references",
+    "href": "modules/briefing/templates/report.html#references",
+    "title": "Report Title",
+    "section": "References",
+    "text": "References"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "RxScriptor",
+    "section": "",
+    "text": "DDS 연구 및 논문 리서치 허브."
+  },
+  {
+    "objectID": "index.html#overview",
+    "href": "index.html#overview",
+    "title": "RxScriptor",
+    "section": "",
+    "text": "DDS 연구 및 논문 리서치 허브."
+  },
+  {
+    "objectID": "index.html#modules",
+    "href": "index.html#modules",
+    "title": "RxScriptor",
+    "section": "Modules",
+    "text": "Modules\n\nLiterature: 논문 요약 및 메타데이터\nBriefing: 리서치 리포트\nDatabase: 구조화된 연구 데이터"
+  }
+]
