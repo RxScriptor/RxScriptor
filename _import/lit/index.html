@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Archive · DDS</title>
+<meta name="description" content="DDS·LNP·mRNA 분야 논문 트래킹 대시보드">
+<meta property="og:title" content="Research Archive · DDS">
+<meta property="og:description" content="DDS·LNP·mRNA 분야 논문 트래킹 대시보드">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://parkjoo000.github.io/literature-archive/">
+<meta property="og:image" content="https://parkjoo000.github.io/literature-archive/assets/og-cover.png">
+<meta name="theme-color" content="#0F6E56">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23111'/><text x='16' y='22' text-anchor='middle' font-family='monospace' font-size='14' font-weight='700' fill='%23fff'>RA</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+:root{
+  --bg:#F6F6F3;--white:#FFF;--ink:#111;--ink2:#3F3F3F;
+  --ink3:#888;--ink4:#BBB;--rule:#E8E8E4;--rule2:#D4D4CE;
+  --sans:'Pretendard','Noto Sans KR',sans-serif;
+  --mono:'Fira Code',monospace;
+  --r:6px;--rl:12px;--rp:100px;
+  /* 카테고리 7종 */
+  --cat-ionizable:#185FA5;
+  --cat-formulation:#0F6E56;
+  --cat-manufacturing:#4C2AA6;
+  --cat-mrna:#8A3A0E;
+  --cat-dds:#1D9E75;
+  --cat-vaccine:#D85A30;
+  --cat-therapeutics:#BA7517;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);
+  font-size:14px;font-weight:400;line-height:1.7;-webkit-font-smoothing:antialiased;}
+
+/* HDR */
+.hdr{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.92);
+  backdrop-filter:blur(16px);border-bottom:1px solid var(--rule);
+  height:54px;display:flex;align-items:center;padding:0 28px;gap:20px;}
+.hdr-logo{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--ink);
+  display:flex;align-items:center;gap:9px;padding-right:20px;
+  border-right:1px solid var(--rule);white-space:nowrap;}
+.logo-sq{width:20px;height:20px;border-radius:5px;background:var(--ink);
+  display:flex;align-items:center;justify-content:center;}
+.logo-sq span{font-size:9px;color:#fff;font-family:var(--mono);font-weight:500;}
+.hdr-cnt{font-family:var(--mono);font-size:11px;color:var(--ink3);}
+.hdr-cnt b{color:var(--ink);font-weight:500;}
+.hdr-right{margin-left:auto;display:flex;gap:8px;}
+.btn{font-family:var(--sans);font-size:13px;font-weight:500;
+  padding:7px 16px;border-radius:var(--r);cursor:pointer;transition:all .15s;border:1px solid;}
+.btn-ghost{background:transparent;border-color:var(--rule2);color:var(--ink2);}
+.btn-ghost:hover{background:var(--bg);border-color:var(--ink4);}
+.btn-primary{background:var(--ink);color:#fff;border-color:var(--ink);}
+.btn-primary:hover{background:#2a2a2a;}
+.btn-icon{background:transparent;border-color:var(--rule2);color:var(--ink3);padding:7px 11px;}
+.btn-icon:hover{background:var(--bg);color:var(--ink2);}
+
+/* TABS */
+.tabs{background:var(--white);border-bottom:1px solid var(--rule);display:flex;padding:0 28px;}
+.tab{font-size:13px;color:var(--ink3);padding:13px 18px;cursor:pointer;
+  border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;}
+.tab:hover{color:var(--ink2);}
+.tab.on{color:var(--ink);border-bottom-color:var(--ink);font-weight:500;}
+
+/* TOOLBAR */
+.toolbar{padding:18px 28px 0;display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.fp{font-family:var(--mono);font-size:11px;letter-spacing:.04em;
+  padding:5px 14px;border-radius:var(--rp);border:1px solid var(--rule2);
+  background:var(--white);color:var(--ink3);cursor:pointer;transition:all .15s;white-space:nowrap;}
+.fp:hover{border-color:var(--ink4);color:var(--ink2);}
+.fp.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+.sort-wrap{margin-left:auto;display:flex;align-items:center;gap:7px;}
+.sort-lbl{font-family:var(--mono);font-size:11px;color:var(--ink3);}
+.sort-sel{font-family:var(--mono);font-size:11px;border:1px solid var(--rule2);border-radius:var(--r);
+  padding:5px 26px 5px 10px;background:var(--white);color:var(--ink2);cursor:pointer;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 9px center;}
+
+/* STATS */
+.stats-row{padding:14px 28px;display:flex;gap:20px;align-items:center;flex-wrap:wrap;}
+.sc{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--ink3);}
+.sc-dot{width:7px;height:7px;border-radius:50%;}
+.sc b{color:var(--ink);font-weight:500;}
+
+/* PANEL */
+.panel{padding:0 28px 56px;}
+
+/* CARD GRID */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;}
+
+/* PAPER CARD */
+.pcard{background:var(--white);border:1px solid var(--rule);border-radius:var(--rl);
+  overflow:hidden;display:flex;flex-direction:column;
+  transition:box-shadow .2s,border-color .2s,transform .15s;animation:cardIn .3s ease both;}
+.pcard:hover{border-color:var(--rule2);box-shadow:0 4px 20px rgba(0,0,0,.07);transform:translateY(-1px);}
+@keyframes cardIn{from{opacity:0;transform:translateY(7px);}to{opacity:1;transform:translateY(0);}}
+.pcard-bar{height:4px;width:100%;}
+/* 카테고리 배지 (카드 상단 바 위) */
+.cat-badge{
+  font-family:var(--mono);font-size:9px;letter-spacing:.08em;
+  padding:2px 8px;border-radius:0 0 5px 5px;
+  display:inline-block;color:#fff;margin-left:14px;
+  text-transform:uppercase;font-weight:500;
+}
+.pcard-body{padding:18px;display:flex;flex-direction:column;gap:10px;flex:1;}
+.pcard-tags{display:flex;flex-wrap:wrap;gap:5px;}
+.tag{font-family:var(--mono);font-size:9px;padding:2px 8px;
+  border-radius:var(--rp);border:1px solid;letter-spacing:.04em;}
+.pcard-title{font-size:13px;font-weight:600;color:var(--ink);line-height:1.5;letter-spacing:-.02em;}
+.pcard-title a{color:inherit;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s;}
+.pcard-title a:hover{border-bottom-color:var(--ink4);}
+.pcard-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.pmeta{font-family:var(--mono);font-size:10px;color:var(--ink4);}
+.pmeta a{color:var(--ink4);text-decoration:none;}
+.pmeta a:hover{color:#185FA5;}
+.pmeta-sep{color:var(--rule2);font-size:10px;}
+.pcard-kp{display:flex;flex-direction:column;gap:4px;padding-top:8px;border-top:1px solid var(--rule);}
+.pcard-kp-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:var(--ink4);margin-bottom:2px;}
+.pcard-kp-item{display:flex;gap:7px;font-size:12px;color:var(--ink2);line-height:1.6;}
+.pcard-kp-item::before{content:'·';color:var(--rule2);flex-shrink:0;font-size:15px;margin-top:-2px;}
+
+/* IMAGE ACCORDION */
+.pcard-img-toggle{display:flex;align-items:center;justify-content:space-between;
+  padding:9px 18px;border-top:1px solid var(--rule);cursor:pointer;transition:background .12s;user-select:none;}
+.pcard-img-toggle:hover{background:var(--bg);}
+.pcard-img-toggle-left{display:flex;align-items:center;gap:7px;
+  font-family:var(--mono);font-size:10px;color:var(--ink3);letter-spacing:.06em;}
+.img-dot{width:6px;height:6px;border-radius:50%;background:var(--rule2);flex-shrink:0;transition:background .15s;}
+.img-dot.has{background:#F5A623;}
+.img-chev{font-size:10px;color:var(--ink4);font-family:var(--mono);transition:transform .22s;}
+.pcard-img-panel{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.16,1,.3,1);}
+.pcard-img-panel.open{max-height:360px;}
+.pcard-img-inner{padding:12px 18px 14px;border-top:1px solid var(--rule);}
+.gallery-img-zone{border:1.5px dashed var(--rule2);border-radius:var(--r);
+  background:var(--bg);position:relative;overflow:hidden;min-height:72px;
+  transition:border-color .2s,background .15s;}
+.gallery-img-zone:hover{border-color:#B5D4F4;background:#E6F1FB;}
+.gallery-img-zone.has-img{border-style:solid;border-color:var(--rule);background:transparent;}
+.gallery-img-zone.has-img:hover{background:transparent;border-color:var(--rule2);}
+.gallery-img-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;z-index:2;}
+.gallery-img-zone .hi{display:none;}
+.gallery-placeholder{display:flex;align-items:center;justify-content:center;gap:8px;padding:18px;pointer-events:none;}
+.gallery-placeholder-ico{font-family:var(--mono);font-size:15px;color:var(--ink4);}
+.gallery-placeholder-txt{font-size:12px;color:var(--ink3);}
+.gallery-img-preview{width:100%;display:block;border-radius:calc(var(--r) - 2px);max-height:220px;object-fit:contain;background:var(--bg);}
+.gallery-img-actions{display:flex;justify-content:flex-end;gap:5px;margin-top:7px;}
+.gimg-btn{font-family:var(--mono);font-size:10px;padding:3px 9px;border-radius:var(--r);
+  border:1px solid var(--rule2);background:transparent;color:var(--ink3);cursor:pointer;transition:all .12s;}
+.gimg-btn:hover{border-color:var(--ink4);color:var(--ink2);background:var(--bg);}
+.gimg-btn.rm:hover{border-color:#FCA5A5;color:#991B1B;background:#FEF2F2;}
+
+/* CARD FOOT */
+.pcard-foot{padding:11px 18px;border-top:1px solid var(--rule);
+  display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.stars{display:flex;gap:1px;cursor:pointer;}
+.star{font-size:17px;color:var(--rule2);transition:color .1s;line-height:1;}
+.star.on{color:#F5A623;}
+.star-lbl{font-family:var(--mono);font-size:10px;color:var(--ink4);}
+.pcard-foot-right{display:flex;gap:6px;}
+.card-btn{font-family:var(--mono);font-size:10px;padding:4px 9px;border-radius:var(--r);
+  border:1px solid var(--rule2);background:transparent;color:var(--ink3);cursor:pointer;transition:all .12s;}
+.card-btn:hover{border-color:var(--ink4);color:var(--ink2);background:var(--bg);}
+.card-btn.del:hover{border-color:#FCA5A5;color:#991B1B;background:#FEF2F2;}
+.card-btn.news{border-color:#B5D4F4;color:#185FA5;}
+.card-btn.news:hover{background:#E6F1FB;border-color:#185FA5;}
+.card-btn.brief{border-color:#9FE1CB;color:#0F6E56;font-family:var(--mono);font-size:10px;padding:4px 9px;border-radius:var(--r);border:1px solid;background:transparent;text-decoration:none;display:inline-flex;align-items:center;cursor:pointer;transition:all .12s;}
+.card-btn.brief:hover{background:#E1F5EE;border-color:#0F6E56;}
+
+/* EMPTY */
+.empty{grid-column:1/-1;text-align:center;padding:72px 32px;color:var(--ink3);}
+.empty-ico{font-family:var(--mono);font-size:32px;color:var(--rule);margin-bottom:16px;}
+.empty h3{font-size:15px;font-weight:500;color:var(--ink2);margin-bottom:8px;}
+.empty p{font-size:13px;line-height:1.7;}
+
+/* CARD NEWS */
+
+
+/* ── SETTINGS MODAL ── */
+.ov{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.3);
+  align-items:center;justify-content:center;padding:24px;}
+.ov.show{display:flex;}
+.modal{background:var(--white);border-radius:var(--rl);border:1px solid var(--rule);
+  width:100%;max-width:560px;max-height:90vh;overflow-y:auto;padding:28px;}
+.modal-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;}
+.modal-ttl{font-size:16px;font-weight:600;color:var(--ink);}
+.modal-x{font-size:20px;color:var(--ink3);cursor:pointer;background:none;border:none;
+  padding:2px 6px;border-radius:var(--r);}
+.modal-x:hover{background:var(--bg);color:var(--ink);}
+.fg{margin-bottom:16px;}
+.fl{display:block;font-size:12px;font-weight:500;color:var(--ink2);margin-bottom:5px;}
+.fh{font-size:11px;color:var(--ink3);margin-top:3px;}
+.fi{width:100%;font-family:var(--sans);font-size:13px;
+  border:1px solid var(--rule2);border-radius:var(--r);padding:8px 11px;
+  background:var(--white);color:var(--ink);transition:border-color .15s;}
+.fi:focus{outline:none;border-color:var(--ink4);}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.modal-ft{display:flex;justify-content:flex-end;gap:8px;padding-top:18px;border-top:1px solid var(--rule);}
+
+/* tag-picks rendered dynamically */
+.tag-picks{display:flex;flex-wrap:wrap;gap:7px;}
+.tck{display:none;}
+.tcl{font-family:var(--mono);font-size:10px;padding:4px 12px;border-radius:var(--rp);
+  border:1px solid var(--rule2);cursor:pointer;color:var(--ink3);transition:all .15s;}
+.tck:checked+.tcl{background:var(--ink);color:#fff;border-color:var(--ink);}
+.kp-list{display:flex;flex-direction:column;gap:7px;}
+.kp-row{display:flex;gap:8px;align-items:center;}
+.kp-n{font-family:var(--mono);font-size:11px;color:var(--ink4);width:16px;flex-shrink:0;}
+.modal-stars{display:flex;gap:4px;margin-top:4px;}
+.mstar{font-size:24px;color:var(--rule2);cursor:pointer;transition:color .1s;line-height:1;}
+.mstar.on{color:#F5A623;}
+
+/* SETTINGS PAGE */
+.settings-page{display:none;position:fixed;inset:0;z-index:250;
+  background:var(--white);overflow-y:auto;}
+.settings-page.show{display:block;}
+.settings-hdr{display:flex;align-items:center;justify-content:space-between;
+  padding:0 32px;height:56px;border-bottom:1px solid var(--rule);
+  background:var(--white);position:sticky;top:0;z-index:10;}
+.settings-hdr-title{font-size:15px;font-weight:600;color:var(--ink);}
+.settings-body{max-width:640px;margin:0 auto;padding:36px 32px;}
+.settings-sec{margin-bottom:40px;}
+.settings-sec-title{font-size:14px;font-weight:600;color:var(--ink);
+  margin-bottom:4px;letter-spacing:-.01em;}
+.settings-sec-sub{font-size:12px;color:var(--ink3);margin-bottom:20px;line-height:1.6;}
+
+/* Tag manager */
+.tag-manager{display:flex;flex-direction:column;gap:8px;}
+.tag-row-item{display:flex;align-items:center;justify-content:space-between;
+  background:var(--bg);border:1px solid var(--rule);border-radius:var(--r);
+  padding:10px 14px;gap:12px;}
+.tag-row-item-left{display:flex;align-items:center;gap:10px;}
+.tag-color-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.tag-name{font-size:13px;font-weight:500;color:var(--ink);}
+.tag-count{font-family:var(--mono);font-size:10px;color:var(--ink4);}
+.tag-del-btn{font-family:var(--mono);font-size:10px;padding:3px 9px;border-radius:var(--r);
+  border:1px solid var(--rule2);background:transparent;color:var(--ink3);cursor:pointer;transition:all .12s;}
+.tag-del-btn:hover{border-color:#FCA5A5;color:#991B1B;background:#FEF2F2;}
+.add-tag-row{display:flex;gap:8px;margin-top:10px;}
+.add-tag-input{flex:1;font-family:var(--sans);font-size:13px;
+  border:1px solid var(--rule2);border-radius:var(--r);padding:8px 11px;
+  background:var(--white);color:var(--ink);}
+.add-tag-input:focus{outline:none;border-color:var(--ink4);}
+.color-pick{width:38px;height:38px;padding:2px;border:1px solid var(--rule2);
+  border-radius:var(--r);cursor:pointer;background:var(--white);}
+
+@media(max-width:700px){
+  .hdr,.tabs,.toolbar,.stats-row,.panel{padding-left:16px;padding-right:16px;}
+  .frow{grid-template-columns:1fr;}
+  .card-grid{grid-template-columns:1fr;}
+  .cn-card-body{grid-template-columns:1fr;}
+  .settings-body{padding:24px 16px;}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-logo"><div class="logo-sq"><span>RA</span></div>Research Archive</div>
+  <div class="hdr-cnt">논문 <b id="hd-n">0</b>편</div>
+  <div class="hdr-right">
+    <button class="btn btn-icon" onclick="openSettings()" title="설정">⚙</button>
+    <button class="btn btn-ghost" onclick="exportJSON()">내보내기</button>
+    <button class="btn btn-primary" onclick="openAdd()">+ 논문 추가</button>
+  </div>
+</header>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab on" id="tab-gallery" onclick="switchTab('gallery')">카드 갤러리</div>
+</div>
+
+<!-- TOOLBAR -->
+<div class="toolbar" id="toolbar">
+  <!-- rendered by JS -->
+  <div class="sort-wrap">
+    <span class="sort-lbl">정렬</span>
+    <select class="sort-sel" id="sort" onchange="renderAll()">
+      <option value="date-desc">최신 추가순</option>
+      <option value="star-desc">별점 높은순</option>
+      <option value="star-asc">별점 낮은순</option>
+      <option value="alpha">제목순</option>
+    </select>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-row">
+  <div class="sc"><div class="sc-dot" style="background:#F5A623"></div>5점 <b id="s5">0</b></div>
+  <div class="sc"><div class="sc-dot" style="background:#F5A623;opacity:.6"></div>4점 <b id="s4">0</b></div>
+  <div class="sc"><div class="sc-dot" style="background:#D1D1C8"></div>3점 이하 <b id="s3">0</b></div>
+  <div class="sc" style="margin-left:auto"><div class="sc-dot" style="background:var(--ink)"></div>평균 <b id="savg">—</b></div>
+</div>
+
+<!-- GALLERY -->
+<div class="panel" id="panel-gallery">
+  <div class="card-grid" id="card-grid"></div>
+</div>
+
+
+<!-- PAPER MODAL -->
+<div class="ov" id="ov" onclick="ovClick(event)">
+  <div class="modal">
+    <div class="modal-hd">
+      <div class="modal-ttl" id="modal-ttl">논문 추가</div>
+      <button class="modal-x" onclick="closeModal()">×</button>
+    </div>
+    <div class="fg"><label class="fl">논문 제목 *</label>
+      <input class="fi" id="f-title" placeholder="논문 제목 전체 입력"></div>
+    <div class="frow">
+      <div class="fg"><label class="fl">저널 *</label>
+        <input class="fi" id="f-journal" placeholder="예: Nature Communications"></div>
+      <div class="fg"><label class="fl">발행연도</label>
+        <input class="fi" id="f-year" type="number" placeholder="2026" min="1990" max="2030"></div>
+    </div>
+    <div class="fg"><label class="fl">DOI</label>
+      <input class="fi" id="f-doi" placeholder="10.1038/s41467-...">
+      <div class="fh">https://doi.org/ 이후 부분만 입력</div></div>
+    <div class="fg"><label class="fl">브리핑 문서 링크</label>
+      <input class="fi" id="f-brief" placeholder="./briefs/paper-keyword.html">
+      <div class="fh">같은 repo 내 파일은 <code style="font-family:var(--mono);font-size:11px;background:var(--bg);padding:1px 5px;border-radius:3px;">./briefs/파일명.html</code> 형식으로 입력</div></div>
+    <div class="fg"><label class="fl">연구 분야 태그</label>
+      <div class="tag-picks" id="modal-tag-picks"><!-- rendered dynamically --></div>
+      <div class="fh">설정 ⚙ 에서 태그를 추가·삭제할 수 있습니다</div></div>
+    <div class="fg"><label class="fl">핵심 기여 요약 (최대 3줄)</label>
+      <div class="kp-list">
+        <div class="kp-row"><span class="kp-n">1.</span><input class="fi" id="kp0" placeholder="첫 번째 핵심 기여"></div>
+        <div class="kp-row"><span class="kp-n">2.</span><input class="fi" id="kp1" placeholder="두 번째 핵심 기여"></div>
+        <div class="kp-row"><span class="kp-n">3.</span><input class="fi" id="kp2" placeholder="세 번째 핵심 기여"></div>
+      </div></div>
+    <div class="fg"><label class="fl">협업 가능성 별점 (1–5)</label>
+      <div class="modal-stars" id="modal-stars">
+        <span class="mstar" data-v="1">★</span><span class="mstar" data-v="2">★</span>
+        <span class="mstar" data-v="3">★</span><span class="mstar" data-v="4">★</span>
+        <span class="mstar" data-v="5">★</span>
+      </div>
+      <input type="hidden" id="f-star" value="0"></div>
+    <div class="modal-ft">
+      <button class="btn btn-ghost" onclick="closeModal()">취소</button>
+      <button class="btn btn-primary" onclick="saveCard()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- SETTINGS PAGE -->
+<div class="settings-page" id="settings-page">
+  <div class="settings-hdr">
+    <div class="settings-hdr-title">⚙ 설정</div>
+    <button class="btn btn-ghost" onclick="closeSettings()">닫기</button>
+  </div>
+  <div class="settings-body">
+
+    <div class="settings-sec">
+      <div class="settings-sec-title">연구 분야 태그 관리</div>
+      <div class="settings-sec-sub">태그를 추가하거나 삭제합니다. 삭제 시 해당 태그가 붙은 논문에서도 자동으로 제거됩니다.</div>
+      <div class="tag-manager" id="tag-manager"></div>
+      <div class="add-tag-row">
+        <input class="add-tag-input" id="new-tag-name" placeholder="새 태그 이름 입력 (예: Exosome, CRISPR ...)" maxlength="30">
+        <input class="color-pick" type="color" id="new-tag-color" value="#185FA5" title="태그 색상">
+        <button class="btn btn-primary" onclick="addTag()">추가</button>
+      </div>
+    </div>
+
+    <div class="settings-sec">
+      <div class="settings-sec-title">데이터 관리</div>
+      <div class="settings-sec-sub">논문 데이터를 JSON으로 백업하거나 복원합니다. 브라우저 변경·초기화 전 반드시 내보내기를 먼저 하세요.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn btn-ghost" onclick="exportJSON()">JSON 내보내기</button>
+        <button class="btn btn-ghost" onclick="importJSON()">JSON 가져오기</button>
+        <button class="btn btn-ghost" style="color:#991B1B;border-color:#FCA5A5;" onclick="resetAll()">전체 초기화</button>
+      </div>
+      <input type="file" id="import-file" accept=".json" style="display:none" onchange="handleImport(event)">
+    </div>
+
+    <div class="settings-sec">
+      <div class="settings-sec-title">GitHub Pages 배포 가이드</div>
+      <div class="settings-sec-sub">논문 추가 후 동료에게 공유하는 절차입니다.</div>
+      <div style="background:var(--bg);border:1px solid var(--rule);border-radius:var(--r);padding:14px 16px;font-family:var(--mono);font-size:11px;color:var(--ink2);line-height:2;">
+        <div style="color:var(--ink4);margin-bottom:6px;">── Repo 구조 ──</div>
+        <div>📁 / <span style="color:var(--ink4)">index.html</span> &nbsp;← 이 파일</div>
+        <div>📁 /briefs/ <span style="color:var(--ink4)">paper-keyword.html</span></div>
+        <div>📁 /assets/ <span style="color:var(--ink4)">paper-keyword.png</span></div>
+        <div style="color:var(--ink4);margin:10px 0 6px;">── 업데이트 순서 ──</div>
+        <div>① Claude로 브리핑 HTML 생성 → briefs/ 저장</div>
+        <div>② 인포그래픽 PNG → assets/ 저장</div>
+        <div>③ 이 대시보드에서 논문 추가 · 브리핑 URL 연결</div>
+        <div>④ git add . → commit → push → Pages 자동 배포</div>
+        <div style="color:var(--ink4);margin:10px 0 6px;">── Git 커밋 메시지 권장 포맷 ──</div>
+        <div style="color:var(--ink3)">Add: [논문 키워드] ([카테고리])</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const KEY      = 'ra-v4';
+const TAGS_KEY = 'ra-tags-v4';
+const IMG_PFX  = 'ra-img-';
+
+let papers   = [];
+let tags     = []; // [{name, color}]
+let activeFilter = 'ALL';
+let editingId    = null;
+let modalStar    = 0;
+let currentTab   = 'gallery';
+
+/* ── CATEGORY MAP (카테고리명 → 색상) ── */
+const CATEGORY_MAP = {
+  'ionizable lipid': '#185FA5',
+  'LNP formulation': '#0F6E56',
+  'manufacturing':   '#4C2AA6',
+  'mRNA':            '#8A3A0E',
+  'DDS':             '#1D9E75',
+  'vaccine':         '#D85A30',
+  'therapeutics':    '#BA7517',
+};
+
+/* ── TAG COLOR UTILS ── */
+function hexToRgb(hex){
+  const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  return`${r},${g},${b}`;
+}
+function tagBg(color){return`rgba(${hexToRgb(color)},.1)`;}
+function tagBd(color){return`rgba(${hexToRgb(color)},.35)`;}
+function tagStyle(color){
+  return`background:${tagBg(color)};color:${color};border-color:${tagBd(color)};`;
+}
+function barColor(tagName){
+  if(CATEGORY_MAP[tagName]) return CATEGORY_MAP[tagName];
+  const t=tags.find(x=>x.name===tagName);
+  return t?.color||'#888';
+}
+
+/* ── STORAGE — localStorage 래퍼 (GitHub Pages 호환) ── */
+const _ls = {
+  get(key){ try{ const v=localStorage.getItem(key); return v?{value:v}:null; }catch(e){return null;} },
+  set(key,value){ try{ localStorage.setItem(key,value); return {value}; }catch(e){
+    /* localStorage 용량 초과(이미지 등) 시 조용히 실패 */
+    console.warn('localStorage set failed:',key,e); return null;
+  }},
+  delete(key){ try{ localStorage.removeItem(key); return {deleted:true}; }catch(e){return null;} }
+};
+
+/* ── STORAGE ── */
+async function loadTags(){
+  try{const r=_ls.get(TAGS_KEY);if(r?.value)tags=JSON.parse(r.value);}catch(e){}
+  if(!tags.length){
+    tags=Object.entries(CATEGORY_MAP).map(([name,color])=>({name,color}));
+    await saveTags();
+  }
+}
+async function saveTags(){try{_ls.set(TAGS_KEY,JSON.stringify(tags));}catch(e){}}
+
+async function load(){
+  await loadTags();
+  try{const r=_ls.get(KEY);if(r?.value)papers=JSON.parse(r.value);}catch(e){papers=[];}
+  if(!papers.length){
+    papers=[{id:'p1',
+      title:'Lipid Nanoparticle Database towards structure-function modeling and data-driven design for nucleic acid delivery',
+      journal:'Nature Communications',year:2026,doi:'10.1038/s41467-026-68818-1',
+      tags:['LNP formulation','mRNA'],
+      kps:['19,528개 LNP 제형 통합 — Protein Data Bank의 LNP 버전 최초 구축',
+           'LiON 딥러닝 모델 재학습으로 7개 dataset 중 5개에서 예측 성능 향상',
+           'MD 시뮬레이션 CPP·Bilayer stability와 delivery 성능 상관관계 최초 정량화'],
+      star:4,briefUrl:'./briefs/lnpdb-2026.html',addedAt:new Date().toISOString()}];
+    await save();
+  }
+  renderAll();
+}
+async function save(){try{_ls.set(KEY,JSON.stringify(papers));}catch(e){}}
+async function loadImage(id){try{const r=_ls.get(IMG_PFX+id);return r?.value||null;}catch(e){return null;}}
+async function saveImage(id,b64){try{_ls.set(IMG_PFX+id,b64);}catch(e){}}
+async function removeImage(id){try{_ls.delete(IMG_PFX+id);}catch(e){}}
+
+/* ── TABS ── */
+function switchTab(t){
+  currentTab=t;
+  ['gallery'].forEach(id=>{
+    document.getElementById('panel-'+id).style.display=id===t?'':'none';
+    document.getElementById('tab-'+id).classList.toggle('on',id===t);
+  });
+}
+
+/* ── TOOLBAR (dynamic tags) ── */
+function renderToolbar(){
+  const tb=document.getElementById('toolbar');
+  const sortWrap=tb.querySelector('.sort-wrap');
+  // remove old filter pills
+  tb.querySelectorAll('.fp').forEach(el=>el.remove());
+  // "전체" pill
+  const all=document.createElement('button');
+  all.className='fp'+(activeFilter==='ALL'?' on':'');
+  all.dataset.f='ALL'; all.textContent='전체';
+  all.onclick=()=>setFilter(all);
+  tb.insertBefore(all,sortWrap);
+  // tag pills
+  tags.forEach(t=>{
+    const catColor=CATEGORY_MAP[t.name]||t.color;
+    const isActive=activeFilter===t.name;
+    const b=document.createElement('button');
+    b.className='fp'+(isActive?' on':'');
+    b.dataset.f=t.name; b.textContent=t.name;
+    if(isActive){
+      b.style.background=catColor;b.style.borderColor=catColor;b.style.color='#fff';
+    } else {
+      // 비활성 시 카테고리 색 힌트 (왼쪽 도트)
+      b.style.borderColor=`rgba(${hexToRgb(catColor)},.4)`;
+      b.style.color=catColor;
+      b.style.background=`rgba(${hexToRgb(catColor)},.06)`;
+    }
+    b.onmouseenter=()=>{if(!isActive){b.style.background=`rgba(${hexToRgb(catColor)},.14)`;b.style.borderColor=catColor;}};
+    b.onmouseleave=()=>{if(!isActive){b.style.background=`rgba(${hexToRgb(catColor)},.06)`;b.style.borderColor=`rgba(${hexToRgb(catColor)},.4)`;}};
+    b.onclick=()=>setFilter(b);
+    tb.insertBefore(b,sortWrap);
+  });
+}
+
+/* ── FILTER / SORT ── */
+function setFilter(el){
+  activeFilter=el.dataset.f;
+  renderToolbar();
+  renderAll();
+}
+function getFiltered(){
+  let list=[...papers];
+  if(activeFilter!=='ALL') list=list.filter(p=>(p.tags||[]).includes(activeFilter));
+  const s=document.getElementById('sort').value;
+  if(s==='date-desc') list.sort((a,b)=>new Date(b.addedAt)-new Date(a.addedAt));
+  if(s==='star-desc') list.sort((a,b)=>(b.star||0)-(a.star||0));
+  if(s==='star-asc')  list.sort((a,b)=>(a.star||0)-(b.star||0));
+  if(s==='alpha')     list.sort((a,b)=>a.title.localeCompare(b.title));
+  return list;
+}
+
+/* ── STATS ── */
+function updateStats(list){
+  document.getElementById('hd-n').textContent=papers.length;
+  document.getElementById('s5').textContent=list.filter(p=>p.star===5).length;
+  document.getElementById('s4').textContent=list.filter(p=>p.star===4).length;
+  document.getElementById('s3').textContent=list.filter(p=>(p.star||0)<=3).length;
+  const avg=list.length?(list.reduce((s,p)=>s+(p.star||0),0)/list.length).toFixed(1):'—';
+  document.getElementById('savg').textContent=avg;
+  document.title=`Research Archive · DDS (${papers.length}편)`;
+}
+
+/* ── RENDER CARDS ── */
+async function renderAll(){
+  renderToolbar();
+  const list=getFiltered(); updateStats(list);
+  const grid=document.getElementById('card-grid');
+  if(!list.length){
+    const filterMsg=activeFilter==='ALL'
+      ?'+ 논문 추가 버튼으로 첫 논문을 등록하세요.'
+      :`<b>${activeFilter}</b> 카테고리에 등록된 논문이 없습니다.`;
+    grid.innerHTML=`<div class="empty"><div class="empty-ico">[ ]</div><h3>논문이 없습니다</h3><p>${filterMsg}</p></div>`;
+    return;
+  }
+  const imgMap={};
+  await Promise.all(list.map(async p=>{imgMap[p.id]=await loadImage(p.id);}));
+
+  grid.innerHTML=list.map((p,i)=>{
+    const primary=(p.tags||[])[0];
+    const bc=primary?barColor(primary):'#888';
+    // 첫 태그가 카테고리이면 배지 표시
+    const catBadge=primary?`<span class="cat-badge" style="background:${bc}">${primary}</span>`:'';
+    const tagHtml=(p.tags||[]).map(t=>{
+      const td=tags.find(x=>x.name===t);
+      const catColor=CATEGORY_MAP[t];
+      const color=catColor||(td?.color||'#888');
+      const s=`background:rgba(${hexToRgb(color)},.1);color:${color};border-color:rgba(${hexToRgb(color)},.35);`;
+      return`<span class="tag" style="${s}">${t}</span>`;
+    }).join('');
+    const doi=p.doi?`https://doi.org/${p.doi}`:null;
+    const titleEl=doi?`<a href="${doi}" target="_blank" rel="noopener">${p.title}</a>`:p.title;
+    const doiChip=doi?`<span class="pmeta-sep">·</span><span class="pmeta"><a href="${doi}" target="_blank">DOI ↗</a></span>`:'';
+    const kps=(p.kps||[]).filter(Boolean).map(k=>`<div class="pcard-kp-item">${k}</div>`).join('');
+    const stars=[1,2,3,4,5].map(v=>`<span class="star${v<=(p.star||0)?' on':''}" onclick="quickStar('${p.id}',${v})">★</span>`).join('');
+    const imgData=imgMap[p.id]; const hasImg=!!imgData;
+    const imgInner=hasImg
+      ?`<div class="gallery-img-zone has-img"><img class="gallery-img-preview" src="${imgData}" alt="인포그래픽"></div>
+         <div class="gallery-img-actions">
+           <label class="gimg-btn">교체<input type="file" accept="image/*" class="hi" onchange="galleryUpload(event,'${p.id}')"></label>
+           <button class="gimg-btn rm" onclick="galleryRemove('${p.id}')">삭제</button>
+         </div>`
+      :`<div class="gallery-img-zone"><input type="file" accept="image/*" onchange="galleryUpload(event,'${p.id}')" title="업로드">
+           <div class="gallery-placeholder"><span class="gallery-placeholder-ico">⊕</span><span class="gallery-placeholder-txt">인포그래픽 이미지 업로드</span></div>
+         </div>`;
+    return`<div class="pcard" style="animation-delay:${i*35}ms">
+      <div class="pcard-bar" style="background:${bc}"></div>
+      ${catBadge}
+      <div class="pcard-body">
+        <div class="pcard-tags">${tagHtml}</div>
+        <div class="pcard-title">${titleEl}</div>
+        <div class="pcard-meta">
+          <span class="pmeta">${p.journal||'—'}</span>
+          ${p.year?`<span class="pmeta-sep">·</span><span class="pmeta">${p.year}</span>`:''}${doiChip}
+        </div>
+        <div class="pcard-kp">
+          <div class="pcard-kp-lbl">핵심 기여</div>
+          ${kps||`<div class="pcard-kp-item" style="color:var(--ink4)">요약 없음</div>`}
+        </div>
+      </div>
+      <div class="pcard-img-toggle" onclick="toggleImg('${p.id}')">
+        <div class="pcard-img-toggle-left">
+          <div class="img-dot${hasImg?' has':''}"></div>
+          인포그래픽${hasImg?' · 이미지 있음':' · 이미지 없음'}
+        </div>
+        <span class="img-chev" id="chev-${p.id}">▾</span>
+      </div>
+      <div class="pcard-img-panel" id="imgp-${p.id}">
+        <div class="pcard-img-inner">${imgInner}</div>
+      </div>
+      <div class="pcard-foot">
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <div class="stars">${stars}</div>
+          <div class="star-lbl">협업 ${p.star||0}/5</div>
+        </div>
+        <div class="pcard-foot-right">
+          ${p.briefUrl?`<a class="card-btn brief" href="${p.briefUrl}" target="_blank" rel="noopener"
+            style="border-color:rgba(${hexToRgb(bc)},.5);color:${bc};"
+            onmouseenter="this.style.background='rgba(${hexToRgb(bc)},.1)';this.style.borderColor='${bc}'"
+            onmouseleave="this.style.background='';this.style.borderColor='rgba(${hexToRgb(bc)},.5)'"
+            >브리핑 ↗</a>`:''}
+          <button class="card-btn" onclick="openEdit('${p.id}')">수정</button>
+          <button class="card-btn del" onclick="del('${p.id}')">삭제</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* gallery image */
+function toggleImg(id){
+  const p=document.getElementById('imgp-'+id);
+  const c=document.getElementById('chev-'+id);
+  const o=p.classList.toggle('open');
+  c.style.transform=o?'rotate(180deg)':'';
+}
+async function galleryUpload(e,id){
+  const f=e.target.files?.[0]; if(!f) return;
+  if(f.size>3*1024*1024){alert('3MB 이하 이미지만 업로드 가능합니다.');return;}
+  const r=new FileReader();
+  r.onload=async ev=>{
+    await saveImage(id,ev.target.result);
+    await renderAll();
+    const p=document.getElementById('imgp-'+id),c=document.getElementById('chev-'+id);
+    if(p&&!p.classList.contains('open')){p.classList.add('open');if(c)c.style.transform='rotate(180deg)';}
+  };
+  r.readAsDataURL(f);
+}
+async function galleryRemove(id){
+  if(!confirm('이미지를 삭제할까요?')) return;
+  await removeImage(id); await renderAll();
+}
+
+/* quick star */
+async function quickStar(id,v){
+  const p=papers.find(x=>x.id===id);if(!p)return;
+  p.star=v;await save();renderAll();
+}
+async function del(id){
+  if(!confirm('삭제할까요?'))return;
+  papers=papers.filter(p=>p.id!==id);
+  await save();renderAll();
+}
+
+/* ── SETTINGS ── */
+function openSettings(){
+  renderTagManager();
+  document.getElementById('settings-page').classList.add('show');
+}
+function closeSettings(){
+  document.getElementById('settings-page').classList.remove('show');
+}
+function renderTagManager(){
+  const tm=document.getElementById('tag-manager');
+  const counts={};
+  papers.forEach(p=>(p.tags||[]).forEach(t=>{counts[t]=(counts[t]||0)+1;}));
+  if(!tags.length){tm.innerHTML=`<div style="font-size:13px;color:var(--ink3)">태그가 없습니다. 아래에서 추가하세요.</div>`;return;}
+  tm.innerHTML=tags.map((t,i)=>{
+    const isCore=!!CATEGORY_MAP[t.name];
+    const color=CATEGORY_MAP[t.name]||t.color;
+    const lockBadge=isCore
+      ?`<span style="font-family:var(--mono);font-size:9px;padding:1px 6px;border-radius:3px;background:rgba(${hexToRgb(color)},.12);color:${color};border:1px solid rgba(${hexToRgb(color)},.3);">카테고리</span>`
+      :'';
+    const delBtn=isCore
+      ?`<span style="font-family:var(--mono);font-size:10px;color:var(--ink4)">잠금</span>`
+      :`<button class="tag-del-btn" onclick="deleteTag(${i})">삭제</button>`;
+    return`<div class="tag-row-item">
+      <div class="tag-row-item-left">
+        <div class="tag-color-dot" style="background:${color}"></div>
+        <span class="tag-name">${t.name}</span>
+        ${lockBadge}
+        <span class="tag-count">${counts[t.name]||0}편</span>
+      </div>
+      ${delBtn}
+    </div>`;
+  }).join('');
+}
+async function addTag(){
+  const n=document.getElementById('new-tag-name').value.trim();
+  const c=document.getElementById('new-tag-color').value;
+  if(!n){alert('태그 이름을 입력하세요.');return;}
+  if(tags.find(t=>t.name===n)){alert('이미 있는 태그입니다.');return;}
+  tags.push({name:n,color:c});
+  await saveTags();
+  document.getElementById('new-tag-name').value='';
+  renderTagManager(); renderToolbar();
+}
+async function deleteTag(i){
+  const name=tags[i].name;
+  if(CATEGORY_MAP[name]){alert(`"${name}"은 기본 카테고리 태그로 삭제할 수 없습니다.`);return;}
+  if(!confirm(`"${name}" 태그를 삭제하면 이 태그가 붙은 모든 논문에서 제거됩니다. 계속할까요?`))return;
+  tags.splice(i,1);
+  papers.forEach(p=>{p.tags=(p.tags||[]).filter(t=>t!==name);});
+  await saveTags(); await save();
+  if(activeFilter===name) activeFilter='ALL';
+  renderTagManager(); renderAll();
+}
+
+/* ── PAPER MODAL ── */
+function renderModalTags(selectedTags=[]){
+  const wrap=document.getElementById('modal-tag-picks');
+  wrap.innerHTML=tags.map((t,i)=>{
+    const catColor=CATEGORY_MAP[t.name];
+    const color=catColor||t.color;
+    const checked=selectedTags.includes(t.name);
+    const selStyle=checked?`background:${color};color:#fff;border-color:${color};`:'';
+    return`<input class="tck" type="checkbox" id="mt${i}" value="${t.name}"${checked?' checked':''}>
+    <label class="tcl" for="mt${i}" style="${selStyle}">${t.name}</label>`;
+  }).join('');
+  wrap.querySelectorAll('.tck').forEach(cb=>{
+    cb.addEventListener('change',()=>{
+      const lbl=wrap.querySelector(`label[for="${cb.id}"]`);
+      const catColor=CATEGORY_MAP[cb.value];
+      const td=tags.find(x=>x.name===cb.value);
+      const color=catColor||(td?.color||'#888');
+      if(cb.checked){lbl.style.cssText=`background:${color};color:#fff;border-color:${color};`;}
+      else{lbl.style.cssText='';}
+    });
+  });
+}
+function getModalTags(){
+  return Array.from(document.querySelectorAll('#modal-tag-picks .tck'))
+    .filter(cb=>cb.checked).map(cb=>cb.value);
+}
+
+function openAdd(){
+  editingId=null;
+  document.getElementById('modal-ttl').textContent='논문 추가';
+  clearForm(); renderModalTags([]);
+  document.getElementById('ov').classList.add('show');
+}
+function openEdit(id){
+  const p=papers.find(x=>x.id===id);if(!p)return;
+  editingId=id;
+  document.getElementById('modal-ttl').textContent='논문 수정';
+  document.getElementById('f-title').value=p.title||'';
+  document.getElementById('f-journal').value=p.journal||'';
+  document.getElementById('f-year').value=p.year||'';
+  document.getElementById('f-doi').value=p.doi||'';
+  document.getElementById('f-brief').value=p.briefUrl||'';
+  document.getElementById('kp0').value=p.kps?.[0]||'';
+  document.getElementById('kp1').value=p.kps?.[1]||'';
+  document.getElementById('kp2').value=p.kps?.[2]||'';
+  renderModalTags(p.tags||[]);
+  setModalStar(p.star||0);
+  document.getElementById('ov').classList.add('show');
+}
+function closeModal(){document.getElementById('ov').classList.remove('show');}
+function ovClick(e){if(e.target===document.getElementById('ov'))closeModal();}
+function clearForm(){
+  ['f-title','f-journal','f-year','f-doi','f-brief','kp0','kp1','kp2'].forEach(id=>document.getElementById(id).value='');
+  setModalStar(0);
+}
+function setModalStar(v){
+  modalStar=v;document.getElementById('f-star').value=v;
+  document.querySelectorAll('.mstar').forEach(el=>el.classList.toggle('on',parseInt(el.dataset.v)<=v));
+}
+document.querySelectorAll('.mstar').forEach(el=>{
+  el.addEventListener('click',()=>setModalStar(parseInt(el.dataset.v)));
+  el.addEventListener('mouseenter',()=>{
+    const v=parseInt(el.dataset.v);
+    document.querySelectorAll('.mstar').forEach(s=>s.classList.toggle('on',parseInt(s.dataset.v)<=v));
+  });
+  el.parentElement.addEventListener('mouseleave',()=>setModalStar(modalStar));
+});
+async function saveCard(){
+  const title=document.getElementById('f-title').value.trim();
+  if(!title){alert('제목을 입력해 주세요.');return;}
+  const selTags=getModalTags();
+  const kps=[0,1,2].map(i=>document.getElementById('kp'+i).value.trim()).filter(Boolean);
+  const star=parseInt(document.getElementById('f-star').value)||0;
+  const briefUrl=document.getElementById('f-brief').value.trim();
+  const data={title,journal:document.getElementById('f-journal').value.trim(),
+    year:parseInt(document.getElementById('f-year').value)||null,
+    doi:document.getElementById('f-doi').value.trim(),briefUrl,tags:selTags,kps,star};
+  if(editingId){Object.assign(papers.find(p=>p.id===editingId),data);}
+  else{papers.push({id:'p'+Date.now(),addedAt:new Date().toISOString(),...data});}
+  await save();closeModal();renderAll();
+}
+
+function exportJSON(){
+  const a=Object.assign(document.createElement('a'),{
+    href:URL.createObjectURL(new Blob([JSON.stringify(papers,null,2)],{type:'application/json'})),
+    download:'research-archive.json'});
+  a.click();
+}
+function importJSON(){
+  document.getElementById('import-file').click();
+}
+async function handleImport(e){
+  const file=e.target.files?.[0]; if(!file) return;
+  try{
+    const text=await file.text();
+    const imported=JSON.parse(text);
+    if(!Array.isArray(imported)) throw new Error('배열 형식이 아닙니다.');
+    const required=['id','title'];
+    const valid=imported.every(p=>required.every(k=>k in p));
+    if(!valid) throw new Error('필수 필드(id, title)가 없는 항목이 있습니다.');
+    if(!confirm(`${imported.length}개 논문을 불러옵니다. 기존 데이터는 덮어씁니다. 계속할까요?`)){
+      e.target.value=''; return;
+    }
+    papers=imported;
+    await save();
+    closeSettings();
+    renderAll();
+    alert(`${imported.length}개 논문을 성공적으로 불러왔습니다.`);
+  } catch(err){
+    alert('JSON 파일을 읽는 중 오류가 발생했습니다:\n'+err.message);
+  }
+  e.target.value='';
+}
+async function resetAll(){
+  if(!confirm('모든 논문 데이터를 초기화할까요? 되돌릴 수 없습니다.'))return;
+  papers=[];await save();renderAll();
+}
+
+/* ── KEYBOARD SHORTCUTS ── */
+document.addEventListener('keydown',e=>{
+  const tag=e.target.tagName;
+  const inInput=tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT';
+  if(e.key==='Escape'){
+    if(document.getElementById('ov').classList.contains('show')) closeModal();
+    if(document.getElementById('settings-page').classList.contains('show')) closeSettings();
+  }
+  if(e.key==='n'&&!inInput&&!e.metaKey&&!e.ctrlKey) openAdd();
+});
+
+load();
+</script>
+</body>
+</html>
