@@ -17,6 +17,8 @@ public/
 # 환경
 .env
 .env.local
+.streamlit/secrets.toml
+apps/*/.streamlit/secrets.toml
 __pycache__/
 *.pyc
 .venv/
@@ -26,3 +28,6 @@ venv/
 .DS_Store
 .vscode/
 .idea/
+
+# Ad-hoc local data (repo 밖으로 이동 예정)
+llmfit.zip

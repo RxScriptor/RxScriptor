@@ -22,7 +22,12 @@ modules/
 ├── literature/templates/
 └── database/              # SQLite (rx_public.db, rx_private.db)
 
-shared/                    # Shared Python utilities
+apps/                      # Streamlit apps (separate deploy targets)
+├── literature-summarizer/ # DOI → CrossRef/PubMed → Claude 요약
+├── pharma-dashboard/      # Google News → 키워드 트렌드 + Claude 요약
+└── _shared/               # 공용 Streamlit 브랜드 헤더
+
+shared/                    # Shared Python utilities (api fetchers, design tokens)
 assets/                    # Site-wide CSS (tokens live under design-systems/)
 scripts/new_project.py     # Project scaffolding CLI
 ```
