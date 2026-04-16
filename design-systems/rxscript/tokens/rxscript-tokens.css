@@ -1,68 +1,82 @@
 /* ==========================================================================
-   RxScript Design · v0.1 (TBD)
+   RxScript Design · v0.2 — Clinical White
    Public design tokens for RxScriptor
-   License: MIT (placeholder)
-   ==========================================================================
-   All values are placeholders — fill in before first public release.
-   Keep the `--rx-*` namespace to avoid collision with `--gc-*` (GCBP, private).
+   Synced with rxscript-tokens.json (single source of truth).
+   Namespace: --rx-* (GCBP uses --gc-*).
    ========================================================================== */
 
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Crimson+Pro:ital,wght@1,400;1,600&family=DM+Mono:wght@300;400;500&family=Noto+Sans+KR:wght@300;400;500&display=swap');
+
 :root {
-  /* ---- Colors: Primary (TBD) ---- */
-  --rx-primary:        /* TBD */ #1F6FEB;
-  --rx-primary-muted:  /* TBD */ #58A6FF;
-  --rx-accent:         /* TBD */ #D29922;
+  /* ---- Colors: Primary ---- */
+  --rx-primary:        #1A2E5A;  /* Deep Navy — Rx, titles, borders */
+  --rx-primary-light:  #2A3F6F;
+  --rx-accent:         #E8365D;  /* Scientific Red — Scriptor, CTA */
+  --rx-secondary:      #5B8DB8;  /* Steel Blue — sub-accents, tags */
 
-  /* ---- Colors: Neutral (TBD) ---- */
-  --rx-ink:            /* TBD */ #0D1117;
-  --rx-ink-muted:      /* TBD */ #57606A;
-  --rx-surface:        /* TBD */ #FFFFFF;
-  --rx-surface-alt:    /* TBD */ #F6F8FA;
-  --rx-border:         /* TBD */ #D0D7DE;
+  /* ---- Colors: Neutral ---- */
+  --rx-ink:            #1A2E5A;  /* Body text (= Navy) */
+  --rx-ink-muted:      #828C9B;  /* Muted text (Steel Gray) */
+  --rx-surface:        #FFFFFF;
+  --rx-surface-alt:    #F8F9FC;  /* Off-white background */
+  --rx-surface-sunk:   #F0F1F7;  /* Sidebar / subtle fill */
+  --rx-border:         #DDE0ED;
 
-  /* ---- Colors: Semantic (TBD) ---- */
-  --rx-success:        /* TBD */ #1A7F37;
-  --rx-warning:        /* TBD */ #9A6700;
-  --rx-danger:         /* TBD */ #CF222E;
-  --rx-info:           /* TBD */ #0969DA;
+  /* ---- Colors: Dark variant (for banners) ---- */
+  --rx-dark-bg:        #0D1225;
 
-  /* ---- Typography (TBD) ---- */
-  --rx-font-family: system-ui, -apple-system, "Segoe UI", "Noto Sans KR", sans-serif;
-  --rx-font-mono:   ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  /* ---- Colors: Semantic ---- */
+  --rx-success:        #1A7F37;
+  --rx-warning:        #9A6700;
+  --rx-danger:         #E8365D;
+  --rx-info:           #5B8DB8;
 
-  --rx-fw-regular:  400;
-  --rx-fw-medium:   500;
-  --rx-fw-semibold: 600;
-  --rx-fw-bold:     700;
+  /* ---- Typography ---- */
+  --rx-font-wordmark-rx:       'Syne', sans-serif;
+  --rx-font-wordmark-scriptor: 'Crimson Pro', serif;
+  --rx-font-body:              'DM Mono', monospace;
+  --rx-font-korean:            'Noto Sans KR', sans-serif;
+  --rx-font-family: 'Noto Sans KR', 'DM Mono', system-ui, -apple-system, "Segoe UI", sans-serif;
+  --rx-font-mono:   'DM Mono', ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
-  /* ---- Spacing Scale ---- */
+  --rx-fw-regular:   400;
+  --rx-fw-medium:    500;
+  --rx-fw-semibold:  600;
+  --rx-fw-bold:      700;
+  --rx-fw-extrabold: 800;
+
+  /* ---- Spacing ---- */
   --rx-space-xs:  4px;
   --rx-space-sm:  8px;
   --rx-space-md:  12px;
   --rx-space-lg:  24px;
   --rx-space-xl:  48px;
 
-  /* ---- Border Radius ---- */
-  --rx-radius-sm:     4px;
-  --rx-radius-md:     8px;
-  --rx-radius-lg:     12px;
-  --rx-radius-pill:   999px;
+  /* ---- Border radius ---- */
+  --rx-radius-sm:   4px;
+  --rx-radius-md:   8px;
+  --rx-radius-lg:   12px;
+  --rx-radius-pill: 999px;
 }
 
 /* --------------------------------------------------------------------------
-   Base typography — minimal, extend as the system matures.
+   Base typography — Clinical White
    -------------------------------------------------------------------------- */
 body {
   font-family: var(--rx-font-family);
   color: var(--rx-ink);
-  background: var(--rx-surface);
-  line-height: 1.6;
+  background: var(--rx-surface-alt);
+  line-height: 1.7;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: var(--rx-ink);
+  font-family: var(--rx-font-wordmark-rx);
+  color: var(--rx-primary);
   font-weight: var(--rx-fw-bold);
-  letter-spacing: -0.2px;
+  letter-spacing: -0.3px;
 }
 
 code, pre { font-family: var(--rx-font-mono); }
+
+a { color: var(--rx-accent); }
+a:hover { color: var(--rx-primary); }
